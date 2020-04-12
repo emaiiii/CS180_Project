@@ -17,7 +17,7 @@ import com.android.volley.toolbox.Volley;
 public class MainActivity extends AppCompatActivity {
     Button button;
     TextView textView;
-    String server_url = "http://www.mocky.io/v2/5e9382e43000005500156af8";
+    String server_url = "https://54b391c2.ngrok.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
