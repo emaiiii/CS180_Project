@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
+
     Button button;
     TextView textView;
     String server_url = "http://www.mocky.io/v2/5e9382e43000005500156af8";
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("Info", "Button clicked");
+
                 final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url,
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        textView.setText("something went wrong");
+                        textView.setText("error...");
                         error.printStackTrace();
                         requestQueue.stop();
                     }
@@ -52,11 +55,5 @@ public class MainActivity extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
-    }
-
-    public void onClick(View view){
-        Log.i("Info.","Button has been clicked");
-
-
     }
 }
