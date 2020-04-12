@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(String response) {
 
                                 textView.setText(response);
+                                Log.i("Info", "Successful connection");
                                 requestQueue.stop();
 
                             }
