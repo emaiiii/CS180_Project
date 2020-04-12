@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BestNBAApp.iml" filepath="$PROJECT_DIR$/BestNBAApp.iml" />
+      <module fileurl="file://C:\Users\airwi\AndroidStudioProjects\CS180_Project\BestNBAApp\BestNBAApp\BestNBAApp.iml" filepath="C:\Users\airwi\AndroidStudioProjects\CS180_Project\BestNBAApp\BestNBAApp\BestNBAApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\airwi\AndroidStudioProjects\CS180_Project\BestNBAApp\BestNBAApp\app\app.iml" filepath="C:\Users\airwi\AndroidStudioProjects\CS180_Project\BestNBAApp\BestNBAApp\app\app.iml" />
     </modules>
   </component>
 </project>
