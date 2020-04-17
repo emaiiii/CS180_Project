@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
    /* Button button;
     TextView textView;
-    String server_url = "http://1dcce538.ngrok.io/?team=hawks";
+    String server_url = "https://54b391c2.ngrok.io";*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        textView.setText("Error...");
+                        textView.setText("error...");
                         error.printStackTrace();
                         requestQueue.stop();
                     }
