@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -16,7 +17,7 @@ import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button;
+   /* Button button;
     TextView textView;
     String server_url = "http://1dcce538.ngrok.io/?team=hawks";
 
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = (Button)findViewById(R.id.bn);
+
+        /*button = (Button)findViewById(R.id.bn);
         textView = (TextView) findViewById(R.id.txt);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 });
                 requestQueue.add(stringRequest);
             }
-        });
+        });*/
     }
 }
