@@ -10,6 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="384dp"
         android:layout_height="410dp"
+        android:contentDescription="Connect Logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
