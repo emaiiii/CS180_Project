@@ -5,6 +5,7 @@
     tools:context="com.mai.airwi.bestnbaapp.SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
+<<<<<<< Updated upstream
 
     <TextView
         android:id="@+id/textView4"
@@ -14,5 +15,11 @@
         android:layout_centerVertical="true"
         android:text="Search Tab"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+=======
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+>>>>>>> Stashed changes
 
 </RelativeLayout>
