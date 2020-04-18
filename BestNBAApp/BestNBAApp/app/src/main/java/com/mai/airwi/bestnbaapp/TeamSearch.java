@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class TeamSearch extends AppCompatActivity {
 
     TextView searchTitle;
@@ -19,7 +17,7 @@ public class TeamSearch extends AppCompatActivity {
 
         searchAPI = "http://1dcce538.ngrok.io/?team=" + query;
 
-        searchTitle = (TextView)findViewById(R.id.searchTitle);
+        searchTitle = (TextView)findViewById(R.id.searchTeamTitle);
         searchTitle.setText(query);
     }
 }
