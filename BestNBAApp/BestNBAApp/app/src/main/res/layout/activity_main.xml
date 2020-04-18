@@ -59,12 +59,11 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/searchplayer"
+        android:id="@+id/searchteam"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/custom_button"
-        android:onClick="playerSearch"
         android:padding="10dp"
         android:text="Search Team"
         android:textAllCaps="false"
@@ -76,12 +75,11 @@
         app:layout_constraintTop_toBottomOf="@+id/teamEditText" />
 
     <Button
-        android:id="@+id/searchteam"
+        android:id="@+id/searchplayer"
         android:layout_width="155dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/custom_button"
-        android:onClick="teamSearch"
         android:padding="10dp"
         android:text="Search Player"
         android:textAllCaps="false"
