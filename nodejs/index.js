@@ -5,8 +5,16 @@ const fs = require('fs');
 const hostname = '127.0.0.1';
 const port = 3000;
 
-paths = {'teams': 'C:\\Users\\jim19\\Desktop\\cs180\\database\\teams.csv',
-        'players': 'C:\\Users\\jim19\\Desktop\\cs180\\database\\players.csv'}
+/*
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
+
+  console.log('recevied request from client' +req.url);
+
+});
+*/
 
 const server = http.createServer(function (req,res) {
   if(req.url === '/') {
@@ -19,7 +27,6 @@ const server = http.createServer(function (req,res) {
 
     var qdata = q.query;
 
-    //if team is being searched
     if(qdata.team != 0) {
       console.log('searching for team');
       console.log(qdata.team);
@@ -111,21 +118,3 @@ const server = http.createServer(function (req,res) {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-
-
-
-/*
-teamData.forEach(function (row, idx) {
-  if (idx == 0) {
-    var column_names = row.split(",");
-    var elements_by_columns = {};
-    column_names.forEach(function (name) {
-      elements_by_columns[name] = [];
-    });
-  }
-  else {
-    var elements = row.split(",");
-    elements.forEach(function(element, idx) {
-      elements_by_columns[column_names[idx]].push(element)})
-  }
-*/

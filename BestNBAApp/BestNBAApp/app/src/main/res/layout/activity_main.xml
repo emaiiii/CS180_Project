@@ -7,8 +7,12 @@
     tools:context="com.mai.airwi.bestnbaapp.MainActivity">
 
     <ImageView
+        android:id="@+id/kobeImageView"
+        android:layout_width="500dp"
+        android:layout_height="610dp"
+        android:alpha="0.7"
+        android:background="@drawable/kobe"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -16,11 +20,12 @@
         android:id="@+id/playerEditText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="225dp"
+        android:layout_marginTop="160dp"
         android:background="@drawable/custom_text"
         android:ems="10"
         android:hint="Enter Player Name"
         android:inputType="textPersonName"
+        android:padding="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,11 +34,12 @@
         android:id="@+id/teamEditText"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="140dp"
         android:background="@drawable/custom_text"
         android:ems="10"
         android:hint="Enter Team Name"
         android:inputType="textPersonName"
+        android:padding="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playerEditText" />
@@ -41,29 +47,49 @@
     <TextView
         android:id="@+id/instrTextView"
         android:layout_width="350dp"
-        android:layout_height="74dp"
-        android:layout_marginBottom="72dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/custom_text"
-        android:text=" To search, please enter either the player name or the team name to the respective fields.  "
+        android:padding="10dp"
+        android:text="To search, please enter either the player name or the team name to the respective fields.  "
         android:textAlignment="textStart"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/playerEditText"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/searchteam"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/custom_button"
-        android:text="Search"
+        android:padding="10dp"
+        android:text="Search Team"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/teamEditText" />
+
+    <Button
+        android:id="@+id/searchplayer"
+        android:layout_width="155dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_button"
+        android:padding="10dp"
+        android:text="Search Player"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/teamEditText"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerEditText"
+        app:layout_constraintVertical_bias="0.39999998" />
 
 </android.support.constraint.ConstraintLayout>
