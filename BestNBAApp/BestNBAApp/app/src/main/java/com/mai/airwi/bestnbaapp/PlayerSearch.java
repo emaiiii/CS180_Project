@@ -15,7 +15,7 @@ public class PlayerSearch extends AppCompatActivity {
         setContentView(R.layout.activity_player_search);
         String query = getIntent().getStringExtra("query");
 
-        searchAPI = "http://1dcce538.ngrok.io/?team=" + query;
+        searchAPI = "http://1dcce538.ngrok.io/?player=" + query;
 
         searchTitle = (TextView)findViewById(R.id.searchPlayerTitle);
         searchTitle.setText(query);
