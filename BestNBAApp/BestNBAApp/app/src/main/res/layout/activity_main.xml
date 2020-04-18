@@ -7,63 +7,35 @@
     tools:context="com.mai.airwi.bestnbaapp.MainActivity">
 
     <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="384dp"
+        android:layout_height="410dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/playerEditText"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="225dp"
-        android:background="@drawable/custom_text"
-        android:ems="10"
-        android:hint="Enter Player Name"
-        android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/teamEditText"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/custom_text"
-        android:ems="10"
-        android:hint="Enter Team Name"
-        android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerEditText" />
-
-    <TextView
-        android:id="@+id/instrTextView"
-        android:layout_width="350dp"
-        android:layout_height="74dp"
-        android:layout_marginBottom="72dp"
-        android:background="@drawable/custom_text"
-        android:text=" To search, please enter either the player name or the team name to the respective fields.  "
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/playerEditText"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kobe" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="155dp"
+        android:id="@+id/bn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/custom_button"
-        android:text="Search"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginStart="148dp"
+        android:onClick="onClick"
+        android:text="Connect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/txt"
+        android:layout_width="127dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="200dp"
+        android:background="@android:color/background_light"
+        android:text="Waiting For Server"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamEditText" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
