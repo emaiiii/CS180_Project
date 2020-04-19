@@ -19,16 +19,16 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button;
+    /*Button button;
     TextView textView;
-    String server_url = "http://76be3d4c.ngrok.io/?team=lakers&player=0";
+    String server_url = "http://76be3d4c.ngrok.io/?team=lakers&player=0";*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button)findViewById(R.id.searchButton);
+        /*button = (Button)findViewById(R.id.searchButton);
         textView = (TextView) findViewById(R.id.instrTextView);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 requestQueue.add(stringRequest);
             }
-        });
+        });*/
     }
 
     public static List<String> read(String result){
