@@ -19,18 +19,18 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*Button button;
+    Button searchButton;
     TextView textView;
-    String server_url = "http://76be3d4c.ngrok.io/?team=lakers&player=0";*/
+    String server_url = "http://a2201f39.ngrok.io/?team=lakers&player=0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*button = (Button)findViewById(R.id.searchButton);
+        searchButton = (Button)findViewById(R.id.searchButton);
         textView = (TextView) findViewById(R.id.instrTextView);
-        button.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Button clicked");
@@ -42,11 +42,56 @@ public class MainActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
-                                textView.setText(response);
                                 Log.i("Info", "Successful connection");
-                                requestQueue.stop();
 
+                                // code for team display
+                                List<String> list = new ArrayList<String>();
+                                list = read(response);
+                                Team teamData = new Team(list);
+
+                                String toDisplay = "Team ID: " + teamData.getTeamID();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nMax. Year: " + teamData.getMaxYear();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nAbbr.: " + teamData.getAbbr();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nNickName: " + teamData.getNickname();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nYear Founded: " + teamData.getYearFounded();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nCity: " + teamData.getCity();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nArena: " + teamData.getArena();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nArena Capacity: " + teamData.getArenaCapacity();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nOwner: " + teamData.getOwner();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nGen. Manager: " + teamData.getGenManager();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nHead Coach: " + teamData.getHeadCoach();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nD. League Affiliate: " + teamData.getDLeagueAffiliate();
+                                textView.setText(toDisplay);
+
+
+                                // code for player display
+                                /*List<String> list = new ArrayList<String>();
+                                list = read(response);
+                                Player playerData = new Player(list);
+
+                                String toDisplay = "Player Name: " + playerData.getPlayerName();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nTeam ID: " + playerData.getTeamID();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nPlayer ID: " + playerData.getPlayerID();
+                                textView.setText(toDisplay);
+                                toDisplay = toDisplay + "\nSeason: " + playerData.getSeason();
+                                textView.setText(toDisplay);*/
+
+                                requestQueue.stop();
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -59,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 requestQueue.add(stringRequest);
             }
-        });*/
+        });
     }
 
     public static List<String> read(String result){

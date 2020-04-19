@@ -9,14 +9,14 @@ public class Team {
     //["00","1610612747","1948","2019","LAL","Lakers","1948","Los Angeles","Staples Center",
     // "19060","Jerry Buss Family Trust","Rob Pelinka","Frank Vogel","South Bay Lakers"]
 
-    int leagueID, teamID, minYear, maxYear, yearFounded, arenaCapacity;
-    String abbr, nickname, city, arena, owner, genManager, headCoach, DLeagueAffiliate;
+    int teamID, minYear, maxYear, yearFounded, arenaCapacity;
+    String leagueID, abbr, nickname, city, arena, owner, genManager, headCoach, DLeagueAffiliate;
 
     public Team(String leagueID, String teamID, String minYear, String maxYear, String abbr,
                 String nickname, String yearFounded, String city, String arena,
                 String arenaCapacity, String owner, String genManager, String headCoach, String DLeagueAffiliate) {
 
-        this.leagueID = Integer.parseInt(leagueID);
+        this.leagueID = leagueID;
         this.teamID = Integer.parseInt(teamID);
         this.minYear = Integer.parseInt(minYear);
         this.maxYear = Integer.parseInt(maxYear);
@@ -35,7 +35,8 @@ public class Team {
 
     public Team(List<String> set) {
 
-        this.leagueID = Integer.parseInt(set.get(0));
+        this.leagueID = set.get(0);
+
         this.teamID = Integer.parseInt(set.get(1));
         this.minYear = Integer.parseInt(set.get(2));
         this.maxYear = Integer.parseInt(set.get(3));
@@ -56,7 +57,7 @@ public class Team {
         this.DLeagueAffiliate = set.get(13);
     }
 
-    public int getLeagueID() {
+    public String getLeagueID() {
         return this.leagueID;
     }
 
