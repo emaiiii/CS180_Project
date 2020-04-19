@@ -1,56 +1,35 @@
 package com.mai.airwi.bestnbaapp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button bn_search;
-    TextView txt_user;
-
-   /* Button button;
+    Button button;
     TextView textView;
-    String server_url = "https://54b391c2.ngrok.io";*/
+    String server_url = "http://76be3d4c.ngrok.io/?team=lakers&player=0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bn_search = (Button)findViewById(R.id.searchbn);
-        txt_user = (TextView)findViewById(R.id.userText);
-
-        bn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // NEEDS SWITCH
-                //op1, teams
-                // --
-                //op2, players
-                Intent i = new Intent(MainActivity.this, SearchResults.class);
-                String playerQuery = txt_user.getText().toString();
-                i.putExtra("query",playerQuery);
-                startActivity(i);
-            }
-        });
-
-        /*bn_team.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, TeamSearch.class);
-                String teamQuery = txt_team.getText().toString();
-                i.putExtra("query",teamQuery);
-                startActivity(i);
-            }
-        });*/
-
-        /*
-        button = (Button)findViewById(R.id.bn);
-        textView = (TextView) findViewById(R.id.txt);
+        button = (Button)findViewById(R.id.searchButton);
+        textView = (TextView) findViewById(R.id.instrTextView);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +59,27 @@ public class MainActivity extends AppCompatActivity {
                 });
                 requestQueue.add(stringRequest);
             }
-        });*/
+        });
     }
 
+    public static List<String> read(String result){
+        List<String> set = new ArrayList<String>();
+        int tempIndex = 1;
+        String tempString;
+
+        for(int index = 0; index < result.length(); index++){
+            if(result.charAt(index) == ',' || index == result.length() - 1){
+                tempString = result.substring(tempIndex, index);
+
+                if(tempString.charAt(0)== '\"' && tempString.charAt(tempString.length() - 1) == '\"'){
+                    tempString = tempString.substring(1, tempString.length() - 1);
+                }
+
+                set.add(tempString);
+                tempIndex = index + 1;
+            }
+        }
+
+        return set;
+    }
 }
