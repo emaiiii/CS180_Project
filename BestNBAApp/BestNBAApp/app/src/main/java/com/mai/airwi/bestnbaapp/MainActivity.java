@@ -3,25 +3,14 @@ package com.mai.airwi.bestnbaapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button bn_team;
-    Button bn_player;
-    TextView txt_team;
-    TextView txt_player;
+    Button bn_search;
+    TextView txt_user;
 
    /* Button button;
     TextView textView;
@@ -32,22 +21,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bn_player = (Button)findViewById(R.id.searchplayer);
-        bn_team = (Button)findViewById(R.id.searchteam);
-        txt_player = (TextView)findViewById(R.id.playerEditText);
-        txt_team = (TextView)findViewById(R.id.teamEditText);
+        bn_search = (Button)findViewById(R.id.searchbn);
+        txt_user = (TextView)findViewById(R.id.userText);
 
-        bn_player.setOnClickListener(new View.OnClickListener() {
+        bn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // NEEDS SWITCH
+                //op1, teams
+                // --
+                //op2, players
                 Intent i = new Intent(MainActivity.this, PlayerSearch.class);
-                String playerQuery = txt_player.getText().toString();
+                String playerQuery = txt_user.getText().toString();
                 i.putExtra("query",playerQuery);
                 startActivity(i);
             }
         });
 
-        bn_team.setOnClickListener(new View.OnClickListener() {
+        /*bn_team.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, TeamSearch.class);
@@ -55,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("query",teamQuery);
                 startActivity(i);
             }
-        });
+        });*/
 
         /*
         button = (Button)findViewById(R.id.bn);
