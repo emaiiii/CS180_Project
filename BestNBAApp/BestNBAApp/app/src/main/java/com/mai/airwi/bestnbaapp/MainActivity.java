@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 //op1, teams
                 // --
                 //op2, players
-                Intent i = new Intent(MainActivity.this, PlayerSearch.class);
+                Intent i = new Intent(MainActivity.this, SearchResults.class);
                 String playerQuery = txt_user.getText().toString();
                 i.putExtra("query",playerQuery);
                 startActivity(i);
