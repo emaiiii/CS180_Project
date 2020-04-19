@@ -17,17 +17,17 @@ import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
 
-   /* Button button;
+    Button button;
     TextView textView;
-    String server_url = "https://54b391c2.ngrok.io";*/
+    String server_url = "http://76be3d4c.ngrok.io/?team=lakers&player=0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*button = (Button)findViewById(R.id.bn);
-        textView = (TextView) findViewById(R.id.txt);
+        button = (Button)findViewById(R.id.searchButton);
+        textView = (TextView) findViewById(R.id.instrTextView);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 });
                 requestQueue.add(stringRequest);
             }
-        });*/
+        });
     }
 }
