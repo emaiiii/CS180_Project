@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
-<<<<<<< HEAD
     }
 
     public static List<String> read(String result){
@@ -82,7 +81,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return set;
-=======
->>>>>>> e9b09f8e663d53826faca7be6b1aaf8aabb1535a
     }
 }
