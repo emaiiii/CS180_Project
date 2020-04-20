@@ -79,10 +79,13 @@ public class MainActivity extends AppCompatActivity {
                                     public void onResponse(String response) {
                                         Log.i("Info", "Successful connection");
 
-                                        List<String> list = new ArrayList<String>();
-                                        String toDisplay;
-
                                         if (response != "no player found") {
+                                            textView.setText("no player found");
+                                        }
+                                        else {
+                                            List<String> list = new ArrayList<String>();
+                                            String toDisplay;
+
                                             list = read(response);
 
                                             //code for player display
@@ -93,9 +96,6 @@ public class MainActivity extends AppCompatActivity {
                                             toDisplay = toDisplay + "\nPlayer ID: " + playerData.getPlayerID();
                                             toDisplay = toDisplay + "\nSeason: " + playerData.getSeason();
                                             textView.setText(toDisplay);
-                                        }
-                                        else {
-                                            textView.setText("no player found");
                                         }
 
                                         requestQueue.stop();
@@ -125,10 +125,14 @@ public class MainActivity extends AppCompatActivity {
                                     public void onResponse(String response) {
                                         Log.i("Info", "Successful connection");
 
-                                        List<String> list = new ArrayList<String>();
-                                        String toDisplay;
 
-                                        if (response != "no team found") {
+                                        if (response.equals("no team found")) {
+                                            textView.setText("no team found");
+                                        }
+                                        else {
+                                            List<String> list = new ArrayList<String>();
+                                            String toDisplay;
+
                                             list = read(response);
 
                                             // code for team display
@@ -148,9 +152,7 @@ public class MainActivity extends AppCompatActivity {
                                             toDisplay = toDisplay + "\nHead Coach: " + teamData.getHeadCoach();
                                             toDisplay = toDisplay + "\nD. League Affiliate: " + teamData.getDLeagueAffiliate();
                                             textView.setText(toDisplay);
-                                        }
-                                        else {
-                                            textView.setText("no team found");
+
                                         }
 
                                         requestQueue.stop();
