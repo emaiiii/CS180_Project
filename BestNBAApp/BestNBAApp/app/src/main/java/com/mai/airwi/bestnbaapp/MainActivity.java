@@ -78,18 +78,25 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(String response) {
                                         Log.i("Info", "Successful connection");
+
                                         List<String> list = new ArrayList<String>();
-                                        list = read(response);
                                         String toDisplay;
 
-                                        //code for player display
-                                        Player playerData = new Player(list);
+                                        if (response != "no player found") {
+                                            list = read(response);
 
-                                        toDisplay = "Player Name: " + playerData.getPlayerName();
-                                        toDisplay = toDisplay + "\nTeam ID: " + playerData.getTeamID();
-                                        toDisplay = toDisplay + "\nPlayer ID: " + playerData.getPlayerID();
-                                        toDisplay = toDisplay + "\nSeason: " + playerData.getSeason();
-                                        textView.setText(toDisplay);
+                                            //code for player display
+                                            Player playerData = new Player(list);
+
+                                            toDisplay = "Player Name: " + playerData.getPlayerName();
+                                            toDisplay = toDisplay + "\nTeam ID: " + playerData.getTeamID();
+                                            toDisplay = toDisplay + "\nPlayer ID: " + playerData.getPlayerID();
+                                            toDisplay = toDisplay + "\nSeason: " + playerData.getSeason();
+                                            textView.setText(toDisplay);
+                                        }
+                                        else {
+                                            textView.setText("no player found");
+                                        }
 
                                         requestQueue.stop();
                                     }
@@ -121,25 +128,30 @@ public class MainActivity extends AppCompatActivity {
                                         List<String> list = new ArrayList<String>();
                                         String toDisplay;
 
-                                        list = read(response);
+                                        if (response != "no team found") {
+                                            list = read(response);
 
-                                        // code for team display
-                                        Team teamData = new Team(list);
+                                            // code for team display
+                                            Team teamData = new Team(list);
 
-                                        toDisplay = "Team ID: " + teamData.getTeamID();
-                                        toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
-                                        toDisplay = toDisplay + "\nMax. Year: " + teamData.getMaxYear();
-                                        toDisplay = toDisplay + "\nAbbr.: " + teamData.getAbbr();
-                                        toDisplay = toDisplay + "\nNickName: " + teamData.getNickname();
-                                        toDisplay = toDisplay + "\nYear Founded: " + teamData.getYearFounded();
-                                        toDisplay = toDisplay + "\nCity: " + teamData.getCity();
-                                        toDisplay = toDisplay + "\nArena: " + teamData.getArena();
-                                        toDisplay = toDisplay + "\nArena Capacity: " + teamData.getArenaCapacity();
-                                        toDisplay = toDisplay + "\nOwner: " + teamData.getOwner();
-                                        toDisplay = toDisplay + "\nGen. Manager: " + teamData.getGenManager();
-                                        toDisplay = toDisplay + "\nHead Coach: " + teamData.getHeadCoach();
-                                        toDisplay = toDisplay + "\nD. League Affiliate: " + teamData.getDLeagueAffiliate();
-                                        textView.setText(toDisplay);
+                                            toDisplay = "Team ID: " + teamData.getTeamID();
+                                            toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
+                                            toDisplay = toDisplay + "\nMax. Year: " + teamData.getMaxYear();
+                                            toDisplay = toDisplay + "\nAbbr.: " + teamData.getAbbr();
+                                            toDisplay = toDisplay + "\nNickName: " + teamData.getNickname();
+                                            toDisplay = toDisplay + "\nYear Founded: " + teamData.getYearFounded();
+                                            toDisplay = toDisplay + "\nCity: " + teamData.getCity();
+                                            toDisplay = toDisplay + "\nArena: " + teamData.getArena();
+                                            toDisplay = toDisplay + "\nArena Capacity: " + teamData.getArenaCapacity();
+                                            toDisplay = toDisplay + "\nOwner: " + teamData.getOwner();
+                                            toDisplay = toDisplay + "\nGen. Manager: " + teamData.getGenManager();
+                                            toDisplay = toDisplay + "\nHead Coach: " + teamData.getHeadCoach();
+                                            toDisplay = toDisplay + "\nD. League Affiliate: " + teamData.getDLeagueAffiliate();
+                                            textView.setText(toDisplay);
+                                        }
+                                        else {
+                                            textView.setText("no team found");
+                                        }
 
                                         requestQueue.stop();
                                     }
