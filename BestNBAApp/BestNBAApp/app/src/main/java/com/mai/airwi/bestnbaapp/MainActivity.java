@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
 
-                                        textView.setText("Player Search Error: No Response From Server" + "\nRequest: " + playerSearchURL);
+                                        textView.setText("Search Error: No response from server." + "\nRequest: " + playerSearchURL);
                                         error.printStackTrace();
                                         requestQueue.stop();
                                     }
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
 
-                                        textView.setText("Team Search Error: No Response From Server" + "\nRequest: " + teamSearchURL);
+                                        textView.setText("Search Error: No response from server." + "\nRequest: " + teamSearchURL);
                                         error.printStackTrace();
                                         requestQueue.stop();
                                     }
