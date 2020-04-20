@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button searchButton;
     TextView textView;
     EditText searchField;
-    String server_url = "http://49598b69.ngrok.io/";
+    String server_url = "http://71e52567.ngrok.io/";
     Switch category;
     int searchType = 0;
 
