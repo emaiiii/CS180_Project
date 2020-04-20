@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     query = URLEncoder.encode(URLEncoder.encode(query,"UTF-8") );
                 }
                 catch (IOException e) {
-                    // Encoding Error
+                    query = "invalid";  // Encoding Error
                 }
 
                 final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
