@@ -58,12 +58,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Info", "Button clicked");
 
                 String query = searchField.getText().toString();
+                query.replace(" ","%20");
+                /*
                 try {
                     query = URLEncoder.encode(URLEncoder.encode(query,"UTF-8") );
                 }
                 catch (IOException e) {
                     query = "invalid";  // Encoding Error
-                }
+                }*/
 
                 final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
 
