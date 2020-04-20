@@ -35,22 +35,23 @@
         android:id="@+id/playerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custom_text"
         android:padding="10dp"
         android:text="Players"
         android:textColor="@android:color/black"
         android:textSize="18sp"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/switch1"
+        app:layout_constraintRight_toRightOf="@+id/switchCategory"
         app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
 
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switchCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="28dp"
         android:switchPadding="10dp"
         android:textOff="Team"
         android:textOn="Players"
@@ -64,24 +65,25 @@
         android:id="@+id/teamTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/custom_text"
         android:padding="10dp"
         android:text="Teams"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="@+id/switch1"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintLeft_toLeftOf="@+id/switchCategory"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
 
     <TextView
         android:id="@+id/instrTextView"
         android:layout_width="310dp"
-        android:layout_height="313dp"
+        android:layout_height="250dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/custom_text"
         android:padding="15dp"
-        android:text="  To search, enter either a player or team name to the respective fields.  Toggle if your search is a player or a team."
+        android:text="To search, enter either a player or team name to the respective fields.  Toggle if your search is a player or a team."
         android:textColor="@android:color/black"
         android:textSize="14sp"
         app:layout_constraintHorizontal_bias="0.495"
@@ -100,6 +102,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/switch1" />
+        app:layout_constraintTop_toTopOf="@+id/switchCategory" />
 
 </android.support.constraint.ConstraintLayout>

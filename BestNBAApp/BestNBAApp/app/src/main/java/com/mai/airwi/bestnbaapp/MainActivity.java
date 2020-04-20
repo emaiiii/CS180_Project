@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -15,13 +17,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
     Button searchButton;
     TextView textView;
-    String server_url = "http://a2201f39.ngrok.io/?team=lakers&player=0";
+    EditText searchField;
+    String server_url = "http://49598b69.ngrok.io/";
+    Switch category;
+    int searchType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,80 +36,130 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         searchButton = (Button)findViewById(R.id.searchButton);
-        textView = (TextView) findViewById(R.id.instrTextView);
+        textView = (TextView)findViewById(R.id.instrTextView);
+        searchField = (EditText)findViewById(R.id.searchEditText);
+        category = (Switch)findViewById(R.id.switchCategory);
+
+        category.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //team search
+                    searchType = 1;
+                } else {
+                    //team search
+                    searchType = 0;
+                }
+            }
+        });
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Button clicked");
 
+                String query = searchField.getText().toString();
+                try {
+                    query = URLEncoder.encode(URLEncoder.encode(query,"UTF-8") );
+                }
+                catch (IOException e) {
+                    // Encoding Error
+                }
+
                 final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url,
+                switch(searchType) {
+                    case 0: // Player Search
+                        final String playerSearchURL = server_url + "?team=0&player=" + query; // "?team=lakers&player=0";
 
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.i("Info", "Successful connection");
+                        StringRequest playerRequest = new StringRequest(Request.Method.POST, playerSearchURL,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Log.i("Info", "Successful connection");
+                                        List<String> list = new ArrayList<String>();
+                                        list = read(response);
+                                        String toDisplay;
 
-                                // code for team display
-                                List<String> list = new ArrayList<String>();
-                                list = read(response);
-                                Team teamData = new Team(list);
+                                        //code for player display
+                                        Player playerData = new Player(list);
 
-                                String toDisplay = "Team ID: " + teamData.getTeamID();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nMax. Year: " + teamData.getMaxYear();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nAbbr.: " + teamData.getAbbr();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nNickName: " + teamData.getNickname();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nYear Founded: " + teamData.getYearFounded();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nCity: " + teamData.getCity();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nArena: " + teamData.getArena();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nArena Capacity: " + teamData.getArenaCapacity();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nOwner: " + teamData.getOwner();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nGen. Manager: " + teamData.getGenManager();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nHead Coach: " + teamData.getHeadCoach();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nD. League Affiliate: " + teamData.getDLeagueAffiliate();
-                                textView.setText(toDisplay);
+                                        toDisplay = "Player Name: " + playerData.getPlayerName();
+                                        toDisplay = toDisplay + "\nTeam ID: " + playerData.getTeamID();
+                                        toDisplay = toDisplay + "\nPlayer ID: " + playerData.getPlayerID();
+                                        toDisplay = toDisplay + "\nSeason: " + playerData.getSeason();
+                                        textView.setText(toDisplay);
 
+                                        requestQueue.stop();
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
 
-                                // code for player display
-                                /*List<String> list = new ArrayList<String>();
-                                list = read(response);
-                                Player playerData = new Player(list);
+                                        textView.setText("Player Search Error: No Response From Server" + "\nRequest: " + playerSearchURL);
+                                        error.printStackTrace();
+                                        requestQueue.stop();
+                                    }
+                                }
+                        );
 
-                                String toDisplay = "Player Name: " + playerData.getPlayerName();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nTeam ID: " + playerData.getTeamID();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nPlayer ID: " + playerData.getPlayerID();
-                                textView.setText(toDisplay);
-                                toDisplay = toDisplay + "\nSeason: " + playerData.getSeason();
-                                textView.setText(toDisplay);*/
+                        requestQueue.add(playerRequest);
 
-                                requestQueue.stop();
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                        break;
 
-                        textView.setText("error...");
-                        error.printStackTrace();
+                    case 1: //team search
+                        final String teamSearchURL = server_url + "?team=" + query + "&player=0";
+
+                        StringRequest teamRequest = new StringRequest(Request.Method.POST, teamSearchURL,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Log.i("Info", "Successful connection");
+
+                                        List<String> list = new ArrayList<String>();
+                                        String toDisplay;
+
+                                        list = read(response);
+
+                                        // code for team display
+                                        Team teamData = new Team(list);
+
+                                        toDisplay = "Team ID: " + teamData.getTeamID();
+                                        toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
+                                        toDisplay = toDisplay + "\nMax. Year: " + teamData.getMaxYear();
+                                        toDisplay = toDisplay + "\nAbbr.: " + teamData.getAbbr();
+                                        toDisplay = toDisplay + "\nNickName: " + teamData.getNickname();
+                                        toDisplay = toDisplay + "\nYear Founded: " + teamData.getYearFounded();
+                                        toDisplay = toDisplay + "\nCity: " + teamData.getCity();
+                                        toDisplay = toDisplay + "\nArena: " + teamData.getArena();
+                                        toDisplay = toDisplay + "\nArena Capacity: " + teamData.getArenaCapacity();
+                                        toDisplay = toDisplay + "\nOwner: " + teamData.getOwner();
+                                        toDisplay = toDisplay + "\nGen. Manager: " + teamData.getGenManager();
+                                        toDisplay = toDisplay + "\nHead Coach: " + teamData.getHeadCoach();
+                                        toDisplay = toDisplay + "\nD. League Affiliate: " + teamData.getDLeagueAffiliate();
+                                        textView.setText(toDisplay);
+
+                                        requestQueue.stop();
+                                    }
+                        },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+
+                                        textView.setText("Team Search Error: No Response From Server" + "\nRequest: " + teamSearchURL);
+                                        error.printStackTrace();
+                                        requestQueue.stop();
+                                    }
+                        });
+
+                        requestQueue.add(teamRequest);
+
+                        break;
+
+                    default:
+                        textView.setText("ERROR: invalid selection");
                         requestQueue.stop();
-                    }
-                });
-                requestQueue.add(stringRequest);
+                }
             }
         });
     }
