@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                                     public void onResponse(String response) {
                                         Log.i("Info", "Successful connection");
 
-                                        if (response != "no player found") {
+                                        if (response.equals("no player found")) {
                                             textView.setText("no player found");
                                         }
                                         else {
