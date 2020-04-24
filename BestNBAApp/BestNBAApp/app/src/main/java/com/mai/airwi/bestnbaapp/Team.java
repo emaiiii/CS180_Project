@@ -1,9 +1,9 @@
 package com.mai.airwi.bestnbaapp;
+import java.util.*;
 
 /**
  * Created by hans on 4/17/20.
  */
-import java.util.*;
 
 public class Team {
     //["00","1610612747","1948","2019","LAL","Lakers","1948","Los Angeles","Staples Center",
