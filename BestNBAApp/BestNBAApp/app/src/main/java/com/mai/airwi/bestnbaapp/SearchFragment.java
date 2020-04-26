@@ -32,10 +32,11 @@ import static com.mai.airwi.bestnbaapp.MainActivity.read;
 
 public class SearchFragment extends Fragment {
 
+    String server_url = "http://658994b8.ngrok.io";
+
     Button searchButton;
     TextView textView;
     EditText searchField;
-    String server_url = "http://658994b8.ngrok.io";
     Switch category;
     int searchType = 0;
 
@@ -68,13 +69,6 @@ public class SearchFragment extends Fragment {
 
                 String query = searchField.getText().toString();
                 query.replace(" ","%20");
-
-                try {
-                    query = URLEncoder.encode(URLEncoder.encode(query,"UTF-8") );
-                }
-                catch (IOException e) {
-                    query = "invalid";  // Encoding Error
-                }
 
                 final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 

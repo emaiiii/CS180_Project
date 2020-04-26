@@ -23,12 +23,12 @@ public class AnalyzeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_basket, container, false);
+        View view = inflater.inflate(R.layout.fragment_analyze, container, false);
 
-        addButton = (Button)view.findViewById(R.id.addButton);
+        /*addButton = (Button)view.findViewById(R.id.addButton);
         clearButton = (Button)view.findViewById(R.id.clearButton);
         analyzeButton = (Button)view.findViewById(R.id.analyzeButton);
-        setDisplay = (TextView)view.findViewById(R.id.switchCategory);
+        setDisplay = (TextView)view.findViewById(R.id.switchCategory);*/
 
         return view;
     }
