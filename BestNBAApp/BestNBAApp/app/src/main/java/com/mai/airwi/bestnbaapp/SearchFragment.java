@@ -42,7 +42,7 @@ public class SearchFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchButton = (Button)view.findViewById(R.id.searchButton);
         textView = (TextView)view.findViewById(R.id.setView);
