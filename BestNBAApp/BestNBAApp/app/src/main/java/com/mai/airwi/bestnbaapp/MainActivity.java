@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+                new SearchFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -55,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch(item.getItemId()){
-                        case R.id.nav_home:
-                            selectedFragment = new HomeFragment();
-                            break;
-                        case R.id.nav_fav:
-                            selectedFragment = new FavoritesFragment();
-                            break;
                         case R.id.nav_search:
                             selectedFragment = new SearchFragment();
+                            break;
+                        case R.id.nav_basket:
+                            selectedFragment = new BasketFragment();
+                            break;
+                        case R.id.nav_analyze:
+                            selectedFragment = new AnalyzeFragment();
                             break;
                     }
 

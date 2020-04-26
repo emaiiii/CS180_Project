@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * Created by airwi on 4/25/2020.
  */
 
-public class FavoritesFragment extends Fragment {
+public class BasketFragment extends Fragment {
 
     @Nullable
     @Override
