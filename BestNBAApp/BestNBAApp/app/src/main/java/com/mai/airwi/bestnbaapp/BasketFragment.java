@@ -38,7 +38,7 @@ public class BasketFragment extends Fragment {
     TextView setDisplay;
     TextView statusDisplay;
     EditText getGameID;
-    List<Games> userSet;
+    List<Games> userSet = new ArrayList<>();
 
     @Nullable
     @Override
@@ -77,19 +77,17 @@ public class BasketFragment extends Fragment {
                                         statusDisplay.setText("Error: Game not found.");
                                     } else {
                                         List<String> list = new ArrayList<String>();
+                                        String toDisplay;
+                                        String currentDisplay;
 
                                         list = read(response);
                                         Games game = new Games(list);
                                         userSet.add(game);
 
-                                        // FIXME: Refresh userSet display
-                                        // FIXME: Define print for Games class
-                                        // PSUEDOCODE
-                                        /*for(int i = 0; i < userSet.size(); ++i) {
-                                             userSet.get(i).print();
-                                        }*/
-
-                                        statusDisplay.setText("Game added!");
+                                        for(int i = 0; i < userSet.size(); ++i) {
+                                            currentDisplay = setDisplay.getText().toString();
+                                             userSet.get(i).print(setDisplay, currentDisplay);
+                                        }
                                     }
 
                                     requestQueue.stop();
@@ -115,8 +113,7 @@ public class BasketFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Clear button clicked");
 
-                // FIXME: CLEAR THE SET (CRASHES)
-                // if(!userSet.isEmpty()) { userSet.clear(); }
+                if(!userSet.isEmpty()) { userSet = new ArrayList<>(); }
 
                 // FIXME: CLEAR SERVER-SIDE SET (LEAVE FOR NEXT SPRINT)
                 /*final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -128,6 +125,17 @@ public class BasketFragment extends Fragment {
 
             }
         });
+
+        analyzeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Info", "Analyze button clicked");
+
+                statusDisplay.setText("Analyze pending implementation.");
+
+            }
+        });
+
 
         return view;
     }

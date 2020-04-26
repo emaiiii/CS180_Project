@@ -1,4 +1,6 @@
 package com.mai.airwi.bestnbaapp;
+import android.widget.TextView;
+
 import java.util.*;
 
 /**
@@ -122,5 +124,17 @@ public class Games {
 
    public int getReb_away(){
        return this.reb_away;
+   }
+
+   public void print(TextView display, String existing) {
+       String toDisplay;
+
+       toDisplay = "Game ID: " + this.getGame_id();
+       toDisplay = toDisplay + "\nSeason: " + this.getSeason();
+       toDisplay = toDisplay + "\n" + this.getTeam_id_away() + " @ " + this.getTeam_id_home();
+
+       toDisplay = existing + "\n\n" + toDisplay;
+
+       display.setText(toDisplay);
    }
 }
