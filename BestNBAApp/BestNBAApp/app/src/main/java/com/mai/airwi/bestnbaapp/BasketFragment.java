@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,7 +30,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class BasketFragment extends Fragment {
 
-    String server_url = "http://658994b8.ngrok.io";
+    String server_url = "http://261274f5.ngrok.io/";
     // FIXME: IMPLEMENT SERVER URL GLOBALLY
 
     Button addButton;
@@ -63,7 +64,7 @@ public class BasketFragment extends Fragment {
                     statusDisplay.setText("Invalid entry.");
                 }
                 else {
-                    final String gameSearchURL = server_url + "?gameid="; // "URL/?gameid=xxxxxx"
+                    final String gameSearchURL = server_url + "?gameid=" + query; // "URL/?gameid=xxxxxx"
 
                     final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
@@ -96,12 +97,17 @@ public class BasketFragment extends Fragment {
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    statusDisplay.setText("Error: No server response.");
+                                    statusDisplay.setText("HTTP Error.");
+                                    setDisplay.setText(gameSearchURL);
                                     error.printStackTrace();
                                     requestQueue.stop();
                                 }
                             }
                     );
+
+                    gameRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                     requestQueue.add(gameRequest);
                 }

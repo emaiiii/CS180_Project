@@ -30,7 +30,7 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://261274f5.ngrok.io/";
+    String server_url = "http://261274f5.ngrok.io";
     // FIXME: IMPLEMENT SERVER URL GLOBALLY
 
     Button searchButton;
@@ -67,13 +67,21 @@ public class SearchFragment extends Fragment {
                 Log.i("Info", "Button clicked");
 
                 String query = searchField.getText().toString();
-                query.replace(" ","%20");
+
+                try {
+                    query = URLEncoder.encode(URLEncoder.encode(query,"UTF-8") );
+                }
+                catch (IOException e) {
+                    // Encoding Error
+                }
+
+                query = query.replace("%2B","%20");
 
                 final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
                 switch(searchType) {
                     case 0: // Player Search
-                        final String playerSearchURL = server_url + "?team=0&player=" + query; // "?team=lakers&player=0";
+                        final String playerSearchURL = server_url + "?player=" + query; // "?team=lakers&player=0";
 
                         StringRequest playerRequest = new StringRequest(Request.Method.POST, playerSearchURL,
                                 new Response.Listener<String>() {
@@ -119,7 +127,7 @@ public class SearchFragment extends Fragment {
                         break;
 
                     case 1: //team search
-                        final String teamSearchURL = server_url + "?team=" + query + "&player=0";
+                        final String teamSearchURL = server_url + "?team=" + query;
 
                         StringRequest teamRequest = new StringRequest(Request.Method.POST, teamSearchURL,
                                 new Response.Listener<String>() {
