@@ -86,7 +86,7 @@ public class BasketFragment extends Fragment {
 
                                         for(int i = 0; i < userSet.size(); ++i) {
                                             currentDisplay = setDisplay.getText().toString();
-                                             userSet.get(i).print(setDisplay, currentDisplay);
+                                            userSet.get(i).print(setDisplay, currentDisplay);
                                         }
                                     }
 
