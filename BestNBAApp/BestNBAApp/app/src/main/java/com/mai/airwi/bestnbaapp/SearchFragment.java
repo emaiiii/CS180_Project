@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
 
-import static com.mai.airwi.bestnbaapp.MainActivity.read;
-
 /**
  * Created by airwi on 4/25/2020.
  */
@@ -189,5 +187,53 @@ public class SearchFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public static List<String> read(String result){
+        List<String> set = new ArrayList<String>();
+        int tempIndex = 1;
+        String tempString;
+
+        for(int index = 0; index < result.length(); index++){
+            if(result.charAt(index) == ',' || index == result.length() - 1){
+                tempString = result.substring(tempIndex, index);
+
+                if(tempString.charAt(0)== '\"' && tempString.charAt(tempString.length() - 1) == '\"'){
+                    tempString = tempString.substring(1, tempString.length() - 1);
+                }
+
+                set.add(tempString);
+                tempIndex = index + 1;
+            }
+        }
+
+        return set;
+    }
+
+    public static List<List<String>> splitRead(List<String>results){
+        List<List<String>> set = new ArrayList<List<String>>();
+        List<String> tempList = new ArrayList<String>();
+
+        for(int index = 0; index < results.size(); index++){
+            String tempString = results.get(index);
+
+            if(tempString.charAt(0) == '['){
+                tempString = tempString.substring(1, tempString.length() - 1);
+                //System.out.println(tempString);
+                tempList.add(tempString);
+            }
+            else if(tempString.charAt(tempString.length() - 1) == ']'){
+                tempString = tempString.substring(0, tempString.length() - 1);
+                tempList.add(tempString);
+                set.add(tempList);
+
+                tempList = new ArrayList<String>();
+            }
+            else{
+                tempList.add(tempString);
+            }
+        }
+
+        return set;
     }
 }

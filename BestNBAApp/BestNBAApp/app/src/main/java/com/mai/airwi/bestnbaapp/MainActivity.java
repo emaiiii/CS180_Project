@@ -217,28 +217,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
     //}
-
-
-
-
-    public static List<String> read(String result){
-        List<String> set = new ArrayList<String>();
-        int tempIndex = 1;
-        String tempString;
-
-        for(int index = 0; index < result.length(); index++){
-            if(result.charAt(index) == ',' || index == result.length() - 1){
-                tempString = result.substring(tempIndex, index);
-
-                if(tempString.charAt(0)== '\"' && tempString.charAt(tempString.length() - 1) == '\"'){
-                    tempString = tempString.substring(1, tempString.length() - 1);
-                }
-
-                set.add(tempString);
-                tempIndex = index + 1;
-            }
-        }
-
-        return set;
-    }
 }
