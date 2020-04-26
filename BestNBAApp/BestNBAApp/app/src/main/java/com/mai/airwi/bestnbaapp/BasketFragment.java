@@ -3,6 +3,7 @@ package com.mai.airwi.bestnbaapp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class BasketFragment extends Fragment {
 
     Button addButton;
     Button clearButton;
+    Button deleteButton;
     Button analyzeButton;
     TextView setDisplay;
     TextView statusDisplay;
@@ -48,10 +50,13 @@ public class BasketFragment extends Fragment {
 
         addButton = (Button)view.findViewById(R.id.addButton);
         clearButton = (Button)view.findViewById(R.id.clearButton);
+        deleteButton = (Button)view.findViewById(R.id.deleteButton);
         analyzeButton = (Button)view.findViewById(R.id.analyzeButton);
         setDisplay = (TextView)view.findViewById(R.id.setDisplay);
         statusDisplay = (TextView)view.findViewById(R.id.statusText);
         getGameID = (EditText)view.findViewById(R.id.getGameID);
+
+        setDisplay.setMovementMethod(new ScrollingMovementMethod());
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,14 +82,12 @@ public class BasketFragment extends Fragment {
                                     if (response.equals("no game found")) {
                                         statusDisplay.setText("Error: Game not found.");
                                     } else {
-                                        // setDisplay.setText("ADDED");
                                         List<String> list = new ArrayList<String>();
                                         String toDisplay;
                                         String currentDisplay;
 
                                         //list = read(response);
 
-                                        /*list.add("0");
                                         list.add("0");
                                         list.add("0");
                                         list.add("0");
@@ -103,16 +106,18 @@ public class BasketFragment extends Fragment {
                                         list.add("0");
                                         list.add("0");
                                         list.add("0");
-                                        list.add("0");*/
+                                        list.add("0");
+                                        list.add("0");
+
 
                                         Games game = new Games(list);
                                         userSet.add(game);
-                                        // userSet.add(game);
 
                                         for(int i = 0; i < userSet.size(); ++i) {
                                             currentDisplay = setDisplay.getText().toString();
                                             userSet.get(i).print(setDisplay, currentDisplay);
                                         }
+                                        statusDisplay.setText("Game added.");
                                     }
 
                                     requestQueue.stop();
@@ -152,6 +157,37 @@ public class BasketFragment extends Fragment {
 
                 statusDisplay.setText("Set cleared.");
                 setDisplay.setText("You have no games in your set.");
+
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Info", "Delete button clicked");
+
+                if (userSet.isEmpty()) {
+                    statusDisplay.setText("Set is empty.");
+                }
+                else {
+                    String query = getGameID.getText().toString();
+                    int searchID = Integer.parseInt(query);
+                    int removeIndex;
+
+                    for(removeIndex = 0; removeIndex < userSet.size(); ++removeIndex) {
+                        if(searchID == userSet.get(removeIndex).getGame_id()) {
+                            break;
+                        }
+                    }
+
+                    if( removeIndex == userSet.size() ){
+                        statusDisplay.setText("Game not found.");
+                    }
+                    else {
+                        userSet.remove(removeIndex);
+                        statusDisplay.setText("Game deleted.");
+                    }
+                }
 
             }
         });
