@@ -38,7 +38,7 @@ public class BasketFragment extends Fragment {
     TextView setDisplay;
     TextView statusDisplay;
     EditText getGameID;
-    List<Games> userSet = new ArrayList<>();
+    List<Games> userSet = new ArrayList<Games>();
 
     @Nullable
     @Override
@@ -113,7 +113,7 @@ public class BasketFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Clear button clicked");
 
-                if(!userSet.isEmpty()) { userSet = new ArrayList<>(); }
+                if(!userSet.isEmpty()) { userSet = new ArrayList<Games>(); }
 
                 // FIXME: CLEAR SERVER-SIDE SET (LEAVE FOR NEXT SPRINT)
                 /*final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
