@@ -73,7 +73,10 @@ public class BasketFragment extends Fragment {
                                     if (response.equals("no game found")) {
                                         statusDisplay.setText("Error: Game not found.");
                                     } else {
-                                        // FIXME: Parse game info, add to userSet, display userSet
+                                        // FIXME: Parse game info and initialize Game object
+
+                                        // FIXME: Add game object to userSet
+                                        // FIXME: Refresh userSet display
 
                                         statusDisplay.setText("Game added!");
                                     }
@@ -104,7 +107,7 @@ public class BasketFragment extends Fragment {
                 // FIXME: CLEAR THE SET (CRASHES)
                 // if(!userSet.isEmpty()) { userSet.clear(); }
 
-                // FIXME:let the server know (LEAVE FOR NEXT SPRINT)
+                // FIXME: CLEAR SERVER-SIDE SET (LEAVE FOR NEXT SPRINT)
                 /*final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
                 // request here
                 requestQueue.stop();*/
