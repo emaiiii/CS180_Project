@@ -123,4 +123,87 @@ public class GameDetails {
     public float getDreb(){
         return this.dreb;
     }
+
+    //////////////////////////
+    // modifiers
+    //////////////////////////
+    public void setGame_id(int game_id){
+        this.game_id = game_id;
+    }
+
+    public void setTeam_id(int team_id){
+        this.team_id = team_id;
+    }
+
+    public void setTeam_abbr(String team_abbr){
+        this.team_abbr = team_abbr;
+    }
+
+    public void setTeam_city(String team_city){
+        this.team_city = team_city;
+    }
+
+    public void setPlayer_id(int player_id){
+        this.player_id = player_id;
+    }
+
+    public void setPlayer_name(String player_name){
+        this.player_name = player_name;
+    }
+
+    public void setStart_pos(String start_pos){
+        this.start_pos = start_pos;
+    }
+
+    public void setComment(String comment){
+        this.comment = comment;
+    }
+
+    public void setMin(float min){
+        this.min = min;
+    }
+
+    public void setFgm(float fgm){
+        this.fgm = fgm;
+    }
+
+    public void setFga(float fga){
+        this.fga = fga;
+    }
+
+    public void setFg_pct(float fg_pct){
+        this.fg_pct = fg_pct;
+    }
+
+    public void setFg3m(float fg3m){
+        this.fg3m = fg3m;
+    }
+
+    public void setFg3a(float fg3a){
+        this.fg3a = fg3a;
+    }
+
+    public void setFg3_pct(float fg3_pct){
+        this.fg3_pct = fg3_pct;
+    }
+
+    public void setFtm(float ftm){
+        this.ftm = ftm;
+    }
+
+    public void setFta(float fta){
+        this.fta = fta;
+    }
+
+    public void setFt_pct(float ft_pct){
+        this.ft_pct = ft_pct;
+    }
+
+    public void setOreb(float oreb){
+        this.oreb = oreb;
+    }
+
+    public void setDreb(float dreb){
+        this.dreb = dreb;
+    }
 }
