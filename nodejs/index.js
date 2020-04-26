@@ -192,6 +192,39 @@ const server = http.createServer(function (req,res) {
     }
 
     //searching for certain game's details
+    else if(qdata.gameid != undefined) {
+      fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games_details.csv','utf8',function (err,data) {
+        //cannot open file
+        if (err) {
+          console.error(err);
+        }
+        //file opened
+        else {
+          var ret = process_data(data);
+          var table = ret.table;
+          var hashmap = ret.hashmap;
+          var indices = hashmap['game_id'][qdata.gameid.toLowerCase()];
+
+          var payload = [];
+
+          if(indices == undefined) {
+            console.log('invalid game id');
+            send_payload(res,'invalid game id')
+          } 
+          else {
+            indices.forEach(function(idx) {
+              payload.push(table[idx]);
+            });
+            if (payload.length > 0) {
+              send_payload(res, JSON.stringify(payload));
+            } else {
+              console.log('no game info found');
+              send_payload(res, 'no game info found');
+            }
+        }
+        }
+      });
+    }
 
     else {
       console.log('------------------------');
@@ -226,7 +259,10 @@ function process_data(csv_data) {
         headers.push(col);
       }
       else {
-        if (col in hashmap[headers[col_idx]]) {
+        if(hashmap[headers[col_idx]] == undefined) {
+          
+        }
+        else if (col in hashmap[headers[col_idx]]) {
           hashmap[headers[col_idx]][col].push(row_idx);
         } else {
           hashmap[headers[col_idx]][col] = [row_idx];
