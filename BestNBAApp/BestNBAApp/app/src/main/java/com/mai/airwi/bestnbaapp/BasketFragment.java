@@ -88,6 +88,7 @@ public class BasketFragment extends Fragment {
                                         String toDisplay;
                                         String currentDisplay;
 
+                                        // FIXME: IMPLEMENT PARSE
                                         listOfList = read(response);
                                         splitRead(listOfList);
 
@@ -152,11 +153,6 @@ public class BasketFragment extends Fragment {
                 Log.i("Info", "Clear button clicked");
 
                 if(!userSet.isEmpty()) { userSet = new ArrayList<Games>(); }
-
-                // FIXME: CLEAR SERVER-SIDE SET (LEAVE FOR NEXT SPRINT)
-                /*final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-                // request here
-                requestQueue.stop();*/
 
                 statusDisplay.setText("Set cleared.");
                 setDisplay.setText("You have no games in your set.");
