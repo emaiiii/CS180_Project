@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mai.airwi.bestnbaapp.SearchFragment.read;
+import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 
 /**
  * Created by airwi on 4/25/2020.
@@ -82,12 +83,15 @@ public class BasketFragment extends Fragment {
                                     if (response.equals("no game found")) {
                                         statusDisplay.setText("Error: Game not found.");
                                     } else {
+                                        List<String> listOfList = new ArrayList<String>();
                                         List<String> list = new ArrayList<String>();
                                         String toDisplay;
                                         String currentDisplay;
 
-                                        //list = read(response);
+                                        listOfList = read(response);
+                                        splitRead(listOfList);
 
+                                        /*list.add("0");
                                         list.add("0");
                                         list.add("0");
                                         list.add("0");
@@ -106,8 +110,7 @@ public class BasketFragment extends Fragment {
                                         list.add("0");
                                         list.add("0");
                                         list.add("0");
-                                        list.add("0");
-                                        list.add("0");
+                                        list.add("0");*/
 
 
                                         Games game = new Games(list);
