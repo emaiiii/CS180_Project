@@ -1,6 +1,5 @@
 package com.mai.airwi.bestnbaapp;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,7 +45,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         searchButton = (Button)view.findViewById(R.id.searchButton);
-        textView = (TextView)view.findViewById(R.id.instrTextView);
+        textView = (TextView)view.findViewById(R.id.setView);
         searchField = (EditText)view.findViewById(R.id.searchEditText);
         category = (Switch)view.findViewById(R.id.switchCategory);
 
