@@ -6,102 +6,21 @@
     android:layout_height="match_parent"
     tools:context="com.mai.airwi.bestnbaapp.MainActivity">
 
-    <ImageView
-        android:id="@+id/kobeImageView"
-        android:layout_width="500dp"
-        android:layout_height="610dp"
-        android:alpha="0.7"
-        android:background="@drawable/kobe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" />
 
-    <EditText
-        android:id="@+id/searchEditText"
-        android:layout_width="300dp"
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/custom_text"
-        android:ems="10"
-        android:hint="Enter your search..."
-        android:inputType="textPersonName"
-        android:padding="10dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/instrTextView" />
-
-    <TextView
-        android:id="@+id/playerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_text"
-        android:padding="10dp"
-        android:text="Players"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/switchCategory"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
-
-
-    <Switch
-        android:id="@+id/switchCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:switchPadding="10dp"
-        android:textOff="Team"
-        android:textOn="Players"
-        android:thumbTint="@android:color/holo_blue_light"
-        android:trackTint="@android:color/background_dark"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
-
-    <TextView
-        android:id="@+id/teamTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/custom_text"
-        android:padding="10dp"
-        android:text="Teams"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintLeft_toLeftOf="@+id/switchCategory"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchEditText" />
-
-    <TextView
-        android:id="@+id/instrTextView"
-        android:layout_width="310dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/custom_text"
-        android:padding="15dp"
-        android:text="To search, enter either a player or team name to the respective fields.  Toggle if your search is a player or a team."
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="114dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/custom_button"
-        android:text="Search"
-        android:textColor="@android:color/background_light"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/switchCategory" />
+        app:menu="@menu/bottom_navigation" />
 
 </android.support.constraint.ConstraintLayout>

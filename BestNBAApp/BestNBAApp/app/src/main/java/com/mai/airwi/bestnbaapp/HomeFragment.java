@@ -1,15 +1,13 @@
 package com.mai.airwi.bestnbaapp;
 
-//import android.app.Fragment;
-import android.support.v4.app.Fragment;
-import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -27,56 +25,30 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
 
-public class MainActivity extends AppCompatActivity {
+import static com.mai.airwi.bestnbaapp.MainActivity.read;
 
-    /*Button searchButton;
+/**
+ * Created by airwi on 4/25/2020.
+ */
+
+public class HomeFragment extends Fragment {
+
+    Button searchButton;
     TextView textView;
     EditText searchField;
     String server_url = "http://658994b8.ngrok.io";
     Switch category;
-    int searchType = 0;*/
+    int searchType = 0;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
-    }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-
-                    switch(item.getItemId()){
-                        case R.id.nav_home:
-                            selectedFragment = new HomeFragment();
-                            break;
-                        case R.id.nav_fav:
-                            selectedFragment = new FavoritesFragment();
-                            break;
-                        case R.id.nav_search:
-                            selectedFragment = new SearchFragment();
-                            break;
-                    }
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
-
-                    return true;
-                }
-            };
-
-        /*searchButton = (Button)findViewById(R.id.searchButton);
-        textView = (TextView)findViewById(R.id.instrTextView);
-        searchField = (EditText)findViewById(R.id.searchEditText);
-        category = (Switch)findViewById(R.id.switchCategory);
+        searchButton = (Button)view.findViewById(R.id.searchButton);
+        textView = (TextView)view.findViewById(R.id.instrTextView);
+        searchField = (EditText)view.findViewById(R.id.searchEditText);
+        category = (Switch)view.findViewById(R.id.switchCategory);
 
         category.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -97,15 +69,15 @@ public class MainActivity extends AppCompatActivity {
 
                 String query = searchField.getText().toString();
                 query.replace(" ","%20");
-                /*
+
                 try {
                     query = URLEncoder.encode(URLEncoder.encode(query,"UTF-8") );
                 }
                 catch (IOException e) {
                     query = "invalid";  // Encoding Error
-                }*/
+                }
 
-                /*final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+                final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
                 switch(searchType) {
                     case 0: // Player Search
@@ -215,30 +187,8 @@ public class MainActivity extends AppCompatActivity {
                         requestQueue.stop();
                 }
             }
-        });*/
-    //}
+        });
 
-
-
-
-    public static List<String> read(String result){
-        List<String> set = new ArrayList<String>();
-        int tempIndex = 1;
-        String tempString;
-
-        for(int index = 0; index < result.length(); index++){
-            if(result.charAt(index) == ',' || index == result.length() - 1){
-                tempString = result.substring(tempIndex, index);
-
-                if(tempString.charAt(0)== '\"' && tempString.charAt(tempString.length() - 1) == '\"'){
-                    tempString = tempString.substring(1, tempString.length() - 1);
-                }
-
-                set.add(tempString);
-                tempIndex = index + 1;
-            }
-        }
-
-        return set;
+        return view;
     }
 }
