@@ -77,17 +77,17 @@ public class BasketFragment extends Fragment {
                                         statusDisplay.setText("Error: Game not found.");
                                     } else {
                                         List<String> list = new ArrayList<String>();
+
                                         list = read(response);
                                         Games game = new Games(list);
-
-                                        // FIXME: Add game object to userSet
                                         userSet.add(game);
 
                                         // FIXME: Refresh userSet display
                                         // FIXME: Define print for Games class
-                                        for(int i = 0; i < userSet.size(); ++i) {
-                                            // userSet.get(i).print();
-                                        }
+                                        // PSUEDOCODE
+                                        /*for(int i = 0; i < userSet.size(); ++i) {
+                                             userSet.get(i).print();
+                                        }*/
 
                                         statusDisplay.setText("Game added!");
                                     }
