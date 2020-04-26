@@ -21,6 +21,8 @@ import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mai.airwi.bestnbaapp.SearchFragment.read;
+
 /**
  * Created by airwi on 4/25/2020.
  */
@@ -28,6 +30,7 @@ import java.util.List;
 public class BasketFragment extends Fragment {
 
     String server_url = "http://658994b8.ngrok.io";
+    // FIXME: IMPLEMENT SERVER URL GLOBALLY
 
     Button addButton;
     Button clearButton;
@@ -60,7 +63,7 @@ public class BasketFragment extends Fragment {
                     statusDisplay.setText("Invalid entry.");
                 }
                 else {
-                    final String gameSearchURL = server_url + "?gameid=" + query; // "?gameid=xxxxxx"
+                    final String gameSearchURL = server_url + "?gameid="; // "URL/?gameid=xxxxxx"
 
                     final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
@@ -73,10 +76,18 @@ public class BasketFragment extends Fragment {
                                     if (response.equals("no game found")) {
                                         statusDisplay.setText("Error: Game not found.");
                                     } else {
-                                        // FIXME: Parse game info and initialize Game object
+                                        List<String> list = new ArrayList<String>();
+                                        list = read(response);
+                                        Games game = new Games(list);
 
                                         // FIXME: Add game object to userSet
+                                        userSet.add(game);
+
                                         // FIXME: Refresh userSet display
+                                        // FIXME: Define print for Games class
+                                        for(int i = 0; i < userSet.size(); ++i) {
+                                            // userSet.get(i).print();
+                                        }
 
                                         statusDisplay.setText("Game added!");
                                     }

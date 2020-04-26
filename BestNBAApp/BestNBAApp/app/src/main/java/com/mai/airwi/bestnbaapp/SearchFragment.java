@@ -31,6 +31,7 @@ import java.util.*;
 public class SearchFragment extends Fragment {
 
     String server_url = "http://658994b8.ngrok.io";
+    // FIXME: IMPLEMENT SERVER URL GLOBALLY
 
     Button searchButton;
     TextView textView;
