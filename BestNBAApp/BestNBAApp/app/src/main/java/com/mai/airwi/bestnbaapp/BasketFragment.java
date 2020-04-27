@@ -32,8 +32,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 
 public class BasketFragment extends Fragment {
 
-    String server_url = "http://261274f5.ngrok.io/";
-    // FIXME: IMPLEMENT SERVER URL GLOBALLY
+    String server_url = "http://fe84b804.ngrok.io/";
 
     Button addButton;
     Button clearButton;
@@ -42,7 +41,7 @@ public class BasketFragment extends Fragment {
     TextView setDisplay;
     TextView statusDisplay;
     EditText getGameID;
-    List<GameDetails> userSet = new ArrayList<GameDetails>();
+    List<Games> userSet = new ArrayList<Games>();
 
     @Nullable
     @Override
@@ -89,8 +88,11 @@ public class BasketFragment extends Fragment {
 
                                         list = read(response);
 
-                                        GameDetails game = new GameDetails(list);
+                                        Games game = new Games(list);
+                                        userSet.add(game);
 
+                                        // clear the TextView before printing all games again
+                                        setDisplay.setText(" ");
                                         for(int i = 0; i < userSet.size(); ++i) {
                                             currentDisplay = setDisplay.getText().toString();
                                             userSet.get(i).print(setDisplay, currentDisplay);
@@ -126,7 +128,9 @@ public class BasketFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Clear button clicked");
 
-                if(!userSet.isEmpty()) { userSet = new ArrayList<GameDetails>(); }
+                if(!userSet.isEmpty()) {
+                    userSet = new ArrayList<Games>();
+                }
 
                 statusDisplay.setText("Set cleared.");
                 setDisplay.setText("You have no games in your set.");
@@ -157,8 +161,16 @@ public class BasketFragment extends Fragment {
                         statusDisplay.setText("Game not found.");
                     }
                     else {
+                        String currentDisplay;
                         userSet.remove(removeIndex);
                         statusDisplay.setText("Game deleted.");
+
+                        // clear the TextView before printing all games again
+                        setDisplay.setText(" ");
+                        for(int i = 0; i < userSet.size(); ++i) {
+                            currentDisplay = setDisplay.getText().toString();
+                            userSet.get(i).print(setDisplay, currentDisplay);
+                        }
                     }
                 }
 
@@ -177,6 +189,54 @@ public class BasketFragment extends Fragment {
 
 
         return view;
+    }
+
+    public static List<String> read(String result){
+        List<String> set = new ArrayList<String>();
+        int tempIndex = 1;
+        String tempString;
+
+        for(int index = 0; index < result.length(); index++){
+            if(result.charAt(index) == ',' || index == result.length() - 1){
+                tempString = result.substring(tempIndex, index);
+
+                if(tempString.charAt(0)== '\"' && tempString.charAt(tempString.length() - 1) == '\"'){
+                    tempString = tempString.substring(1, tempString.length() - 1);
+                }
+
+                set.add(tempString);
+                tempIndex = index + 1;
+            }
+        }
+
+        return set;
+    }
+
+    public static List<List<String>> splitRead(List<String>results){
+        List<List<String>> set = new ArrayList<List<String>>();
+        List<String> tempList = new ArrayList<String>();
+
+        for(int index = 0; index < results.size(); index++){
+            String tempString = results.get(index);
+
+            if(tempString.charAt(0) == '['){
+                tempString = tempString.substring(1, tempString.length() - 1);
+                //System.out.println(tempString);
+                tempList.add(tempString);
+            }
+            else if(tempString.charAt(tempString.length() - 1) == ']'){
+                tempString = tempString.substring(0, tempString.length() - 1);
+                tempList.add(tempString);
+                set.add(tempList);
+
+                tempList = new ArrayList<String>();
+            }
+            else{
+                tempList.add(tempString);
+            }
+        }
+
+        return set;
     }
 }
 
