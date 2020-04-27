@@ -197,7 +197,7 @@ const server = http.createServer(function (req,res) {
     }
 
     //searching for certain game's details
-    else if(qdata.gameid != undefined) {
+    else if(qdata.gamedeid != undefined) {
       fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games_details.csv','utf8',function (err,data) {
         //cannot open file
         if (err) {
@@ -205,6 +205,43 @@ const server = http.createServer(function (req,res) {
         }
         //file opened
         else {
+          var ret = process_data(data);
+          var table = ret.table;
+          var hashmap = ret.hashmap;
+          var indices = hashmap['game_id'][qdata.gamedeid.toLowerCase()];
+
+          var payload = [];
+
+          if(indices == undefined) {
+            console.log('invalid game id');
+            send_payload(res,'invalid game id')
+          } 
+          else {
+            indices.forEach(function(idx) {
+              payload.push(table[idx]);
+            });
+            if (payload.length > 0) {
+              send_payload(res, JSON.stringify(payload));
+            } else {
+              console.log('no game info found');
+              send_payload(res, 'no game info found');
+            }
+        }
+        }
+      });
+    }
+
+    //searching for game with gameid
+    else if(qdata.gameid != undefined) {
+      console.log('searching for game with gameid');
+      fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games.csv','utf8',function (err,data) {
+        //cannot open file
+        if (err) {
+          console.error(err);
+        }
+        //file opened
+        else {
+          console.log(qdata.gameid);
           var ret = process_data(data);
           var table = ret.table;
           var hashmap = ret.hashmap;
@@ -221,7 +258,7 @@ const server = http.createServer(function (req,res) {
               payload.push(table[idx]);
             });
             if (payload.length > 0) {
-              send_payload(res, JSON.stringify(payload));
+              send_payload(res, JSON.stringify(payload[0]));
             } else {
               console.log('no game info found');
               send_payload(res, 'no game info found');
