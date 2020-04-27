@@ -1,4 +1,6 @@
 package com.mai.airwi.bestnbaapp;
+import android.widget.TextView;
+
 import java.util.*;
 
 /**
@@ -234,5 +236,17 @@ public class GameDetails {
 
     public void setDreb(float dreb){
         this.dreb = dreb;
+    }
+
+    public void print(TextView display, String existing) {
+        String toDisplay;
+
+        toDisplay = "Game ID: " + this.getGame_id();
+        //toDisplay = toDisplay + "\nSeason: " + this.getSeason();
+        //toDisplay = toDisplay + "\n" + this.getT() + " @ " + this.getTeam_id_home();
+
+        toDisplay = existing + "\n\n" + toDisplay;
+
+        display.setText(toDisplay);
     }
 }
