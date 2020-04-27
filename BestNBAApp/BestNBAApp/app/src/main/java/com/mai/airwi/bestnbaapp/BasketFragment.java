@@ -42,7 +42,7 @@ public class BasketFragment extends Fragment {
     TextView setDisplay;
     TextView statusDisplay;
     EditText getGameID;
-    List<Games> userSet = new ArrayList<Games>();
+    List<GameDetails> userSet = new ArrayList<GameDetails>();
 
     @Nullable
     @Override
@@ -126,7 +126,7 @@ public class BasketFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Clear button clicked");
 
-                if(!userSet.isEmpty()) { userSet = new ArrayList<Games>(); }
+                if(!userSet.isEmpty()) { userSet = new ArrayList<GameDetails>(); }
 
                 statusDisplay.setText("Set cleared.");
                 setDisplay.setText("You have no games in your set.");
