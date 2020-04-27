@@ -89,7 +89,7 @@ public class BasketFragment extends Fragment {
 
                                         list = read(response);
 
-                                        Games game = new Games(list);
+                                        GameDetails game = new GameDetails(list);
 
                                         for(int i = 0; i < userSet.size(); ++i) {
                                             currentDisplay = setDisplay.getText().toString();
