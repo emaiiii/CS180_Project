@@ -35,18 +35,23 @@ const server = http.createServer(function (req,res) {
           var table = ret.table;
           var hashmap = ret.hashmap;
           var indices = hashmap['nickname'][qdata.team.toLowerCase()];
-          console.log(indices);
-
-          var payload = [];
-          indices.forEach(function(idx) {
-            payload.push(table[idx]);
-          });
-          if (payload.length > 0) {
-            send_payload(res, JSON.stringify(payload));
-          } else {
-            console.log('no team info found');
-            send_payload(res, 'no team info found');
+          
+          if(indices == undefined) {
+            console.log('no team found');
+            send_payload(res,'no team info found');
           }
+          else {
+            var payload = [];
+            indices.forEach(function(idx) {
+              payload.push(table[idx]);
+            });
+            if (payload.length > 0) {
+              send_payload(res, JSON.stringify(payload[0]));
+            } else {
+              console.log('no team info found');
+              send_payload(res, 'no team info found');
+            }
+        }
           
         }
       });
@@ -225,6 +230,7 @@ const server = http.createServer(function (req,res) {
         }
       });
     }
+
 
     else {
       console.log('------------------------');
