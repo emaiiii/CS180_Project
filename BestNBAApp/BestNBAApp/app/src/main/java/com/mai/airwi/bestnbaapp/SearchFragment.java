@@ -114,7 +114,7 @@ public class SearchFragment extends Fragment {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
 
-                                        textView.setText("Search Error: No response from server." + "\nRequest: " + playerSearchURL);
+                                        textView.setText("Search Error: No response from server." + "\nRequest:\n" + playerSearchURL);
                                         error.printStackTrace();
                                         requestQueue.stop();
                                     }
@@ -171,7 +171,7 @@ public class SearchFragment extends Fragment {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
 
-                                        textView.setText("Search Error: No response from server." + "\nRequest: " + teamSearchURL);
+                                        textView.setText("Search Error: No response from server." + "\nRequest:\n" + teamSearchURL);
                                         error.printStackTrace();
                                         requestQueue.stop();
                                     }

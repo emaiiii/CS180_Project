@@ -52,7 +52,7 @@
         android:layout_width="300dp"
         android:layout_height="250dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/custom_text"
+        android:background="@drawable/display_text"
         android:padding="15dp"
         android:scrollbars="vertical"
         android:textColor="@android:color/black"
