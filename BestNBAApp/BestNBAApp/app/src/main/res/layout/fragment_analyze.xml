@@ -89,7 +89,7 @@
         android:layout_width="114dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/neutral_button"
         android:text="Search"
         android:textColor="@android:color/background_light"
         app:layout_constraintLeft_toLeftOf="parent"
