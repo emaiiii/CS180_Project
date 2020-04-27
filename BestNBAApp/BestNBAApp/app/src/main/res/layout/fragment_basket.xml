@@ -8,10 +8,9 @@
 
     <ImageView
         android:id="@+id/kobeImageView"
-        android:layout_width="500dp"
         android:layout_height="610dp"
-        android:alpha="0.7"
-        android:background="@drawable/kobe" />
+        android:alpha=".95"
+        android:background="@drawable/background" />
 
     <EditText
         android:id="@+id/getGameID"
