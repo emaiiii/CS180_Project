@@ -242,6 +242,7 @@ public class GameDetails {
         String toDisplay;
 
         toDisplay = "Game ID: " + this.getGame_id();
+
         //toDisplay = toDisplay + "\nSeason: " + this.getSeason();
         //toDisplay = toDisplay + "\n" + this.getT() + " @ " + this.getTeam_id_home();
 
