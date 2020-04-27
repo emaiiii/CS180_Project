@@ -83,39 +83,13 @@ public class BasketFragment extends Fragment {
                                     if (response.equals("no game found")) {
                                         statusDisplay.setText("Error: Game not found.");
                                     } else {
-                                        List<String> listOfList = new ArrayList<String>();
                                         List<String> list = new ArrayList<String>();
                                         String toDisplay;
                                         String currentDisplay;
 
-                                        // FIXME: IMPLEMENT PARSE
-                                        listOfList = read(response);
-                                        splitRead(listOfList);
-
-                                        /*list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");
-                                        list.add("0");*/
-
+                                        list = read(response);
 
                                         Games game = new Games(list);
-                                        userSet.add(game);
 
                                         for(int i = 0; i < userSet.size(); ++i) {
                                             currentDisplay = setDisplay.getText().toString();

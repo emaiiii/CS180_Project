@@ -47,6 +47,36 @@ public class Games {
        this.reb_away = Integer.parseInt(set.get(19));
    }
 
+    public Games(List<List<String>> set, int index){
+        this.game_date_est = set.get(index).get(0);
+
+        this.game_id = Integer.parseInt(set.get(index).get(1));
+
+        this.game_status = set.get(index).get(2);
+
+        this.home_team_id = Integer.parseInt(set.get(index).get(3));
+        this.visitor_team_id = Integer.parseInt(set.get(index).get(4));
+        this.season = Integer.parseInt(set.get(index).get(5));
+        this.team_id_home = Integer.parseInt(set.get(index).get(6));
+        this.pts_home = Integer.parseInt(set.get(index).get(7));
+
+        this.fg_pct_home = Float.parseFloat(set.get(index).get(8));
+        this.ft_pct_home = Float.parseFloat(set.get(index).get(9));
+        this.fg3_pct_home = Float.parseFloat(set.get(index).get(10));
+
+        this.ast_home = Integer.parseInt(set.get(index).get(11));
+        this.reb_home = Integer.parseInt(set.get(index).get(12));
+        this.team_id_away = Integer.parseInt(set.get(index).get(13));
+        this.pts_away = Integer.parseInt(set.get(index).get(14));
+
+        this.fg_pct_away = Float.parseFloat(set.get(index).get(15));
+        this.ft_pct_away = Float.parseFloat(set.get(index).get(16));
+        this.fg3_pct_away = Float.parseFloat(set.get(index).get(17));
+
+        this.ast_away = Integer.parseInt(set.get(index).get(18));
+        this.reb_away = Integer.parseInt(set.get(index).get(19));
+    }
+
    public String getGame_date_est(){
        return this.game_date_est;
    }
