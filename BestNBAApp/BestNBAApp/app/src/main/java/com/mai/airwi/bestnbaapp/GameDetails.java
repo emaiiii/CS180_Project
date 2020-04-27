@@ -41,7 +41,36 @@ public class GameDetails {
 
         this.oreb = Float.parseFloat(set.get(18));
         this.dreb = Float.parseFloat(set.get(19));
+    }
 
+    public GameDetails(List<List<String>> set, int index){
+        this.game_id = Integer.parseInt(set.get(index).get(1));
+        this.team_id = Integer.parseInt(set.get(index).get(2));
+
+        this.team_abbr = set.get(index).get(3);
+        this.team_city = set.get(index).get(4);
+
+        this.player_id = Integer.parseInt(set.get(index).get(5));
+
+        this.player_name = set.get(index).get(6);
+        this.start_pos = set.get(index).get(7);
+        this.comment = set.get(index).get(8);
+
+        this.min = Float.parseFloat(set.get(index).get(9));
+        this.fgm = Float.parseFloat(set.get(index).get(10));
+        this.fga = Float.parseFloat(set.get(index).get(11));
+        this.fg_pct = Float.parseFloat(set.get(index).get(12));
+
+        this.fg3m = Float.parseFloat(set.get(index).get(13));
+        this.fg3a = Float.parseFloat(set.get(index).get(14));
+        this.fg3_pct = Float.parseFloat(set.get(index).get(15));
+
+        this.ftm = Float.parseFloat(set.get(index).get(16));
+        this.fta = Float.parseFloat(set.get(index).get(17));
+        this.ft_pct = Float.parseFloat(set.get(index).get(18));
+
+        this.oreb = Float.parseFloat(set.get(index).get(19));
+        this.dreb = Float.parseFloat(set.get(index).get(20));
     }
 
     public int getGame_id(){
