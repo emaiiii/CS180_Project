@@ -57,7 +57,7 @@ const server = http.createServer(function (req,res) {
       });
       console.log('------------------------');
     }
-
+  
     //if player is being searched
     else if(qdata.player != undefined) {
       console.log('------------------------');
@@ -263,9 +263,66 @@ const server = http.createServer(function (req,res) {
               console.log('no game info found');
               send_payload(res, 'no game info found');
             }
-        }
+          }
         }
       });
+    }
+
+    //user login section
+    else if(qdata.username != undefined || qdata.password != undefined) {
+      //if username is empty
+      if(qdata.username == undefined) {
+        send_payload(res,'Empty Username');
+        console.log('empty username');
+      }
+      //if password is empty
+      else if(qdata.password == undefined) {
+        send_payload(res, 'Empty Password');
+        console.log('empty Password');
+      }
+      else{
+        console.log('---------------------');
+        console.log('User Login');
+
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\users.csv','utf8',function (err,data) {
+          //cannot open file
+          if (err) {
+            console.error(err);
+          }
+          //file opened
+          else {
+            //looking up username
+            console.log(qdata.username);
+            var ret = process_data(data);
+            var hashmap = ret.hashmap;
+            var indices = hashmap['username'][qdata.username];
+            //no username found
+            if(indices == undefined) {
+              console.log('Incorret Username');
+              send_payload(res,'Incorret Username or Password');
+            } 
+            //username found
+            else {
+              var userIdx = indices[0];
+              console.log(qdata.password);
+              var ret = process_data(data);
+              var table = ret.table;
+              var hashmap = ret.hashmap;
+              var indices = hashmap['password'][qdata.password];
+              if(userIdx == indices) {
+                console.log('login success');
+                send_payload(res,'Welcome Back');
+              }
+              else {
+                console.log('incorrect password');
+                send_payload(res,'Incorret Username or Password');
+              }
+            }
+          }
+        });
+        
+      }
+
     }
 
 
