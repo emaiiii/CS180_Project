@@ -268,8 +268,6 @@ const server = http.createServer(function (req,res) {
       });
     }
 
-<<<<<<< Updated upstream
-=======
     //user login section
     else if((qdata.username != undefined || qdata.password != undefined) && qdata.register == undefined) {
       //if username is empty
@@ -359,7 +357,6 @@ const server = http.createServer(function (req,res) {
           }
         });
     }
->>>>>>> Stashed changes
 
     else {
       console.log('------------------------');
