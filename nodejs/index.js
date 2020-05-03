@@ -268,6 +268,98 @@ const server = http.createServer(function (req,res) {
       });
     }
 
+<<<<<<< Updated upstream
+=======
+    //user login section
+    else if((qdata.username != undefined || qdata.password != undefined) && qdata.register == undefined) {
+      //if username is empty
+      if(qdata.username == undefined) {
+        send_payload(res,'Empty Username');
+        console.log('empty username');
+      }
+      //if password is empty
+      else if(qdata.password == undefined) {
+        send_payload(res, 'Empty Password');
+        console.log('empty Password');
+      }
+      else{
+        console.log('---------------------');
+        console.log('User Login');
+
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\users.csv','utf8',function (err,data) {
+          //cannot open file
+          if (err) {
+            console.error(err);
+          }
+          //file opened
+          else {
+            //looking up username
+            console.log(qdata.username);
+            var ret = process_data(data);
+            var hashmap = ret.hashmap;
+            var indices = hashmap['username'][qdata.username];
+            //no username found
+            if(indices == undefined) {
+              console.log('Incorret Username');
+              send_payload(res,'Incorret Username or Password');
+            } 
+            //username found
+            else {
+              var userIdx = indices[0];
+              console.log(qdata.password);
+              var ret = process_data(data);
+              var table = ret.table;
+              var hashmap = ret.hashmap;
+              var indices = hashmap['password'][qdata.password];
+              if(userIdx == indices) {
+                console.log('login success');
+                send_payload(res,'Welcome Back');
+              }
+              else {
+                console.log('incorrect password');
+                send_payload(res,'Incorret Username or Password');
+              }
+            }
+          }
+        });
+        
+      }
+
+    }
+
+    //user register
+    else if(qdata.register == 1) {
+
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\users.csv','utf8',function (err,data) {
+          //cannot open file
+          if (err) {
+            console.error(err);
+          }
+          //file opened
+          else {
+            //looking up username
+            console.log(qdata.username);
+            var ret = process_data(data);
+            var hashmap = ret.hashmap;
+            var indices = hashmap['username'][qdata.username];
+            //username used
+            if(indices != undefined) {
+              console.log('username used');
+              send_payload(res,'Username used');
+            }
+            //username not used
+            else{
+              var input = qdata.username + ',' + qdata.password + ',' + qdata.firstname + ',' + qdata.lastname + ',' + qdata.email + '\n';
+              console.log(input);
+              fs.appendFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\users.csv', input, 'utf8', function(err) {
+                if(err) return console.log(err);
+              });
+              send_payload(res,'Register Successful');
+            } 
+          }
+        });
+    }
+>>>>>>> Stashed changes
 
     else {
       console.log('------------------------');
