@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                registerAndOpen();
+                registerPage();
             }
         });
     }
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void registerAndOpen(){
+    public void registerPage(){
         Intent intent = new Intent(this,Main3Activity.class);
         startActivity(intent);
     }
