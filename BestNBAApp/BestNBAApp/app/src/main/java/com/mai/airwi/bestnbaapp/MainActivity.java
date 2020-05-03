@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //validateAndOpen(username.getText().toString(), password.getText().toString());
+                checkAdmin(username.getText().toString(), password.getText().toString());
 
                 final String requestAccURL = server_url + "?getacc=1&&username=" + username.getText().toString();
 
@@ -90,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
                 registerPage();
             }
         });
+    }
+
+    public void checkAdmin(String username, String password){
+        if(username.equals("admin") && password.equals("123")){
+            Intent intent = new Intent(this, Main2Activity.class);
+            startActivity(intent);
+        }
     }
 
     public void registerPage(){
