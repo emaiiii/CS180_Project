@@ -50,12 +50,12 @@ public class Main3Activity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Log.i("Info.", "Register button clicked");
 
                 if(password.getText().toString() == passwordConf.getText().toString()){
-                    Log.i("Info.", "Register button clicked");
 
                     // put the user input into an object to encapsulate data
-                    Account newAccount = new Account(userName.getText().toString(), firstName.getText().toString(), lastName.getText().toString(),
+                    UserAccount newAccount = new UserAccount(userName.getText().toString(), firstName.getText().toString(), lastName.getText().toString(),
                             email.getText().toString(), password.getText().toString());
 
                     // set up request queue
@@ -99,7 +99,7 @@ public class Main3Activity extends AppCompatActivity {
     }
 
     /*public void register(){
-        Account newAccount = new Account(userName.getText().toString(), firstName.getText().toString(), lastName.getText().toString(),
+        UserAccount newAccount = new UserAccount(userName.getText().toString(), firstName.getText().toString(), lastName.getText().toString(),
                 email.getText().toString(), password.getText().toString());
 
         // user account details formulated in URL
@@ -109,72 +109,4 @@ public class Main3Activity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MainActivity.class);
     }*/
-
-    public class Account{
-        String userName;
-        String firstName;
-        String lastName;
-        String email;
-        String password;
-
-        public Account(String userName, String firstName, String lastName, String email, String password){
-            this.userName = userName;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
-            this.password = password;
-        }
-
-        // accessors
-        public String getUserName(){
-            return this.userName;
-        }
-
-        public String getFirstName(){
-            return this.firstName;
-        }
-
-        public String getLastName(){
-            return this.lastName;
-        }
-
-        public String getEmail(){
-            return this.email;
-        }
-
-        public String getPassword(){
-            return this.password;
-        }
-
-        // mutators
-        public void setUserName(String userName){
-            this.userName = userName;
-        }
-
-        public void setFirstName(String firstName){
-            this.firstName = firstName;
-        }
-
-        public void setLastName(String lastName){
-            this.lastName = lastName;
-        }
-
-        public void setEmail(String email){
-            this.email = email;
-        }
-
-        public void setPassword(String password){
-            this.password = password;
-        }
-        // other functions
-        public boolean correctPass(String input){
-            if(this.password == input){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-    }
-
 }
