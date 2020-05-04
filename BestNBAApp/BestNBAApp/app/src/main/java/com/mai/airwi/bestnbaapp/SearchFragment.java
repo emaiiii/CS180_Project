@@ -30,7 +30,7 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://1006f878.ngrok.io/";
+    String server_url = "http://beff686f.ngrok.io/";
 
     Button searchButton;
     TextView textView;
@@ -44,7 +44,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchButton = (Button)view.findViewById(R.id.searchButton);
-        textView = (TextView)view.findViewById(R.id.setView);
+        textView = (TextView)view.findViewById(R.id.setDisplay);
         searchField = (EditText)view.findViewById(R.id.searchEditText);
         category = (Switch)view.findViewById(R.id.switchCategory);
 
@@ -68,7 +68,7 @@ public class SearchFragment extends Fragment {
                 String query = searchField.getText().toString();
 
                 try {
-                    query = URLEncoder.encode(URLEncoder.encode(query,"UTF-8") );
+                    query = URLEncoder.encode(query,"UTF-8");
                 }
                 catch (IOException e) {
                     // Encoding Error
@@ -82,6 +82,7 @@ public class SearchFragment extends Fragment {
                     case 0: // Player Search
                         final String playerSearchURL = server_url + "?player=" + query; // "?team=lakers&player=0";
 
+                        Log.i("URL", playerSearchURL);
                         StringRequest playerRequest = new StringRequest(Request.Method.POST, playerSearchURL,
                                 new Response.Listener<String>() {
                                     @Override
@@ -128,6 +129,7 @@ public class SearchFragment extends Fragment {
                     case 1: //team search
                         final String teamSearchURL = server_url + "?team=" + query;
 
+                        Log.i("URL", teamSearchURL);
                         StringRequest teamRequest = new StringRequest(Request.Method.POST, teamSearchURL,
                                 new Response.Listener<String>() {
                                     @Override
