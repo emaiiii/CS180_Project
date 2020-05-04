@@ -30,7 +30,7 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://ceae842d.ngrok.io/";
+    String server_url = "http://1006f878.ngrok.io/";
 
     Button searchButton;
     TextView textView;

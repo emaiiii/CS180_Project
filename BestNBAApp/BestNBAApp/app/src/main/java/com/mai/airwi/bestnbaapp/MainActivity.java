@@ -46,20 +46,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 checkAdmin(username.getText().toString(), password.getText().toString());
 
-                final String requestAccURL = server_url + "?username=" + username.getText().toString() +
+                final String reqAccURL = server_url + "?username=" + username.getText().toString() +
                         "&&password=" + password.getText().toString();
 
                 final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
 
-                Log.i("URL:", requestAccURL);
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, requestAccURL,
+                Log.i("URL:", reqAccURL);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, reqAccURL,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
 
                                 if(response.equals("Incorrect Username or Password")){
                                     Log.i("Info", response);
-                                    Toast.makeText(MainActivity.this, "Account does not exist", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
                                 }
                                 else if(response.equals("Welcome Back")) {
                                     Log.i("Info", "Log in verified");

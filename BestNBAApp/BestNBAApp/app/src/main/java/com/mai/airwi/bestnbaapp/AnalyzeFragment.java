@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 public class AnalyzeFragment extends Fragment {
 
+    String server_url = "http://1006f878.ngrok.io/";
     TextView setDisplay;
     EditText searchEditText;
     Button analyzeButton;
