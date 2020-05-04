@@ -298,8 +298,8 @@ const server = http.createServer(function (req,res) {
             var indices = hashmap['username'][qdata.username];
             //no username found
             if(indices == undefined) {
-              console.log('Incorret Username');
-              send_payload(res,'Incorret Username or Password');
+              console.log('Incorrect Username');
+              send_payload(res,'Incorrect Username or Password');
             } 
             //username found
             else {
@@ -315,7 +315,7 @@ const server = http.createServer(function (req,res) {
               }
               else {
                 console.log('incorrect password');
-                send_payload(res,'Incorret Username or Password');
+                send_payload(res,'Incorrect Username or Password');
               }
             }
           }
@@ -358,6 +358,148 @@ const server = http.createServer(function (req,res) {
         });
     }
 
+    //player analysis
+    else if(qdata.playeravg == 1) {
+      console.log('---------------------------')
+      console.log('looking for player avg')
+      if(qdata.name == undefined) {
+        console.log('Empty player name');
+        send_payload(res,'Empty player name');
+      }
+      else {
+        console.log(qdata.name);
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\players.csv','utf8',function (err,data) {
+          //cannot open file
+          if (err) {
+            console.error(err);
+          }
+          //file opened
+          else {
+            var playerData = data.split(/\r?\n/);
+            var playerFound = 0;
+            var playerID = 0;
+
+            playerData.forEach(function (row) {
+              var elements = row.split(",");
+              var nickname = elements[0];
+              
+              if (nickname !== undefined) {
+                if ( (nickname.toLowerCase() == qdata.name.toLowerCase()) && (playerFound == 0)) {
+                  playerFound = 1;
+                  playerID = elements[2];
+                  console.log(elements[2]);
+                }
+              }
+            })
+            //if no player were found
+            if(playerFound == 0) {
+              console.log('no player info found');
+              send_payload(res, 'no player info found');
+            }
+            else {
+              fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games_details.csv','utf8',function (err,data) {
+                if (err) {
+                  console.error(err);
+                }
+                else {
+                var fgm = avg_data(data,4, 9,playerID).toFixed(2);
+                var fga = avg_data(data,4,10,playerID).toFixed(2);
+                var fg_pct = avg_data(data,4,11,playerID).toFixed(3);
+                var fg3m = avg_data(data,4,12,playerID).toFixed(2);
+                var fg3a = avg_data(data,4,13,playerID).toFixed(2);
+                var fg3_pct = avg_data(data,4,14,playerID).toFixed(3);
+                var ftm = avg_data(data,4,15,playerID).toFixed(2);
+                var fta = avg_data(data,4,16,playerID).toFixed(2);
+                var ft_pct = avg_data(data,4,17,playerID).toFixed(3);
+                var oreb = avg_data(data,4,18,playerID).toFixed(2);
+                var dreb = avg_data(data,4,19,playerID).toFixed(2);
+                var reb = avg_data(data,4,20,playerID).toFixed(2);
+                var ast = avg_data(data,4,21,playerID).toFixed(2);
+                var stl = avg_data(data,4,22,playerID).toFixed(2);
+                var blk = avg_data(data,4,23,playerID).toFixed(2);
+                var to = avg_data(data,4,24,playerID).toFixed(2);
+                var pf = avg_data(data,4,25,playerID).toFixed(2);
+                var pts = avg_data(data,4,26,playerID).toFixed(2);
+                var all_stats = fgm + "," + fga + "," + fg_pct + "," + fg3m + "," + fg3a + "," + fg3_pct + "," + ftm + "," + fta + "," + ft_pct + "," + oreb + "," + dreb + "," + reb + "," + ast + "," + stl + "," + blk + "," + to + "," + pf + "," + pts;
+                console.log(all_stats);
+                send_payload(res,all_stats);
+                
+                }
+                
+              });
+            }
+          }
+
+        });
+      }
+
+
+    }
+
+    //team analysis
+    else if(qdata.teamavg == 1) {
+      console.log('---------------------------');
+      console.log('looking for team avg');
+      if(qdata.name == undefined) {
+        console.log('Empty team name');
+        send_payload(res,'Empty team name');
+      }
+      else {
+        console.log(qdata.name);
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\teams.csv','utf8',function (err,data) {
+          //cannot open file
+          if (err) {
+            console.error(err);
+          }
+          //file opened
+          else {
+            var teamData = data.split(/\r?\n/);
+            var teamFound = 0;
+            var teamID = 0;
+
+            teamData.forEach(function (row) {
+              var elements = row.split(",");
+              var nickname = elements[5];
+              
+              if (nickname !== undefined) {
+                if ( (nickname.toLowerCase() == qdata.name.toLowerCase()) && (teamFound == 0)) {
+                  teamFound = 1;
+                  teamID = elements[1];
+                  console.log(elements[1]);
+                }
+              }
+            })
+            //if no player were found
+            if(teamFound == 0) {
+              console.log('no team info found');
+              send_payload(res, 'no team info found');
+            }
+            else {
+              fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games.csv','utf8',function (err,data) {
+                if (err) {
+                  console.error(err);
+                }
+                else{
+                  var pts = avg_data(data,3, 4, 7,teamID).toFixed(2);
+                  var fg_pct = avg_data(data,3, 4, 8,teamID).toFixed(3);
+                  var ft_pct = avg_data(data,3, 4, 9,teamID).toFixed(3);
+                  var fg3_pct = avg_data(data,3, 4, 10,teamID).toFixed(3);
+                  var ats = avg_data(data,3, 4, 11,teamID).toFixed(2);
+                  var reb = avg_data(data,3, 4, 12,teamID).toFixed(2);
+                  var stats = pts + "," + fg_pct + "," + ft_pct + "," + fg3_pct + "," + ats + "," + reb;
+                  console.log(stats);
+                  send_payload(res,stats);
+                }
+
+
+
+              });
+            }
+          }
+        });
+      }
+    }
+
     else {
       console.log('------------------------');
       console.log('invalid');
@@ -373,6 +515,33 @@ function send_payload(res, msg) {
   res.writeHead(200, {'Content-type': 'application/json'});
   res.write(msg);
   res.end();
+}
+
+function avg_data(csv_data,check_idx,second_idx,idx,search) {
+  var avg = 0;
+  var count = 0;
+
+  var stats = csv_data.split(/\r?\n/);
+
+  stats.forEach(function (row) {
+    var elements = row.split(",");
+      
+    if (elements[check_idx] == search) {
+      if(!isNaN(elements[idx]) && elements[idx] != '') {
+        avg += Number(elements[idx]);
+        count += 1;
+      }
+    }
+    if(elements[second_idx] == search) {
+      if(!isNaN(elements[idx+7]) && elements[idx+7] != '') {
+        avg += Number(elements[idx+7]);
+        count += 1;
+      }
+    }
+  });
+  avg = avg / count;
+  
+  return avg;
 }
 
 function process_data(csv_data) {
