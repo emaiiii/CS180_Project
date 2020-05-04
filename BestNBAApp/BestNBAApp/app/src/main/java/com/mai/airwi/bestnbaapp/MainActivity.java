@@ -24,7 +24,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class MainActivity extends AppCompatActivity {
 
-    String server_url = "http://fce66049.ngrok.io/";
+    String server_url = "http://1006f878.ngrok.io/";
 
     EditText username;
     EditText password;
@@ -60,24 +60,13 @@ public class MainActivity extends AppCompatActivity {
                                 if(response.equals("Incorrect Username or Password")){
                                     Log.i("Info", response);
                                     Toast.makeText(MainActivity.this, "Account does not exist", Toast.LENGTH_LONG).show();
-                                } else{
-                                    List<String> list = new ArrayList<String>();
-
-                                    list = read(response);
-
-                                    UserAccount acc = new UserAccount(list);
-
-                                    if(acc.correctPass(password.getText().toString())){
-                                        Log.i("Info.", "log in verified");
-                                        Intent intent = new Intent(MainActivity.this,Main2Activity.class);
-                                        startActivity(intent);
-                                    }
-                                    else {
-                                        Log.i("Info.", "log in not verified");
-                                        Toast.makeText(MainActivity.this, "Incorrect password", Toast.LENGTH_LONG).show();
-                                    }
                                 }
+                                else if(response.equals("Welcome Back")) {
+                                    Log.i("Info", "Log in verified");
 
+                                    Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                                    startActivity(intent);
+                                }
                                 requestQueue.stop();
                             }
                         },
