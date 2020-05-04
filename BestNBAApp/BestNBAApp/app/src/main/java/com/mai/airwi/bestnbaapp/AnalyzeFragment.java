@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /*
@@ -15,10 +16,9 @@ import android.widget.TextView;
 
 public class AnalyzeFragment extends Fragment {
 
-    Button addButton;
-    Button clearButton;
-    Button analyzeButton;
     TextView setDisplay;
+    EditText searchEditText;
+    Button analyzeButton;
 
     @Nullable
     @Override

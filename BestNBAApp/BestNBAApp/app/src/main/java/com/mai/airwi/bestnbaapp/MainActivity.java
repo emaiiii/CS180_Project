@@ -1,7 +1,6 @@
 package com.mai.airwi.bestnbaapp;
 
 //import android.app.Fragment;
-import android.accounts.Account;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +24,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class MainActivity extends AppCompatActivity {
 
-    String server_url = "http://ceae842d.ngrok.io/";
+    String server_url = "http://fce66049.ngrok.io/";
 
     EditText username;
     EditText password;
@@ -40,34 +39,43 @@ public class MainActivity extends AppCompatActivity {
         username = (EditText)findViewById(R.id.usernameEditText);
         password = (EditText)findViewById(R.id.passwordEditText);
         logInButton = (Button)findViewById(R.id.loginButton);
-        registerButton = (Button)findViewById(R.id.registerButton);
+        registerButton = (Button)findViewById(R.id.regButton);
 
         logInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 checkAdmin(username.getText().toString(), password.getText().toString());
 
-                final String requestAccURL = server_url + "?getacc=1&&username=" + username.getText().toString();
+                final String requestAccURL = server_url + "?username=" + username.getText().toString() +
+                        "&&password=" + password.getText().toString();
 
                 final RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, requestAccURL,
+                Log.i("URL:", requestAccURL);
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, requestAccURL,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                List<String> list = new ArrayList<String>();
 
-                                list = read(response);
+                                if(response.equals("Incorrect Username or Password")){
+                                    Log.i("Info", response);
+                                    Toast.makeText(MainActivity.this, "Account does not exist", Toast.LENGTH_LONG).show();
+                                } else{
+                                    List<String> list = new ArrayList<String>();
 
-                                UserAccount acc = new UserAccount(list);
+                                    list = read(response);
 
-                                if(acc.correctPass(password.getText().toString())){
-                                    Log.i("Info.", "log in verified");
-                                    Intent intent = new Intent(MainActivity.this,Main2Activity.class);
-                                    startActivity(intent);
-                                }
-                                else {
-                                    Log.i("Info.", "log in not verified");
+                                    UserAccount acc = new UserAccount(list);
+
+                                    if(acc.correctPass(password.getText().toString())){
+                                        Log.i("Info.", "log in verified");
+                                        Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                                        startActivity(intent);
+                                    }
+                                    else {
+                                        Log.i("Info.", "log in not verified");
+                                        Toast.makeText(MainActivity.this, "Incorrect password", Toast.LENGTH_LONG).show();
+                                    }
                                 }
 
                                 requestQueue.stop();
@@ -81,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                                 requestQueue.stop();
                             }
                         });
+
+                requestQueue.add(stringRequest);
             }
         });
 
@@ -102,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public void registerPage(){
         Intent intent = new Intent(this,Main3Activity.class);
         startActivity(intent);
+        finish();
     }
 
 }

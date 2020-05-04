@@ -3,15 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/other_gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/kobeImageView"
-        android:layout_width="500dp"
-        android:layout_height="610dp"
-        android:alpha=".95"
-        android:background="@drawable/background" />
 
     <EditText
         android:id="@+id/searchEditText"
@@ -85,12 +79,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/analyzeButton"
         android:layout_width="114dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:background="@drawable/neutral_button"
-        android:text="Search"
+        android:text="Analyze"
         android:textColor="@android:color/background_light"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
