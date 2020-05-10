@@ -1,15 +1,19 @@
 package com.mai.airwi.bestnbaapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -34,13 +38,14 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 
 public class BasketFragment extends Fragment {
 
-    String server_url = "http://1006f878.ngrok.io/";
+    String server_url = "http://57632804.ngrok.io/";
     String username = "JimMango";
 
     Button clearButton;
     Button analyzeButton;
-    TextView setDisplay;
-    TextView statusDisplay;
+    TextView scr1;
+    TableRow tableRow;
+    TableLayout basketTable;
 
     int numElements = 0;
 
@@ -51,28 +56,36 @@ public class BasketFragment extends Fragment {
 
         clearButton = (Button)view.findViewById(R.id.clearButton);
         analyzeButton = (Button)view.findViewById(R.id.analyzeButton);
-        setDisplay = (TextView)view.findViewById(R.id.setDisplay);
-        statusDisplay = (TextView)view.findViewById(R.id.statusText);
+        basketTable = (TableLayout)view.findViewById(R.id.basketTable);
 
-        setDisplay.setMovementMethod(new ScrollingMovementMethod());
+        // format columns
+        basketTable.setColumnStretchable(0, true);
+        basketTable.setColumnStretchable(1, true);
 
-        refreshDisplay(setDisplay, statusDisplay);
+        refreshDisplay();
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Clear button clicked");
 
-                final String controlURL = server_url + "clearset=1&&clearusername=" + username;
+                final String controlURL = server_url + "?clearplayer=1&&clearusername=" + username;
 
                 // HTTP request
                 final RequestQueue requestQueue = Volley.newRequestQueue( getActivity() );
 
+                Log.i("ULR", controlURL);
                 StringRequest clearRequest = new StringRequest(Request.Method.POST, controlURL,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 Log.i("Info", "Clear complete.");
+
+                                // deletes rows except for the first which contains headers
+                                while (basketTable.getChildCount() > 1){
+                                    basketTable.removeView(basketTable.getChildAt(basketTable.getChildCount() - 1));
+                                }
+
                                 requestQueue.stop();
                             }
                         },
@@ -87,8 +100,8 @@ public class BasketFragment extends Fragment {
 
                 requestQueue.add(clearRequest);
 
-                statusDisplay.setText("Set cleared.");
-                setDisplay.setText("You have no items in your set.");
+                //statusDisplay.setText("Set cleared.");
+                //setDisplay.setText("You have no items in your set.");
             }
         });
 
@@ -98,7 +111,7 @@ public class BasketFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Analyze button clicked");
 
-                statusDisplay.setText("Analyzing...");
+                //statusDisplay.setText("Analyzing...");
 
                 // FIXME: Calculate ETA from set length, countdown, start analyze fragment
 
@@ -109,18 +122,26 @@ public class BasketFragment extends Fragment {
         return view;
     }
 
-    public void refreshDisplay(TextView display, TextView status) {
-        // Ex: ["Royce O'Neale,1626220","Jeff Green,201145","Tobias Harris,202699"]
+    public void refreshDisplay() {
         final String refreshURL = server_url + "?userset=" + username;
-        final RequestQueue requestQueue = Volley.newRequestQueue( getActivity() );
+        final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
+        Log.i("URL", refreshURL);
         StringRequest refreshRequest = new StringRequest(Request.Method.POST, refreshURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.i("Info", "Refresh complete.");
                         // FIXME: parse json to table layout
+                        if(response.equals("empty userset")){
+                            return;
+                        }
+                        else{
+                            List<String> list = new ArrayList<String>();
+                            list = read(response);
 
+                            addToTable(list);
+                        }
                         requestQueue.stop();
                     }
                 },
@@ -135,18 +156,9 @@ public class BasketFragment extends Fragment {
         );
 
         requestQueue.add(refreshRequest);
-
-        status.setText("Set refreshed!");
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            refreshDisplay(setDisplay, statusDisplay);
-        }
-    }
-
+    // adjusted for needs of the basket page
     public static List<String> read(String result){
         List<String> set = new ArrayList<String>();
         int tempIndex = 1;
@@ -168,31 +180,27 @@ public class BasketFragment extends Fragment {
         return set;
     }
 
-    public static List<List<String>> splitRead(List<String>results){
-        List<List<String>> set = new ArrayList<List<String>>();
-        List<String> tempList = new ArrayList<String>();
+    public void addToTable(List<String> list){
 
-        for(int index = 0; index < results.size(); index++){
-            String tempString = results.get(index);
+        for(int i = 0; i < list.size(); i++){
+            // initialize row elements
+            scr1 = new TextView(BasketFragment.this.getActivity());
+            tableRow = new TableRow(BasketFragment.this.getActivity());
 
-            if(tempString.charAt(0) == '['){
-                tempString = tempString.substring(1, tempString.length() - 1);
-                //System.out.println(tempString);
-                tempList.add(tempString);
-            }
-            else if(tempString.charAt(tempString.length() - 1) == ']'){
-                tempString = tempString.substring(0, tempString.length() - 1);
-                tempList.add(tempString);
-                set.add(tempList);
+            String playerName= list.get(i);
 
-                tempList = new ArrayList<String>();
-            }
-            else{
-                tempList.add(tempString);
-            }
+            // format and add texts to the views
+            scr1.setText(playerName);
+            scr1.setGravity(Gravity.CENTER);
+            scr1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            scr1.setTextSize(15);
+
+            // add views into the rows
+            tableRow.addView(scr1);
+
+            // add row into the table
+            basketTable.addView(tableRow);
         }
-
-        return set;
     }
 }
 

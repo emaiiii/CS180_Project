@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SearchResultsPlayers extends AppCompatActivity {
 
-    String server_url = "http://44730df1.ngrok.io/";
+    String server_url = "http://57632804.ngrok.io/";
     String username = "JimMango";
 
     String response;
@@ -129,11 +129,12 @@ public class SearchResultsPlayers extends AppCompatActivity {
                     controlURL = server_url + "?addplayer=" + playerName + "&&addusername=" + username;
                 }
                 else { // EVEN -> Remove
-                    controlURL = server_url + "?removeplayer=" + playerName + "&&addusername=" + username;
+                    controlURL = server_url + "?delplayer=" + playerName + "&&delusername=" + username;
                 }
                 // HTTP request
                 final RequestQueue requestQueue = Volley.newRequestQueue( SearchResultsPlayers.this );
 
+                Log.i("URL", controlURL);
                 StringRequest controlRequest = new StringRequest(Request.Method.POST, controlURL,
                         new Response.Listener<String>() {
                             @Override
