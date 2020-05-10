@@ -127,6 +127,7 @@ public class BasketFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.i("Info", "Refresh error.");
                         error.printStackTrace();
                         requestQueue.stop();
                     }
