@@ -33,149 +33,63 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 public class BasketFragment extends Fragment {
 
     String server_url = "http://1006f878.ngrok.io/";
+    String username = "JimMango";
 
-    Button addButton;
     Button clearButton;
-    Button deleteButton;
     Button analyzeButton;
     TextView setDisplay;
     TextView statusDisplay;
-    EditText getGameID;
-    List<Games> userSet = new ArrayList<Games>();
+
+    //List<Games> userSet = new ArrayList<Games>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_basket, container, false);
 
-        addButton = (Button)view.findViewById(R.id.addButton);
         clearButton = (Button)view.findViewById(R.id.clearButton);
-        deleteButton = (Button)view.findViewById(R.id.deleteButton);
         analyzeButton = (Button)view.findViewById(R.id.analyzeButton);
         setDisplay = (TextView)view.findViewById(R.id.setDisplay);
         statusDisplay = (TextView)view.findViewById(R.id.statusText);
-        getGameID = (EditText)view.findViewById(R.id.getGameID);
 
         setDisplay.setMovementMethod(new ScrollingMovementMethod());
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Info", "Add button clicked");
-
-                String query = getGameID.getText().toString();
-
-                if (query.isEmpty()) {
-                    statusDisplay.setText("Invalid entry.");
-                }
-                else {
-                    final String gameSearchURL = server_url + "?gameid=" + query; // "URL/?gameid=xxxxxx"
-
-                    final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-
-                    StringRequest gameRequest = new StringRequest(Request.Method.POST, gameSearchURL,
-                            new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    Log.i("Info", "Successful connection");
-
-                                    if (response.equals("no game found")) {
-                                        statusDisplay.setText("Error: Game not found.");
-                                    } else {
-                                        List<String> list = new ArrayList<String>();
-                                        String toDisplay;
-                                        String currentDisplay;
-
-                                        list = read(response);
-
-                                        Games game = new Games(list);
-                                        userSet.add(game);
-
-                                        // clear the TextView before printing all games again
-                                        setDisplay.setText(" ");
-                                        for(int i = 0; i < userSet.size(); ++i) {
-                                            currentDisplay = setDisplay.getText().toString();
-                                            userSet.get(i).print(setDisplay, currentDisplay);
-                                        }
-                                        statusDisplay.setText("Game added.");
-                                    }
-
-                                    requestQueue.stop();
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    statusDisplay.setText("HTTP Error.");
-                                    setDisplay.setText(gameSearchURL);
-                                    error.printStackTrace();
-                                    requestQueue.stop();
-                                }
-                            }
-                    );
-
-                    gameRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
-                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                    requestQueue.add(gameRequest);
-                }
-            }
-        });
+        // FIXME: add setDisplay refresh
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Clear button clicked");
 
-                if(!userSet.isEmpty()) {
-                    userSet = new ArrayList<Games>();
-                }
+                final String controlURL = server_url + "clearset=1&&clearusername=" + username;
+
+                // HTTP request
+                final RequestQueue requestQueue = Volley.newRequestQueue( getActivity() );
+
+                StringRequest clearRequest = new StringRequest(Request.Method.POST, controlURL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.i("Info", "Clear complete.");
+                                requestQueue.stop();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                error.printStackTrace();
+                                requestQueue.stop();
+                            }
+                        }
+                );
+
+                requestQueue.add(clearRequest);
 
                 statusDisplay.setText("Set cleared.");
-                setDisplay.setText("You have no games in your set.");
-
+                setDisplay.setText("You have no items in your set.");
             }
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("Info", "Delete button clicked");
-
-                if (userSet.isEmpty()) {
-                    statusDisplay.setText("Set is empty.");
-                }
-                else {
-                    String query = getGameID.getText().toString();
-                    int searchID = Integer.parseInt(query);
-                    int removeIndex;
-
-                    for(removeIndex = 0; removeIndex < userSet.size(); ++removeIndex) {
-                        if(searchID == userSet.get(removeIndex).getGame_id()) {
-                            break;
-                        }
-                    }
-
-                    if( removeIndex == userSet.size() ){
-                        statusDisplay.setText("Game not found.");
-                    }
-                    else {
-                        String currentDisplay;
-                        userSet.remove(removeIndex);
-                        statusDisplay.setText("Game deleted.");
-
-                        // clear the TextView before printing all games again
-                        setDisplay.setText(" ");
-                        for(int i = 0; i < userSet.size(); ++i) {
-                            currentDisplay = setDisplay.getText().toString();
-                            userSet.get(i).print(setDisplay, currentDisplay);
-                        }
-                    }
-                }
-
-            }
-        });
 
         analyzeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,7 +97,6 @@ public class BasketFragment extends Fragment {
                 Log.i("Info", "Analyze button clicked");
 
                 statusDisplay.setText("Analyze pending implementation.");
-
             }
         });
 
