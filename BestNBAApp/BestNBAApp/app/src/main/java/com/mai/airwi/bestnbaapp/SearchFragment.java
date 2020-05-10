@@ -32,7 +32,7 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://d8667881.ngrok.io/";
+    String server_url = "http://44730df1.ngrok.io/";
 
     Button searchButton;
     TextView textView;
@@ -92,26 +92,15 @@ public class SearchFragment extends Fragment {
                                         Log.i("Info", "Successful connection");
 
                                         if (response.equals("no player found")) {
-                                            textView.setText("no player found");
+                                            Toast.makeText(SearchFragment.this.getActivity(), "No Player Found", Toast.LENGTH_SHORT).show();
                                         }
                                         else {
-                                            //List<String> list = new ArrayList<String>();
-                                            //String toDisplay;
 
-                                            //list = read(response);
-
+                                            // move to the results page and send the server response
                                             Intent intent = new Intent(SearchFragment.this.getActivity(), SearchResultsPlayers.class);
                                             intent.putExtra("response", response);
                                             startActivity(intent);
 
-                                            // encapsulate player data
-                                            //Player playerData = new Player(list);
-
-                                            /*toDisplay = "Player Name: " + playerData.getPlayerName();
-                                            toDisplay = toDisplay + "\nTeam ID: " + playerData.getTeamID();
-                                            toDisplay = toDisplay + "\nPlayer ID: " + playerData.getPlayerID();
-                                            toDisplay = toDisplay + "\nSeason: " + playerData.getSeason();
-                                            textView.setText(toDisplay);*/
                                         }
 
                                         requestQueue.stop();

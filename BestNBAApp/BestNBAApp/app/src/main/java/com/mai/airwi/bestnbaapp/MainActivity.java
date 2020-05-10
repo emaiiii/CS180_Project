@@ -24,7 +24,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class MainActivity extends AppCompatActivity {
 
-    String server_url = "http://d8667881.ngrok.io/";
+    String server_url = "http://44730df1.ngrok.io/";
 
     EditText username;
     EditText password;
@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                checkAdmin(username.getText().toString(), password.getText().toString());
+                if(checkAdmin(username.getText().toString(), password.getText().toString())){
+                    return;
+                }
 
                 final String reqAccURL = server_url + "?username=" + username.getText().toString() +
                         "&&password=" + password.getText().toString();
@@ -91,12 +93,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void checkAdmin(String username, String password){
+    public boolean checkAdmin(String username, String password){
         if(username.equals("admin") && password.equals("123")){
             Intent intent = new Intent(this, Main2Activity.class);
             startActivity(intent);
-            finish();
+
+            return true;
         }
+
+        return false;
     }
 
     public void registerPage(){
