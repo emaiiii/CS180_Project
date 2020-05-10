@@ -1,5 +1,6 @@
 package com.mai.airwi.bestnbaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,7 +32,7 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://beff686f.ngrok.io/";
+    String server_url = "http://d8667881.ngrok.io/";
 
     Button searchButton;
     TextView textView;
@@ -93,19 +95,23 @@ public class SearchFragment extends Fragment {
                                             textView.setText("no player found");
                                         }
                                         else {
-                                            List<String> list = new ArrayList<String>();
-                                            String toDisplay;
+                                            //List<String> list = new ArrayList<String>();
+                                            //String toDisplay;
 
-                                            list = read(response);
+                                            //list = read(response);
 
-                                            //code for player display
-                                            Player playerData = new Player(list);
+                                            Intent intent = new Intent(SearchFragment.this.getActivity(), SearchResultsPlayers.class);
+                                            intent.putExtra("response", response);
+                                            startActivity(intent);
 
-                                            toDisplay = "Player Name: " + playerData.getPlayerName();
+                                            // encapsulate player data
+                                            //Player playerData = new Player(list);
+
+                                            /*toDisplay = "Player Name: " + playerData.getPlayerName();
                                             toDisplay = toDisplay + "\nTeam ID: " + playerData.getTeamID();
                                             toDisplay = toDisplay + "\nPlayer ID: " + playerData.getPlayerID();
                                             toDisplay = toDisplay + "\nSeason: " + playerData.getSeason();
-                                            textView.setText(toDisplay);
+                                            textView.setText(toDisplay);*/
                                         }
 
                                         requestQueue.stop();
@@ -115,7 +121,9 @@ public class SearchFragment extends Fragment {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
 
-                                        textView.setText("Search Error: No response from server." + "\nRequest:\n" + playerSearchURL);
+                                        searchField.setText("");
+                                        searchField.setHint("Error: no response from server");
+
                                         error.printStackTrace();
                                         requestQueue.stop();
                                     }
