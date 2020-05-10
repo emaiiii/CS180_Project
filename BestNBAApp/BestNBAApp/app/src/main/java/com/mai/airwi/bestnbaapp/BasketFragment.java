@@ -20,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class BasketFragment extends Fragment {
     TextView setDisplay;
     TextView statusDisplay;
 
-    //List<Games> userSet = new ArrayList<Games>();
+    int numElements = 0;
 
     @Nullable
     @Override
@@ -54,7 +56,7 @@ public class BasketFragment extends Fragment {
 
         setDisplay.setMovementMethod(new ScrollingMovementMethod());
 
-        // FIXME: add setDisplay refresh
+        refreshDisplay(setDisplay, statusDisplay);
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +98,52 @@ public class BasketFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Analyze button clicked");
 
-                statusDisplay.setText("Analyze pending implementation.");
+                statusDisplay.setText("Analyzing...");
+
+                // FIXME: Calculate ETA from set length, countdown, start analyze fragment
+
             }
         });
 
 
         return view;
+    }
+
+    public void refreshDisplay(TextView display, TextView status) {
+        // Ex: ["Royce O'Neale,1626220","Jeff Green,201145","Tobias Harris,202699"]
+        final String refreshURL = server_url + "?userset=" + username;
+        final RequestQueue requestQueue = Volley.newRequestQueue( getActivity() );
+
+        StringRequest refreshRequest = new StringRequest(Request.Method.POST, refreshURL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("Info", "Refresh complete.");
+                        // FIXME: parse json to table layout
+
+                        requestQueue.stop();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        requestQueue.stop();
+                    }
+                }
+        );
+
+        requestQueue.add(refreshRequest);
+
+        status.setText("Set refreshed!");
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            refreshDisplay(setDisplay, statusDisplay);
+        }
     }
 
     public static List<String> read(String result){
