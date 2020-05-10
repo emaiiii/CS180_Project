@@ -138,7 +138,7 @@ public class SearchResultsPlayers extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.i("Info", "Control sent. Add = " + String.valueOf(add));
+                                Log.i("Info", "Control sent. Control = " + String.valueOf(control));
 
                                 if (control % 2 == 1) {
                                     controlButton.setText("REMOVE");
