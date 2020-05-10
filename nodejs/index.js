@@ -284,7 +284,7 @@ const server = http.createServer(function (req,res) {
         console.log('---------------------');
         console.log('User Login');
 
-        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\users.csv','utf8',function (err,data) {
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\account.csv','utf8',function (err,data) {
           //cannot open file
           if (err) {
             console.error(err);
@@ -295,7 +295,7 @@ const server = http.createServer(function (req,res) {
             console.log(qdata.username);
             var ret = process_data(data);
             var hashmap = ret.hashmap;
-            var indices = hashmap['username'][qdata.username];
+            var indices = hashmap['username'][qdata.username.toLowerCase()];
             //no username found
             if(indices == undefined) {
               console.log('Incorrect Username');
@@ -306,7 +306,6 @@ const server = http.createServer(function (req,res) {
               var userIdx = indices[0];
               console.log(qdata.password);
               var ret = process_data(data);
-              var table = ret.table;
               var hashmap = ret.hashmap;
               var indices = hashmap['password'][qdata.password];
               if(userIdx == indices) {
@@ -328,7 +327,7 @@ const server = http.createServer(function (req,res) {
     //user register
     else if(qdata.register == 1) {
 
-        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\users.csv','utf8',function (err,data) {
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\account.csv','utf8',function (err,data) {
           //cannot open file
           if (err) {
             console.error(err);
@@ -347,9 +346,9 @@ const server = http.createServer(function (req,res) {
             }
             //username not used
             else{
-              var input = qdata.username + ',' + qdata.password + ',' + qdata.firstname + ',' + qdata.lastname + ',' + qdata.email + '\n';
+              var input = qdata.username + ',' + qdata.password + ',' + qdata.firstname + ',' + qdata.lastname + ',' + qdata.email + '\r\n';
               console.log(input);
-              fs.appendFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\users.csv', input, 'utf8', function(err) {
+              fs.appendFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\account.csv', input, 'utf8', function(err) {
                 if(err) return console.log(err);
               });
               send_payload(res,'Register Successful');
@@ -402,24 +401,24 @@ const server = http.createServer(function (req,res) {
                   console.error(err);
                 }
                 else {
-                var fgm = avg_data(data,4, 9,playerID).toFixed(2);
-                var fga = avg_data(data,4,10,playerID).toFixed(2);
-                var fg_pct = avg_data(data,4,11,playerID).toFixed(3);
-                var fg3m = avg_data(data,4,12,playerID).toFixed(2);
-                var fg3a = avg_data(data,4,13,playerID).toFixed(2);
-                var fg3_pct = avg_data(data,4,14,playerID).toFixed(3);
-                var ftm = avg_data(data,4,15,playerID).toFixed(2);
-                var fta = avg_data(data,4,16,playerID).toFixed(2);
-                var ft_pct = avg_data(data,4,17,playerID).toFixed(3);
-                var oreb = avg_data(data,4,18,playerID).toFixed(2);
-                var dreb = avg_data(data,4,19,playerID).toFixed(2);
-                var reb = avg_data(data,4,20,playerID).toFixed(2);
-                var ast = avg_data(data,4,21,playerID).toFixed(2);
-                var stl = avg_data(data,4,22,playerID).toFixed(2);
-                var blk = avg_data(data,4,23,playerID).toFixed(2);
-                var to = avg_data(data,4,24,playerID).toFixed(2);
-                var pf = avg_data(data,4,25,playerID).toFixed(2);
-                var pts = avg_data(data,4,26,playerID).toFixed(2);
+                var fgm = avg_data(data,4,5,9,playerID).toFixed(2);
+                var fga = avg_data(data,4,5,10,playerID).toFixed(2);
+                var fg_pct = avg_data(data,4,5,11,playerID).toFixed(3);
+                var fg3m = avg_data(data,4,5,12,playerID).toFixed(2);
+                var fg3a = avg_data(data,4,5,13,playerID).toFixed(2);
+                var fg3_pct = avg_data(data,4,5,14,playerID).toFixed(3);
+                var ftm = avg_data(data,4,5,15,playerID).toFixed(2);
+                var fta = avg_data(data,4,5,16,playerID).toFixed(2);
+                var ft_pct = avg_data(data,4,5,17,playerID).toFixed(3);
+                var oreb = avg_data(data,4,5,18,playerID).toFixed(2);
+                var dreb = avg_data(data,4,5,19,playerID).toFixed(2);
+                var reb = avg_data(data,4,5,20,playerID).toFixed(2);
+                var ast = avg_data(data,4,5,21,playerID).toFixed(2);
+                var stl = avg_data(data,4,5,22,playerID).toFixed(2);
+                var blk = avg_data(data,4,5,23,playerID).toFixed(2);
+                var to = avg_data(data,4,5,24,playerID).toFixed(2);
+                var pf = avg_data(data,4,5,25,playerID).toFixed(2);
+                var pts = avg_data(data,4,5,26,playerID).toFixed(2);
                 var all_stats = fgm + "," + fga + "," + fg_pct + "," + fg3m + "," + fg3a + "," + fg3_pct + "," + ftm + "," + fta + "," + ft_pct + "," + oreb + "," + dreb + "," + reb + "," + ast + "," + stl + "," + blk + "," + to + "," + pf + "," + pts;
                 console.log(all_stats);
                 send_payload(res,all_stats);
@@ -490,14 +489,157 @@ const server = http.createServer(function (req,res) {
                   console.log(stats);
                   send_payload(res,stats);
                 }
-
-
-
               });
             }
           }
         });
       }
+    }
+
+    //send userset player data
+    else if(qdata.userset != undefined) {
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\' + qdata.userset + '.csv';
+      console.log('sending userset info');
+      console.log(qdata.userset);
+      
+
+      fs.readFile(path,'utf8',function (err,csv_data) {
+        //cannot open file
+        if (err) {
+          console.error(err);
+          send_payload(res,'empty userset');
+        }
+        //file opened
+        else {
+          var data = send_data(csv_data);
+          send_payload(res,JSON.stringify(data));
+        }
+      });
+    }
+
+    //adding player to userset
+    else if(qdata.addplayer != undefined) {
+      console.log('----------------------');
+      console.log('adding player to userset')
+      console.log(qdata.addplayer);
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\' + qdata.addusername + '.csv';
+      fs.readFile(path,'utf8',function (err,csv_data) {
+        //cannot open file, create a new file
+        if (err) {
+          console.log('creating a file');
+          fs.appendFile(path, 'playername \r\n', 'utf8', function(err) {
+            if(err) return console.log(err);
+          });
+          fs.appendFile(path, qdata.addplayer + '\r\n', 'utf8', function(err) {
+            if(err) return console.log(err);
+          });
+          send_payload(res,'player added to userset');
+        }
+        //file opened
+        else {
+          //check if player exists in set already
+          var userSetData = csv_data.split(/\r?\n/);
+          var found = 0;
+
+          userSetData.forEach((element) => {
+            if(element.toLowerCase() == qdata.addplayer.toLowerCase()) {
+              console.log('player already exists in set');
+              send_payload(res,'player already exists in set');
+              found = 1;
+            }
+          })
+          
+          if(found == 0) {
+            fs.appendFile(path, qdata.addplayer + '\r\n', 'utf8', function(err) {
+              if(err) return console.log(err);
+            });
+            send_payload(res,'player added to userset');
+          }
+          
+          
+
+        }
+      });
+    }
+
+    //clearing userset
+    else if(qdata.clearplayer == 1) {
+      console.log('----------------------');
+      console.log('clear player userset')
+      console.log(qdata.clearusername);
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\' + qdata.clearusername + '.csv';
+
+      fs.unlink(path,(err) => {
+        if(err) {
+          console.log('already cleared');
+        }
+        else {
+          console.log('cleared');
+        }
+      })
+
+    }
+
+    //deleting from userset
+    else if(qdata.delplayer != undefined) {
+      console.log('---------------------------');
+      console.log('delete player from userset')
+      console.log(qdata.delusername);
+      console.log(qdata.delplayer);
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\' + qdata.delusername + '.csv';
+      fs.readFile(path,'utf8',function (err,csv_data) {
+        //cannot open file
+        if (err) {
+          console.error(err);
+        }
+        //file opened
+        else {
+          var userData = csv_data.split(/\r?\n/);
+          var idx = -1;
+          var count = 0;
+
+          userData.forEach(element => {
+            if(element.toLowerCase() == qdata.delplayer.toLowerCase()) {
+              idx = count; 
+            }
+            count++;
+          });
+
+          if(idx == -1) {
+            send_payload(res,'no player found');
+            console.log('no player found');
+          }
+          else{
+            userData.splice(idx,1);
+            var input = '';
+            userData.forEach(element => {
+              if(element != '') {
+                input += element + '\r\n';
+              }
+            });
+            
+            if(userData[1] == '') {
+              fs.unlink(path,(err) => {
+                if(err) {
+                  console.log('already cleared');
+                }
+                else {
+                  console.log('cleared');
+                }
+              })
+            }
+            else {
+              fs.writeFile(path,input, function(err,data) {
+                if(err) {
+                  return console.err(err);
+                }
+              })
+            }
+            console.log('player deleted');
+            send_payload(res,'player deleted');
+          }
+        }
+      });
     }
 
     else {
@@ -517,7 +659,27 @@ function send_payload(res, msg) {
   res.end();
 }
 
-function avg_data(csv_data,check_idx,second_idx,idx,search) {
+function send_data(data) {
+  var userdata = data.split(/\r?\n/);
+
+  //if userset is empty
+  if(userdata[0] == '') {
+    console.log('empty userset');
+    return ('empty userset');
+  }
+  
+  else {
+    userdata.shift();
+    if(userdata.slice(-1).pop() == '') {
+      userdata.pop();
+    }
+    console.log(userdata);
+    return (userdata);
+  }
+
+}
+
+function avg_data(csv_data,check_idx,second_idx,idx,search, team) {
   var avg = 0;
   var count = 0;
 
@@ -554,6 +716,11 @@ function process_data(csv_data) {
     var cols = row.split(",");
     table.push(cols);
     cols.forEach(function(col, col_idx){
+      /* 
+      Get rid of weird invisible characters that don't belong to UTF-8 (eg. accept only 0x20 - 0x7F). See UTF-8 table: http://www.asciitable.com/.
+      Try out regex here: https://regex101.com/ 
+      */
+      col = col.replace(/[^\x20-\x7F]+/g, '');
       col = col.toLowerCase();
       if (row_idx === 0) {
         hashmap[col] = {};
