@@ -5,15 +5,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResultsPlayers extends AppCompatActivity {
+
+    String server_url = "http://44730df1.ngrok.io/";
+    String username = "JimMango";
 
     String response;
     List<String> list;
@@ -21,11 +34,16 @@ public class SearchResultsPlayers extends AppCompatActivity {
     TextView scr1, scr2, scr3, scr4;
     TableLayout playerTable;
     TableRow tableRow;
+    Button controlButton;
+    int control;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results_players);
+
+        // control set
+        control = 0;
 
         // must initialize the components that you ae going to create
         scr1 = new TextView(this);
@@ -50,7 +68,7 @@ public class SearchResultsPlayers extends AppCompatActivity {
         list = read(response);
 
         Player player = new Player(list);
-        String name,season,tid,pid;
+        final String name,season,tid,pid;
 
         name = player.getPlayerName();
         tid = Integer.toString(player.getTeamID());
@@ -92,6 +110,62 @@ public class SearchResultsPlayers extends AppCompatActivity {
 
         // put the row into the table
         playerTable.addView(tableRow);
+
+        controlButton = (Button)findViewById(R.id.addButton);
+
+        controlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Info", "Add button clicked");
+
+                control += 1; // if control = even -> not in set (show add), else (show remove)
+
+                // generate URL
+                // ?addplayer=kobe%20bryant&&addusername=mango
+                final String playerName = name.replace(" ","%20");
+                String controlURL = "";
+
+                if (control % 2 == 1) { // ODD -> Add
+                    controlURL = server_url + "?addplayer=" + playerName + "&&addusername=" + username;
+                }
+                else { // EVEN -> Remove
+                    controlURL = server_url + "?removeplayer=" + playerName + "&&addusername=" + username;
+                }
+                // HTTP request
+                final RequestQueue requestQueue = Volley.newRequestQueue( SearchResultsPlayers.this );
+
+                StringRequest controlRequest = new StringRequest(Request.Method.POST, controlURL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.i("Info", "Control sent. Add = " + String.valueOf(add));
+
+                                if (control % 2 == 1) {
+                                    controlButton.setText("REMOVE");
+                                }
+                                else {
+                                    controlButton.setText("ADD");
+                                }
+
+                                requestQueue.stop();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                error.printStackTrace();
+                                requestQueue.stop();
+                            }
+                        }
+                );
+
+                controlRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                requestQueue.add(controlRequest);
+            }
+        });
     }
 
     public static List<String> read(String result){
