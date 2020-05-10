@@ -58,4 +58,12 @@
         </TableRow>
     </TableLayout>
 
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/neutral_button"
+        android:textColor="@android:color/background_light"
+        android:text="Add" />
+
 </LinearLayout>
