@@ -91,17 +91,9 @@ public class AnalyzeFragment extends Fragment {
                                         statDisplay.setText("no player found");
                                     } else {
                                         List<String> list = new ArrayList<String>();
-                                        String toDisplay = "";
+                                        String toDisplay = "POSITION: " + pos + "\nRESPONSE:\n:" + response;
 
-                                        list = read(response);
-
-                                        // parse details to display and LOAD
-                                        // just print the list of strings for display
-                                        for (int i = 0; i < list.size(); ++i) {
-                                            toDisplay += list.get(i);
-                                        }
                                         statDisplay.setText(toDisplay);
-
                                     }
 
                                     requestQueue.stop();
@@ -116,7 +108,7 @@ public class AnalyzeFragment extends Fragment {
                             }
                     );
 
-                    statRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                    statRequest.setRetryPolicy(new DefaultRetryPolicy(15000,
                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
@@ -165,17 +157,9 @@ public class AnalyzeFragment extends Fragment {
                                         statDisplay.setText("no player found");
                                     } else {
                                         List<String> list = new ArrayList<String>();
-                                        String toDisplay = "";
+                                        String toDisplay = "POSITION: " + pos + "\nRESPONSE:\n:" + response;
 
-                                        list = read(response);
-
-                                        // parse details to display and LOAD
-                                        // just print the list of strings for display
-                                        for (int i = 0; i < list.size(); ++i) {
-                                            toDisplay += list.get(i);
-                                        }
                                         statDisplay.setText(toDisplay);
-
                                     }
 
                                     requestQueue.stop();
@@ -190,7 +174,7 @@ public class AnalyzeFragment extends Fragment {
                             }
                     );
 
-                    statRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                    statRequest.setRetryPolicy(new DefaultRetryPolicy(15000,
                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
@@ -231,10 +215,9 @@ public class AnalyzeFragment extends Fragment {
                                         statDisplay.setText("no player found");
                                     } else {
                                         List<String> list = new ArrayList<String>();
-                                        String toDisplay = response;
+                                        String toDisplay = "POSITION: " + pos + "\nRESPONSE:\n:" + response;
 
                                         statDisplay.setText(toDisplay);
-
                                     }
 
                                     requestQueue.stop();
@@ -248,7 +231,7 @@ public class AnalyzeFragment extends Fragment {
                                 }
                             }
                     );
-                    statRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                    statRequest.setRetryPolicy(new DefaultRetryPolicy(15000,
                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     requestQueue.add(statRequest);
