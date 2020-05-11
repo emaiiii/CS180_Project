@@ -60,11 +60,37 @@ public class AnalyzeFragment extends Fragment {
         prevButton = (Button) view.findViewById(R.id.prevButton);
         refreshButton = (Button) view.findViewById(R.id.refresh);
 
-        // make init request: userset is at 0 or at null
-        // if at any point null, redirect text to say no items in set
-        // if 0, load data for 0 averages
-        // next sends up (if at max send back to 0) --> CIRCULAR
-        // prev is like next in reverse --> CIRCULAR
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Info", "Next button clicked");
+                // FIXME: NEXT BUTTON
+            }
+        });
+
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Info", "Prev button clicked");
+                // FIXME: prev BUTTON
+            }
+        });
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Info", "Refresh button clicked");
+                // FIXME: refresh BUTTON
+            }
+        });
+
+
+        // FIXME: make init request: userset is at 0 or at null
+        // FIXME: if at any point null, redirect text to say no items in set
+        // FIXME: if 0, load data for 0 averages
+
+        // FIXME: next sends up (if at max send back to 0) --> CIRCULAR
+        // FIXME: prev is like next in reverse --> CIRCULAR
 
         String playerName = ""; // FIXME: fxn to get player name @ pos
         final String statURL = server_url + "?playername=" + playerName + "&&username=" + username;
@@ -85,17 +111,18 @@ public class AnalyzeFragment extends Fragment {
                         }
                         else {
                             List<String> list = new ArrayList<String>();
-                            String toDisplay;
+                            String toDisplay = "";
 
                             list = read(response);
 
                             // code for team display
                             Team teamData = new Team(list);
 
-                            // FIXME: parse details to display
-                            toDisplay = "Team ID: " + teamData.getTeamID();
-                            toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
-                            toDisplay = toDisplay + "\nMax. Year: " + teamData.getMaxYear();
+                            // FIXME: parse details to display and LOAD
+                                // might just print the list of strings for display
+
+                            //toDisplay = "Team ID: " + teamData.getTeamID();
+                            //toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
 
                             statDisplay.setText(toDisplay);
 
@@ -116,20 +143,7 @@ public class AnalyzeFragment extends Fragment {
 
         requestQueue.add(statRequest);
 
-        // FIXME: load data from intent
-        //response = getIntent().getExtras().getString("response");
-
-        /*
-        // encapsulate data into object
-        list = new ArrayList<String>();
-        list = read(response);
-        Player player = new Player(list);
-
-
-
-
-*/
-
         return view;
     }
+
 }
