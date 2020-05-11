@@ -41,7 +41,7 @@
     <TableLayout
         android:id="@+id/basketTable"
         android:layout_width="384dp"
-        android:layout_height="550dp"
+        android:layout_height="420dp"
         android:background="#808080"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
