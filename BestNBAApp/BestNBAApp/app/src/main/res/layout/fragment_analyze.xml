@@ -16,7 +16,7 @@
         android:layout_marginRight="60dp"
         android:layout_marginTop="35dp"
         android:background="@drawable/negative_button"
-        android:text=">>"
+        android:text="NEXT"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/basketTable" />
@@ -31,7 +31,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="35dp"
         android:background="@drawable/neutral_button"
-        android:text="<<"
+        android:text="PREV"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toStartOf="@+id/clearButton"
         app:layout_constraintHorizontal_bias="0.6"

@@ -46,7 +46,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchButton = (Button)view.findViewById(R.id.searchButton);
-        textView = (TextView)view.findViewById(R.id.setDisplay);
+        textView = (TextView)view.findViewById(R.id.textView);
         searchField = (EditText)view.findViewById(R.id.searchEditText);
         category = (Switch)view.findViewById(R.id.switchCategory);
 
