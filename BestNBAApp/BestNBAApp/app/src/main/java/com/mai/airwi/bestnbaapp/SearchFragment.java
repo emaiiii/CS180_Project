@@ -32,7 +32,7 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://57632804.ngrok.io/";
+    String server_url = "http://58a7402c.ngrok.io/";
 
     Button searchButton;
     TextView textView;
@@ -95,12 +95,10 @@ public class SearchFragment extends Fragment {
                                             Toast.makeText(SearchFragment.this.getActivity(), "No Player Found", Toast.LENGTH_SHORT).show();
                                         }
                                         else {
-
                                             // move to the results page and send the server response
                                             Intent intent = new Intent(SearchFragment.this.getActivity(), SearchResultsPlayers.class);
                                             intent.putExtra("response", response);
                                             startActivity(intent);
-
                                         }
 
                                         requestQueue.stop();

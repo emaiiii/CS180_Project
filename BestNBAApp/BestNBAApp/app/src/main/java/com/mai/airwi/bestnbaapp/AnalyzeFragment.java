@@ -33,7 +33,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class AnalyzeFragment extends Fragment {
 
-    String server_url = "http://a45dcfe8.ngrok.io/";
+    String server_url = "http://58a7402c.ngrok.io/";
     TextView setDisplay;
     EditText searchEditText;
     Button analyzeButton;

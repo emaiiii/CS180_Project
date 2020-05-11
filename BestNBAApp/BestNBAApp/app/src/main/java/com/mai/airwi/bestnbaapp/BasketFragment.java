@@ -38,7 +38,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 
 public class BasketFragment extends Fragment {
 
-    String server_url = "http://57632804.ngrok.io/";
+    String server_url = "http://58a7402c.ngrok.io/";
     String username = "JimMango";
 
     Button clearButton;
@@ -105,19 +105,15 @@ public class BasketFragment extends Fragment {
             }
         });
 
-
         analyzeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Analyze button clicked");
 
-                //statusDisplay.setText("Analyzing...");
-
-                // FIXME: Calculate ETA from set length, countdown, start analyze fragment
+                // FIXME: INTENT TO (SWITCH TO ANALYZE FRAGMENT)
 
             }
         });
-
 
         return view;
     }
