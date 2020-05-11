@@ -1,5 +1,6 @@
 package com.mai.airwi.bestnbaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,8 @@ import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -47,12 +48,40 @@ public class AnalyzeFragment extends Fragment {
 
     Button nextButton;
     Button prevButton;
+    Button refreshButton;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analyze, container, false);
 
+
+        nextButton = (Button)view.findViewById(R.id.nextButton);
+        prevButton = (Button) view.findViewById(R.id.prevButton);
+        refreshButton = (Button) view.findViewById(R.id.refresh);
+
+
+        // must initialize the components that you ae going to create
+        scr1 = new TextView(getActivity());
+        scr2 = new TextView(getActivity());
+        scr3 = new TextView(getActivity());
+        scr4 = new TextView(getActivity());
+
+        tableRow = new TableRow(getActivity());
+        playerTable = (TableLayout)view.findViewById(R.id.PlayerSearchTable);
+
+        /* FIXME
+        // format columns
+        playerTable.setColumnStretchable(0, true);
+        playerTable.setColumnStretchable(1, true);
+        playerTable.setColumnStretchable(2, true);
+        playerTable.setColumnStretchable(3, true);
+        */
+
+        // FIXME: load data from intent
+        //response = getIntent().getExtras().getString("response");
+
+        list = new ArrayList<String>();
 
 
         return view;

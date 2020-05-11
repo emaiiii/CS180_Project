@@ -1,5 +1,6 @@
 package com.mai.airwi.bestnbaapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -112,6 +113,9 @@ public class BasketFragment extends Fragment {
 
                 // FIXME: INTENT TO (SWITCH TO ANALYZE FRAGMENT)
 
+                Intent intent = new Intent(BasketFragment.this.getActivity(), AnalyzeFragment.class);
+                //intent.putExtra("response", response);
+                startActivity(intent);
             }
         });
 
