@@ -19,7 +19,7 @@ import com.android.volley.toolbox.Volley;
 //registration
 public class Main3Activity extends AppCompatActivity {
 
-    String server_url = "http://58a7402c.ngrok.io/";
+    String server_url = "http://4e8c77dc.ngrok.io/";
 
     EditText rUserName, rFirstName, rLastName, rEmail, rPassword, rPasswordConf;
     Button registerButton;

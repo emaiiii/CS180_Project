@@ -36,11 +36,10 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class AnalyzeFragment extends Fragment {
 
-    String server_url = "http://58a7402c.ngrok.io/";
+    String server_url = "http://4e8c77dc.ngrok.io/";
     String username = "JimMango";
 
     String response;
-    List<String> list;
 
     TextView statDisplay;
 
@@ -49,6 +48,7 @@ public class AnalyzeFragment extends Fragment {
     Button refreshButton;
 
     int pos = 0; // POSITION of stat view in set
+    List<String> userSet;
 
     @Nullable
     @Override
@@ -66,7 +66,8 @@ public class AnalyzeFragment extends Fragment {
                 Log.i("Info", "Next button clicked");
 
                 pos += 1;
-                // new http request + display
+                // new http request
+                // display
 
             }
         });
@@ -76,9 +77,15 @@ public class AnalyzeFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Prev button clicked");
 
+                //String get = userSet.get(0);
+                //get = get.replace(" ", "%20");
+                //statDisplay.setText(get);
+
                 if (pos > 0){
                     pos -= 1;
-                    // new http request + display
+
+                    // new HTTP request
+                    // display
                 }
             }
         });
@@ -87,69 +94,97 @@ public class AnalyzeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Refresh button clicked");
-                // FIXME: refresh BUTTON
+
+                String playerName = userSet.get(pos);
+                playerName = playerName.replace(" ", "%20");
+
+                //final String statURL = server_url + "?playername=" + playerName + "&&username=" + username;
+                final String statURL = server_url + "?playername=" + "Kobe%20Bryant" + "&&username=" + username;
+
+                // HTTP request
+                //
+                final RequestQueue requestQueue = Volley.newRequestQueue( getActivity() );
+
+                Log.i("ULR", statURL);
+                StringRequest statRequest = new StringRequest(Request.Method.POST, statURL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.i("Info", "Init request complete.");
+
+                                if (response.equals("no player found")) {
+                                    statDisplay.setText("no player found");
+                                }
+                                else {
+                                    List<String> list = new ArrayList<String>();
+                                    String toDisplay = "";
+
+                                    list = read(response);
+
+                                    // parse details to display and LOAD
+                                    // just print the list of strings for display
+                                    for(int i = 0; i < list.size(); ++i) {
+                                        toDisplay += list.get(i);
+                                    }
+                                    statDisplay.setText(toDisplay);
+
+                                }
+
+                                requestQueue.stop();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                error.printStackTrace();
+                                requestQueue.stop();
+                            }
+                        }
+                );
+                requestQueue.add(statRequest);
+                //
             }
         });
 
+        pullSet();
 
-        // make init request: userset is at 0 or at null
-        // FIXME: if at any point null, redirect text to say no items in set
-        // FIXME: if 0, load data for 0 averages
+        return view;
+    }
 
-        // FIXME: next sends up (if at max send back to 0) --> CIRCULAR
-        // FIXME: prev is like next in reverse --> CIRCULAR
+    public void pullSet() {
+        final String refreshURL = server_url + "?userset=" + username;
+        final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-        String playerName = ""; // FIXME: fxn to get player name @ pos
-        final String statURL = server_url + "?playername=" + playerName + "&&username=" + username;
-
-        // HTTP request
-        //
-        final RequestQueue requestQueue = Volley.newRequestQueue( getActivity() );
-
-        Log.i("ULR", statURL);
-        StringRequest statRequest = new StringRequest(Request.Method.POST, statURL,
+        Log.i("URL", refreshURL);
+        StringRequest refreshRequest = new StringRequest(Request.Method.POST, refreshURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("Info", "Request complete.");
-
-                        if (response.equals("no player found")) {
-                            statDisplay.setText("no player found");
+                        Log.i("Info", "PULL complete.");
+                        // FIXME: parse json to table layout
+                        if(response.equals("empty userset")){
+                            return;
                         }
-                        else {
+                        else{
                             List<String> list = new ArrayList<String>();
-                            String toDisplay = "";
-
                             list = read(response);
-
-                            // code for team display
-                            Team teamData = new Team(list);
-
-                            // FIXME: parse details to display and LOAD
-                                // might just print the list of strings for display
-
-                            //toDisplay = "Team ID: " + teamData.getTeamID();
-                            //toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
-
-                            statDisplay.setText(toDisplay);
-
+                            userSet = list;
+                            //addToTable(list);
                         }
-
                         requestQueue.stop();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.i("Info", "Refresh error.");
                         error.printStackTrace();
                         requestQueue.stop();
                     }
                 }
         );
-        requestQueue.add(statRequest);
-        //
 
-        return view;
+        requestQueue.add(refreshRequest);
     }
 
 }
