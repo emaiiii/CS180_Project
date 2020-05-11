@@ -64,7 +64,10 @@ public class AnalyzeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Next button clicked");
-                // FIXME: NEXT BUTTON
+
+                pos += 1;
+                // new http request + display
+
             }
         });
 
@@ -72,7 +75,11 @@ public class AnalyzeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Prev button clicked");
-                // FIXME: prev BUTTON
+
+                if (pos > 0){
+                    pos -= 1;
+                    // new http request + display
+                }
             }
         });
 
@@ -85,7 +92,7 @@ public class AnalyzeFragment extends Fragment {
         });
 
 
-        // FIXME: make init request: userset is at 0 or at null
+        // make init request: userset is at 0 or at null
         // FIXME: if at any point null, redirect text to say no items in set
         // FIXME: if 0, load data for 0 averages
 
@@ -139,9 +146,8 @@ public class AnalyzeFragment extends Fragment {
                     }
                 }
         );
-        //
-
         requestQueue.add(statRequest);
+        //
 
         return view;
     }
