@@ -53,7 +53,7 @@ public class AnalyzeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analyze, container, false);
 
-
+    statDisplay = (TextView)view.findViewById((R.id.statDisplay));
         nextButton = (Button)view.findViewById(R.id.nextButton);
         prevButton = (Button) view.findViewById(R.id.prevButton);
         refreshButton = (Button) view.findViewById(R.id.refresh);
