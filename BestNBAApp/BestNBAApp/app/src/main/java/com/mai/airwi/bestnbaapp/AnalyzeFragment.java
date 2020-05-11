@@ -42,9 +42,7 @@ public class AnalyzeFragment extends Fragment {
     String response;
     List<String> list;
 
-    TextView scr1, scr2, scr3, scr4;
-    TableLayout playerTable;
-    TableRow tableRow;
+    TextView statDisplay;
 
     Button nextButton;
     Button prevButton;
@@ -61,28 +59,15 @@ public class AnalyzeFragment extends Fragment {
         refreshButton = (Button) view.findViewById(R.id.refresh);
 
 
-        // must initialize the components that you ae going to create
-        scr1 = new TextView(getActivity());
-        scr2 = new TextView(getActivity());
-        scr3 = new TextView(getActivity());
-        scr4 = new TextView(getActivity());
-
-        tableRow = new TableRow(getActivity());
-        playerTable = (TableLayout)view.findViewById(R.id.PlayerSearchTable);
-
-        /* FIXME
-        // format columns
-        playerTable.setColumnStretchable(0, true);
-        playerTable.setColumnStretchable(1, true);
-        playerTable.setColumnStretchable(2, true);
-        playerTable.setColumnStretchable(3, true);
-        */
-
         // FIXME: load data from intent
         //response = getIntent().getExtras().getString("response");
 
+        /*
+        // encapsulate data into object
         list = new ArrayList<String>();
-
+        list = read(response);
+        Player player = new Player(list);
+*/
 
         return view;
     }
