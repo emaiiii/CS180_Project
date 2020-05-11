@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,7 +38,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 public class AnalyzeFragment extends Fragment {
 
     String server_url = "http://4e8c77dc.ngrok.io/";
-    String username = "JimMango";
+    String username = "test";
 
     String response;
 
@@ -66,8 +67,66 @@ public class AnalyzeFragment extends Fragment {
                 Log.i("Info", "Next button clicked");
 
                 pos += 1;
-                // new http request
-                // display
+
+                if (pos < userSet.size() && pos >= 0) {
+                    String playerName = userSet.get(pos);
+                    playerName = playerName.replace(" ", "%20");
+
+                    //final String statURL = server_url + "?playername=" + playerName + "&&username=" + username;
+                    final String statURL = server_url + "?playeravg=1&&name=" + playerName;
+
+                    //?playeravg=1&&name=kobe%20bryant
+                    // HTTP request
+                    //
+                    final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+                    Log.i("ULR", statURL);
+                    StringRequest statRequest = new StringRequest(Request.Method.POST, statURL,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.i("Info", "Init request complete.");
+
+                                    if (response.equals("no player found")) {
+                                        statDisplay.setText("no player found");
+                                    } else {
+                                        List<String> list = new ArrayList<String>();
+                                        String toDisplay = "";
+
+                                        list = read(response);
+
+                                        // parse details to display and LOAD
+                                        // just print the list of strings for display
+                                        for (int i = 0; i < list.size(); ++i) {
+                                            toDisplay += list.get(i);
+                                        }
+                                        statDisplay.setText(toDisplay);
+
+                                    }
+
+                                    requestQueue.stop();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    error.printStackTrace();
+                                    requestQueue.stop();
+                                }
+                            }
+                    );
+
+                    statRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                    requestQueue.add(statRequest);
+                    //
+                }
+                else {
+                    statDisplay.setText("No access:: RESET TO BEGIN");
+                    pos = 0;
+                }
 
             }
         });
@@ -81,11 +140,66 @@ public class AnalyzeFragment extends Fragment {
                 //get = get.replace(" ", "%20");
                 //statDisplay.setText(get);
 
-                if (pos > 0){
-                    pos -= 1;
+                pos -= 1;
 
-                    // new HTTP request
-                    // display
+                if (pos < userSet.size() && pos >= 0) {
+                    String playerName = userSet.get(pos);
+                    playerName = playerName.replace(" ", "%20");
+
+                    //final String statURL = server_url + "?playername=" + playerName + "&&username=" + username;
+                    final String statURL = server_url + "?playeravg=1&&name=" + playerName;
+
+                    //?playeravg=1&&name=kobe%20bryant
+                    // HTTP request
+                    //
+                    final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+                    Log.i("ULR", statURL);
+                    StringRequest statRequest = new StringRequest(Request.Method.POST, statURL,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.i("Info", "Init request complete.");
+
+                                    if (response.equals("no player found")) {
+                                        statDisplay.setText("no player found");
+                                    } else {
+                                        List<String> list = new ArrayList<String>();
+                                        String toDisplay = "";
+
+                                        list = read(response);
+
+                                        // parse details to display and LOAD
+                                        // just print the list of strings for display
+                                        for (int i = 0; i < list.size(); ++i) {
+                                            toDisplay += list.get(i);
+                                        }
+                                        statDisplay.setText(toDisplay);
+
+                                    }
+
+                                    requestQueue.stop();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    error.printStackTrace();
+                                    requestQueue.stop();
+                                }
+                            }
+                    );
+
+                    statRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                    requestQueue.add(statRequest);
+                    //
+                }
+                else {
+                    statDisplay.setText("No access:: RESET TO BEGIN");
+                    pos = 0;
                 }
             }
         });
@@ -95,54 +209,55 @@ public class AnalyzeFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Refresh button clicked");
 
-                String playerName = userSet.get(pos);
-                playerName = playerName.replace(" ", "%20");
+                if (pos < userSet.size() ) {
+                    String playerName = userSet.get(pos);
+                    playerName = playerName.replace(" ", "%20");
 
-                //final String statURL = server_url + "?playername=" + playerName + "&&username=" + username;
-                final String statURL = server_url + "?playername=" + "Kobe%20Bryant" + "&&username=" + username;
+                    //final String statURL = server_url + "?playername=" + playerName + "&&username=" + username;
+                    final String statURL = server_url + "?playeravg=1&&name=" + playerName;
 
-                // HTTP request
-                //
-                final RequestQueue requestQueue = Volley.newRequestQueue( getActivity() );
+                    // HTTP request
+                    //
+                    final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-                Log.i("ULR", statURL);
-                StringRequest statRequest = new StringRequest(Request.Method.POST, statURL,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.i("Info", "Init request complete.");
+                    Log.i("ULR", statURL);
+                    StringRequest statRequest = new StringRequest(Request.Method.POST, statURL,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.i("Info", "Init request complete.");
 
-                                if (response.equals("no player found")) {
-                                    statDisplay.setText("no player found");
-                                }
-                                else {
-                                    List<String> list = new ArrayList<String>();
-                                    String toDisplay = "";
+                                    if (response.equals("no player found")) {
+                                        statDisplay.setText("no player found");
+                                    } else {
+                                        List<String> list = new ArrayList<String>();
+                                        String toDisplay = response;
 
-                                    list = read(response);
+                                        statDisplay.setText(toDisplay);
 
-                                    // parse details to display and LOAD
-                                    // just print the list of strings for display
-                                    for(int i = 0; i < list.size(); ++i) {
-                                        toDisplay += list.get(i);
                                     }
-                                    statDisplay.setText(toDisplay);
 
+                                    requestQueue.stop();
                                 }
-
-                                requestQueue.stop();
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    error.printStackTrace();
+                                    requestQueue.stop();
+                                }
                             }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                error.printStackTrace();
-                                requestQueue.stop();
-                            }
-                        }
-                );
-                requestQueue.add(statRequest);
-                //
+                    );
+                    statRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    requestQueue.add(statRequest);
+                    //
+                }
+                else {
+                    statDisplay.setText("No access:: RESET TO BEGIN");
+                    pos = 0;
+                }
             }
         });
 

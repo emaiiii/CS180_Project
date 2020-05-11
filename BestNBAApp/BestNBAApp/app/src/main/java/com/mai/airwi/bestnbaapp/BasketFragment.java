@@ -40,7 +40,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 public class BasketFragment extends Fragment {
 
     String server_url = "http://4e8c77dc.ngrok.io/";
-    String username = "JimMango";
+    String username = "test";
 
     Button clearButton;
     Button analyzeButton;
