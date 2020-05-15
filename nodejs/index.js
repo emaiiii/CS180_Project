@@ -401,6 +401,9 @@ const server = http.createServer(function (req,res) {
                   console.error(err);
                 }
                 else {
+                console.time("player avg time");
+
+                /*
                 var fgm = avg_data(data,4,5,9,playerID).toFixed(2);
                 var fga = avg_data(data,4,5,10,playerID).toFixed(2);
                 var fg_pct = avg_data(data,4,5,11,playerID).toFixed(3);
@@ -422,6 +425,12 @@ const server = http.createServer(function (req,res) {
                 var all_stats = fgm + "," + fga + "," + fg_pct + "," + fg3m + "," + fg3a + "," + fg3_pct + "," + ftm + "," + fta + "," + ft_pct + "," + oreb + "," + dreb + "," + reb + "," + ast + "," + stl + "," + blk + "," + to + "," + pf + "," + pts;
                 console.log(all_stats);
                 send_payload(res,all_stats);
+                */
+                var avg = avg_data(data,9,26,playerID,4,2) 
+                console.log(avg);
+                send_payload(res,  JSON.stringify(avg));
+
+                console.timeEnd("player avg time");
                 
                 }
                 
@@ -459,7 +468,7 @@ const server = http.createServer(function (req,res) {
             teamData.forEach(function (row) {
               var elements = row.split(",");
               var nickname = elements[5];
-              
+
               if (nickname !== undefined) {
                 if ( (nickname.toLowerCase() == qdata.name.toLowerCase()) && (teamFound == 0)) {
                   teamFound = 1;
@@ -479,15 +488,14 @@ const server = http.createServer(function (req,res) {
                   console.error(err);
                 }
                 else{
-                  var pts = avg_data(data,3, 4, 7,teamID).toFixed(2);
-                  var fg_pct = avg_data(data,3, 4, 8,teamID).toFixed(3);
-                  var ft_pct = avg_data(data,3, 4, 9,teamID).toFixed(3);
-                  var fg3_pct = avg_data(data,3, 4, 10,teamID).toFixed(3);
-                  var ats = avg_data(data,3, 4, 11,teamID).toFixed(2);
-                  var reb = avg_data(data,3, 4, 12,teamID).toFixed(2);
-                  var stats = pts + "," + fg_pct + "," + ft_pct + "," + fg3_pct + "," + ats + "," + reb;
-                  console.log(stats);
-                  send_payload(res,stats);
+                  console.time("team avg time");
+
+                  var avg = avg_data(data,7,12,teamID,3,4);
+                  avg.splice(6,1);
+                  console.log(avg);
+                  send_payload(res,  JSON.stringify(avg));
+
+                  console.timeEnd ("team avg time");
                 }
               });
             }
@@ -679,31 +687,51 @@ function send_data(data) {
 
 }
 
-function avg_data(csv_data,check_idx,second_idx,idx,search, team) {
+
+function avg_data(csv_data,start_idx,end_idx,search,check_idx, second_check_idx) {
   var avg = 0;
   var count = 0;
+
+  var avgArr = new Array (end_idx - start_idx + 1);
+  avgArr.fill(0);
 
   var stats = csv_data.split(/\r?\n/);
 
   stats.forEach(function (row) {
     var elements = row.split(",");
-      
+
     if (elements[check_idx] == search) {
-      if(!isNaN(elements[idx]) && elements[idx] != '') {
-        avg += Number(elements[idx]);
-        count += 1;
+      var arr_count = 0;
+      for(var i = start_idx; i <= end_idx; i++) {
+        if(!isNaN(elements[i]) && elements[i] != '') {
+          avgArr[arr_count] += Number(elements[i]);
+          
+          arr_count++;
+        }
       }
+      count++;
     }
-    if(elements[second_idx] == search) {
-      if(!isNaN(elements[idx+7]) && elements[idx+7] != '') {
-        avg += Number(elements[idx+7]);
-        count += 1;
+
+    else if (elements[second_check_idx] == search) {
+      var arr_count = 0;
+      for(var i = start_idx+7; i <= end_idx+7; i++) {
+        if(!isNaN(elements[i]) && elements[i] != '') {
+          avgArr[arr_count] += Number(elements[i]);
+          
+          arr_count++;
+        }
       }
+      count++;
     }
+
   });
-  avg = avg / count;
   
-  return avg;
+  for(var i = 0; i < avgArr.length; i++) {
+    avgArr[i] /= count;
+    avgArr[i] = avgArr[i].toFixed(2);
+  }
+  
+  return avgArr;
 }
 
 function process_data(csv_data) {
