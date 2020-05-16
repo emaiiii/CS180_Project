@@ -25,7 +25,18 @@ public class playerAnalyses extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("Info", "Get averages button clicked");
 
+                Intent intent = new Intent(playerAnalyses.this, playerAvgResults.class);
+                startActivity(intent);
+            }
+        });
 
+        getRatingButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Log.i("Info", "Get averages button clicked");
+
+                Intent intent = new Intent(playerAnalyses.this, ratingResults.class);
+                startActivity(intent);
             }
         });
     }
