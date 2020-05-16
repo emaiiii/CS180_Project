@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment {
                     //team search
                     searchType = 1;
                 } else {
-                    //team search
+                    //player search
                     searchType = 0;
                 }
             }

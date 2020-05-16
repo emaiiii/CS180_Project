@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -44,10 +46,12 @@ public class BasketFragment extends Fragment {
 
     Button clearButton;
     Button analyzeButton;
+    Switch category;
     TextView scr1;
     TableRow tableRow;
     TableLayout basketTable;
 
+    int searchType = 0;
     int numElements = 0;
 
     @Nullable
@@ -56,6 +60,7 @@ public class BasketFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_basket, container, false);
 
         clearButton = (Button)view.findViewById(R.id.clearButton);
+        category = (Switch)view.findViewById(R.id.switchCategory);
         analyzeButton = (Button)view.findViewById(R.id.analyzeButton);
         basketTable = (TableLayout)view.findViewById(R.id.basketTable);
 
@@ -64,6 +69,18 @@ public class BasketFragment extends Fragment {
         basketTable.setColumnStretchable(1, true);
 
         refreshDisplay();
+
+        category.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //team search
+                    searchType = 1;
+                } else {
+                    //player search
+                    searchType = 0;
+                }
+            }
+        });
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +130,16 @@ public class BasketFragment extends Fragment {
 
                 // FIXME: INTENT TO (SWITCH TO ANALYZE FRAGMENT)
 
-                Intent intent = new Intent(BasketFragment.this.getActivity(), AnalyzeFragment.class);
-                //intent.putExtra("response", response);
-                startActivity(intent);
+                switch(searchType){
+                    case 0:
+                        Intent intent = new Intent(BasketFragment.this.getActivity(), playerAnalyses.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        Intent intent2 = new Intent(BasketFragment.this.getActivity(), teamAnalyses.class);
+                        startActivity(intent2);
+                        break;
+                }
             }
         });
 
