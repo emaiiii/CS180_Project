@@ -75,7 +75,6 @@ public class SearchResultsPlayers extends AppCompatActivity {
         pid = Integer.toString(player.getPlayerID());
         season = Integer.toString(player.getSeason());
 
-
         Log.i("info", name);
         Log.i("info", tid);
         Log.i("info", pid);

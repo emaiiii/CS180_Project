@@ -7,24 +7,7 @@
     tools:context=".SearchResultsTeams"
     android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/layout"
-        android:layout_height="match_parent"
-        android:scrollbars="horizontal|vertical"
-        android:layout_width="match_parent"
-        android:layout_marginTop="5dip"
-        android:scrollbarStyle="outsideInset"
-        android:fillViewport="true">
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalView"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal|vertical"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="5dip">
-
-
-            <TableLayout
+    <TableLayout
             android:id="@+id/PlayerSearchTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,115 +15,57 @@
             android:background="#808080"
             android:layout_marginHorizontal="10dp">
 
-            <TableRow>
+        <TableRow>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="Team Name"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="Abbr."
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="Nickname"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abbr."
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="Year Founded"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="City"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="Arena"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="Owner"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Team ID"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="Gen Mngr."
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+        </TableRow>
+    </TableLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="Head Coach"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/neutral_button"
+        android:textColor="@android:color/background_light"
+        android:text="Add" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="D. League Affiliate"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-            </TableRow>
-            </TableLayout>
-        </HorizontalScrollView>
-    </ScrollView>
 </LinearLayout>
