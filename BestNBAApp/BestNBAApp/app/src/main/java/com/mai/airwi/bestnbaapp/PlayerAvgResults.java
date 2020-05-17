@@ -23,7 +23,7 @@ import java.util.List;
 import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 import static java.lang.Math.round;
 
-public class playerAvgResults extends AppCompatActivity {
+public class PlayerAvgResults extends AppCompatActivity {
 
     String server_url = "http://cb97b1d3.ngrok.io/";
 

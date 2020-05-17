@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,13 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,13 +24,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mai.airwi.bestnbaapp.SearchFragment.read;
-import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 
 /**
  * Created by airwi on 4/25/2020.
@@ -146,12 +138,12 @@ public class BasketFragment extends Fragment {
 
                 switch(searchType){
                     case 0:
-                        Intent intent = new Intent(BasketFragment.this.getActivity(), playerAnalyses.class);
+                        Intent intent = new Intent(BasketFragment.this.getActivity(), PlayerAnalyses.class);
                         intent.putExtra("set", set);
                         startActivity(intent);
                         break;
                     case 1:
-                        Intent intent2 = new Intent(BasketFragment.this.getActivity(), teamAnalyses.class);
+                        Intent intent2 = new Intent(BasketFragment.this.getActivity(), TeamAnalyses.class);
                         intent2.putExtra("set", set);
                         startActivity(intent2);
                         break;

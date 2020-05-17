@@ -3,7 +3,7 @@ package com.mai.airwi.bestnbaapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class teamAnalyses extends AppCompatActivity {
+public class TeamAnalyses extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

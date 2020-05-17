@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/other_gradient"
-    tools:context=".playerAvgResults"
+    tools:context=".PlayerAvgResults"
     android:orientation="vertical">
 
     <ScrollView

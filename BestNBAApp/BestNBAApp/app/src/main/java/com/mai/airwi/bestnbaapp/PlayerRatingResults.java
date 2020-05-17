@@ -17,15 +17,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 import static java.lang.Math.round;
 
-public class ratingResults extends AppCompatActivity {
+public class PlayerRatingResults extends AppCompatActivity {
 
     String server_url = "http://cb97b1d3.ngrok.io/";
 
@@ -40,7 +37,7 @@ public class ratingResults extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rating_results);
+        setContentView(R.layout.activity_player_rating_results);
 
         userSet = (ArrayList<String>) getIntent().getSerializableExtra("set");
 
@@ -171,12 +168,14 @@ public class ratingResults extends AppCompatActivity {
         tableRow = new TableRow(this);
 
         // format and add texts to the views
-        scr1.setText(list.get(0));
+        // add names
+        scr1.setText(userSet.get(index));
         scr1.setGravity(Gravity.CENTER);
         scr1.setBackgroundColor(Color.parseColor("#FFFFFF"));
         scr1.setTextSize(15);
 
-        scr2.setText(userSet.get(index));
+        // add ratings
+        scr2.setText(list.get(0));
         scr2.setGravity(Gravity.CENTER);
         scr2.setBackgroundColor(Color.parseColor("#FFFFFF"));
         scr2.setTextSize(15);
