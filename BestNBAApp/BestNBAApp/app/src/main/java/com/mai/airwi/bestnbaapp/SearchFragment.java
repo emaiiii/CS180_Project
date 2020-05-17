@@ -32,7 +32,7 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://4d52a860.ngrok.io/";
+    String server_url = "http://cb97b1d3.ngrok.io/";
 
     Button searchButton;
     TextView textView;
@@ -53,10 +53,10 @@ public class SearchFragment extends Fragment {
         category.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //team search
+                    Log.i("Info", "Search type: Teams");
                     searchType = 1;
                 } else {
-                    //player search
+                    Log.i("Info", "Search type: Players");
                     searchType = 0;
                 }
             }

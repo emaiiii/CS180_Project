@@ -24,7 +24,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class MainActivity extends AppCompatActivity {
 
-    String server_url = "http://4d52a860.ngrok.io/";
+    String server_url = "http://cb97b1d3.ngrok.io/";
 
     EditText username;
     EditText password;

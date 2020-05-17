@@ -9,6 +9,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,7 +27,7 @@ import static java.lang.Math.round;
 
 public class ratingResults extends AppCompatActivity {
 
-    String server_url = "http://4d52a860.ngrok.io/";
+    String server_url = "http://cb97b1d3.ngrok.io/";
 
     String username = "test";
 
@@ -114,6 +115,10 @@ public class ratingResults extends AppCompatActivity {
                         }
                     }
             );
+
+            analyzeRequest.setRetryPolicy(new DefaultRetryPolicy(7000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
             requestQueue.add(analyzeRequest);
         }
