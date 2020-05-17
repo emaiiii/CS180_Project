@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mai.airwi.bestnbaapp.SearchFragment.read;
+import static java.lang.Math.round;
 
 public class ratingResults extends AppCompatActivity {
 
@@ -40,6 +41,13 @@ public class ratingResults extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_results);
 
+        userSet = (ArrayList<String>) getIntent().getSerializableExtra("set");
+
+        Log.i("info", "Rating Results page");
+        Log.i("info", String.valueOf(userSet.size()));
+        Log.i("info", userSet.get(0));
+        Log.i("info", userSet.get(1));
+
         // must initialize the components that you ae going to create
         scr1 = new TextView(this);
         scr2 = new TextView(this);
@@ -52,7 +60,6 @@ public class ratingResults extends AppCompatActivity {
         ratingsTable.setColumnStretchable(1, true);
 
         // get the user set based on the username
-        pullSet();
 
         analyze();
     }
@@ -86,8 +93,12 @@ public class ratingResults extends AppCompatActivity {
                             else{
                                 // list contains the ranking
                                 List<String> list = new ArrayList<String>();
-                                list = read(response);
+                                double num = Double.parseDouble(response);
+                                num = round(num);
 
+                                response = String.valueOf(num);
+
+                                list.add(response);
 
                                 addTable(list, userSet, finIndex);
                             }
@@ -108,9 +119,11 @@ public class ratingResults extends AppCompatActivity {
         }
     }
 
-    public void pullSet() {
+    /*public List<String> pullSet() {
+
         final String refreshURL = server_url + "?userset=" + username;
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        final List<String>[] set = new List<String>[1];
 
         Log.i("URL", refreshURL);
         StringRequest refreshRequest = new StringRequest(Request.Method.POST, refreshURL,
@@ -125,7 +138,7 @@ public class ratingResults extends AppCompatActivity {
                         else{
                             List<String> list = new ArrayList<String>();
                             list = read(response);
-                            userSet = list;
+                            set[0] = list;
 
                             Log.i("Info", "user set size: " + String.valueOf(userSet.size()));
                         }
@@ -143,7 +156,9 @@ public class ratingResults extends AppCompatActivity {
         );
 
         requestQueue.add(refreshRequest);
-    }
+
+        return set;
+    }*/
 
     void addTable(List<String> list, List<String> userSet, int index){
         scr1 = new TextView(this);

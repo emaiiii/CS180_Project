@@ -54,6 +54,8 @@ public class BasketFragment extends Fragment {
     int searchType = 0;
     int numElements = 0;
 
+    List<String> userSet = new ArrayList<String>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -132,7 +134,11 @@ public class BasketFragment extends Fragment {
 
                 switch(searchType){
                     case 0:
+                        Log.i("info", String.valueOf(userSet.size()));
+                        ArrayList<String> set = new ArrayList<String>(userSet);
+
                         Intent intent = new Intent(BasketFragment.this.getActivity(), playerAnalyses.class);
+                        intent.putExtra("set", set);
                         startActivity(intent);
                         break;
                     case 1:
@@ -212,6 +218,7 @@ public class BasketFragment extends Fragment {
             tableRow = new TableRow(BasketFragment.this.getActivity());
 
             String playerName= list.get(i);
+            userSet.add(playerName);
 
             // format and add texts to the views
             scr1.setText(playerName);
