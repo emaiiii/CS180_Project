@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class playerAnalyses extends AppCompatActivity {
+public class PlayerAnalyses extends AppCompatActivity {
 
     Button getAvgButton;
     Button getRatingButton;
@@ -40,7 +40,7 @@ public class playerAnalyses extends AppCompatActivity {
                 Log.i("info", String.valueOf(set.size()));
                 Log.i("info", String.valueOf(userSet.size()));
 
-                Intent intent = new Intent(playerAnalyses.this, playerAvgResults.class);
+                Intent intent = new Intent(PlayerAnalyses.this, PlayerAvgResults.class);
                 intent.putExtra("set", set);
                 startActivity(intent);
             }
@@ -54,7 +54,7 @@ public class playerAnalyses extends AppCompatActivity {
                 ArrayList<String> set = new ArrayList<String>(userSet);
                 Log.i("info", String.valueOf(set.size()));
 
-                Intent intent = new Intent(playerAnalyses.this, ratingResults.class);
+                Intent intent = new Intent(PlayerAnalyses.this, PlayerRatingResults.class);
                 intent.putExtra("set", set);
                 startActivity(intent);
             }

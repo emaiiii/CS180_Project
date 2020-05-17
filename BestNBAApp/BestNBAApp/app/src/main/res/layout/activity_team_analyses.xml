@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/other_gradient"
-    tools:context=".teamAnalyses">
+    tools:context=".TeamAnalyses">
 
     <Button
-        android:id="@+id/getAvgButton"
+        android:id="@+id/getMatchupButton"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getAvgButton" />
+        app:layout_constraintTop_toBottomOf="@+id/getMatchupButton" />
 
     <TextView
         android:id="@+id/titleTextView"

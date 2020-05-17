@@ -37,7 +37,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class AnalyzeFragment extends Fragment {
 
-    String server_url = "http://4e8c77dc.ngrok.io/";
+    String server_url = "http://cb97b1d3.ngrok.io/";
     String username = "test";
 
     String response;

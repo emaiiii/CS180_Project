@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/other_gradient"
-    tools:context=".playerAnalyses">
+    tools:context=".PlayerAnalyses">
 
     <Button
         android:id="@+id/getAvgButton"

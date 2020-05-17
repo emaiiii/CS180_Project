@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,13 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,13 +24,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mai.airwi.bestnbaapp.SearchFragment.read;
-import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 
 /**
  * Created by airwi on 4/25/2020.
@@ -41,7 +33,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 
 public class BasketFragment extends Fragment {
 
-    String server_url = "http://4d52a860.ngrok.io/";
+    String server_url = "http://cb97b1d3.ngrok.io/";
     String username = "test";
 
     Button clearButton;
@@ -52,7 +44,7 @@ public class BasketFragment extends Fragment {
     TableLayout basketTable;
 
     int searchType = 0;
-    int numElements = 0;
+    //int numElements = 0;
 
     List<String> userSet = new ArrayList<String>();
 
@@ -75,11 +67,13 @@ public class BasketFragment extends Fragment {
         category.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //team search
                     searchType = 1;
+                    Log.i("Info", "Search type: Teams");
+                    refreshDisplay();
                 } else {
-                    //player search
                     searchType = 0;
+                    Log.i("Info", "Search type: Players");
+                    refreshDisplay();
                 }
             }
         });
@@ -89,7 +83,16 @@ public class BasketFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("Info", "Clear button clicked");
 
-                final String controlURL = server_url + "?clearplayer=1&&clearusername=" + username;
+                String clearURL = "";
+                switch(searchType){
+                    case 0:
+                        Log.i("Info", "Clearing Player Set...");
+                        clearURL = server_url + "?clearplayer=1&&clearusername=" + username;
+                    case 1:
+                        Log.i("Info", "Clearing Team Set...");
+                        clearURL = server_url + "?clearteam=1&&clearusername=" + username;
+                }
+                final String controlURL = clearURL;
 
                 // HTTP request
                 final RequestQueue requestQueue = Volley.newRequestQueue( getActivity() );
@@ -129,22 +132,23 @@ public class BasketFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i("Info", "Analyze button clicked");
+                Log.i("Info", "User set length: " + String.valueOf(userSet.size()));
 
-                // FIXME: INTENT TO (SWITCH TO ANALYZE FRAGMENT)
+                ArrayList<String> set = new ArrayList<String>(userSet);
 
                 switch(searchType){
                     case 0:
-                        Log.i("info", String.valueOf(userSet.size()));
-                        ArrayList<String> set = new ArrayList<String>(userSet);
-
-                        Intent intent = new Intent(BasketFragment.this.getActivity(), playerAnalyses.class);
+                        Intent intent = new Intent(BasketFragment.this.getActivity(), PlayerAnalyses.class);
                         intent.putExtra("set", set);
                         startActivity(intent);
                         break;
                     case 1:
-                        Intent intent2 = new Intent(BasketFragment.this.getActivity(), teamAnalyses.class);
+                        Intent intent2 = new Intent(BasketFragment.this.getActivity(), TeamAnalyses.class);
+                        intent2.putExtra("set", set);
                         startActivity(intent2);
                         break;
+                    default:
+                        Log.i("Error", "Search type invalid.");
                 }
             }
         });
@@ -153,16 +157,34 @@ public class BasketFragment extends Fragment {
     }
 
     public void refreshDisplay() {
-        final String refreshURL = server_url + "?userset=" + username;
+        // clear table except headers
+        while (basketTable.getChildCount() > 1){
+            basketTable.removeView(basketTable.getChildAt(basketTable.getChildCount() - 1));
+        }
+
+        String setURL = "";
+        switch(searchType){
+            case 0:
+                setURL = server_url + "?userset=" + username;
+                Log.i("Player Search URL", setURL);
+                break;
+            case 1:
+                setURL = server_url + "?teamuserset=" + username;
+                Log.i("Team Search URL", setURL);
+                break;
+            default:
+                Log.i("Error", "Search type invalid.");
+        }
+
+        final String refreshURL = setURL;
+
         final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-        Log.i("URL", refreshURL);
         StringRequest refreshRequest = new StringRequest(Request.Method.POST, refreshURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.i("Info", "Refresh complete.");
-                        // FIXME: parse json to table layout
                         if(response.equals("empty userset")){
                             return;
                         }
@@ -170,7 +192,7 @@ public class BasketFragment extends Fragment {
                             List<String> list = new ArrayList<String>();
                             list = read(response);
 
-                            addToTable(list);
+                            userSet = addToTable(list);
                         }
                         requestQueue.stop();
                     }
@@ -210,15 +232,15 @@ public class BasketFragment extends Fragment {
         return set;
     }
 
-    public void addToTable(List<String> list){
-
+    public List<String> addToTable(List<String> list){
+        List<String> nameSet = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             // initialize row elements
             scr1 = new TextView(BasketFragment.this.getActivity());
             tableRow = new TableRow(BasketFragment.this.getActivity());
 
             String playerName= list.get(i);
-            userSet.add(playerName);
+            nameSet.add(playerName);
 
             // format and add texts to the views
             scr1.setText(playerName);
@@ -232,6 +254,7 @@ public class BasketFragment extends Fragment {
             // add row into the table
             basketTable.addView(tableRow);
         }
+        return nameSet;
     }
 }
 

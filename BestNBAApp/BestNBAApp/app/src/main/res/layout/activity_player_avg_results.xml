@@ -1,16 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".playerAvgResults">
+    android:background="@drawable/other_gradient"
+    tools:context=".PlayerAvgResults"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Avg results"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="356dp" />
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:id="@+id/layout"
+        android:layout_height="match_parent"
+        android:scrollbars="horizontal|vertical"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dip"
+        android:scrollbarStyle="outsideInset"
+        android:fillViewport="true">
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalView"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal|vertical"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="5dip">
+
+            <TableLayout
+                android:id="@+id/ratingsTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:background="#808080"
+                android:layout_marginHorizontal="10dp">
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Player Name"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FGM"
+                        android:padding="5dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FGA"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FG%"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FG3M"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FG3A"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FG3%"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FTM"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FTA"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FT%"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OREB"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DREB"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="REB"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AST"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="STL"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BLK"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TO"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PF"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PTS"
+                        android:textSize="20dp"
+                        android:padding="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#ffffff"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+                </TableRow>
+            </TableLayout>
+
+        </HorizontalScrollView>
+    </ScrollView>
+</LinearLayout>

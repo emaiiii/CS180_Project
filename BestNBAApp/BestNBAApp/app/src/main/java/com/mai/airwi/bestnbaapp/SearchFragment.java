@@ -26,13 +26,9 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
 
-/**
- * Created by airwi on 4/25/2020.
- */
-
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://4d52a860.ngrok.io/";
+    String server_url = "http://cb97b1d3.ngrok.io/";
 
     Button searchButton;
     TextView textView;
@@ -53,10 +49,10 @@ public class SearchFragment extends Fragment {
         category.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //team search
+                    Log.i("Info", "Search type: Teams");
                     searchType = 1;
                 } else {
-                    //player search
+                    Log.i("Info", "Search type: Players");
                     searchType = 0;
                 }
             }
@@ -131,48 +127,31 @@ public class SearchFragment extends Fragment {
                                     public void onResponse(String response) {
                                         Log.i("Info", "Successful connection");
 
-
                                         if (response.equals("no team found")) {
-                                            textView.setText("no team found");
+                                            Toast.makeText(SearchFragment.this.getActivity(), "No Team Found", Toast.LENGTH_SHORT).show();
                                         }
                                         else {
-                                            List<String> list = new ArrayList<String>();
-                                            String toDisplay;
-
-                                            list = read(response);
-
-                                            // code for team display
-                                            Team teamData = new Team(list);
-
-                                            toDisplay = "Team ID: " + teamData.getTeamID();
-                                            toDisplay = toDisplay + "\nMin. Year: " + teamData.getMinYear();
-                                            toDisplay = toDisplay + "\nMax. Year: " + teamData.getMaxYear();
-                                            toDisplay = toDisplay + "\nAbbr.: " + teamData.getAbbr();
-                                            toDisplay = toDisplay + "\nNickName: " + teamData.getNickname();
-                                            toDisplay = toDisplay + "\nYear Founded: " + teamData.getYearFounded();
-                                            toDisplay = toDisplay + "\nCity: " + teamData.getCity();
-                                            toDisplay = toDisplay + "\nArena: " + teamData.getArena();
-                                            toDisplay = toDisplay + "\nArena Capacity: " + teamData.getArenaCapacity();
-                                            toDisplay = toDisplay + "\nOwner: " + teamData.getOwner();
-                                            toDisplay = toDisplay + "\nGen. Manager: " + teamData.getGenManager();
-                                            toDisplay = toDisplay + "\nHead Coach: " + teamData.getHeadCoach();
-                                            toDisplay = toDisplay + "\nD. League Affiliate: " + teamData.getDLeagueAffiliate();
-                                            textView.setText(toDisplay);
-
+                                            // move to the results page and send the server response
+                                            Intent intent = new Intent(SearchFragment.this.getActivity(), SearchResultsTeams.class);
+                                            intent.putExtra("response", response);
+                                            startActivity(intent);
                                         }
 
                                         requestQueue.stop();
                                     }
-                        },
+                                },
                                 new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
 
-                                        textView.setText("Search Error: No response from server." + "\nRequest:\n" + teamSearchURL);
+                                        searchField.setText("");
+                                        searchField.setHint("Error: no response from server");
+
                                         error.printStackTrace();
                                         requestQueue.stop();
                                     }
-                        });
+                                }
+                        );
 
                         requestQueue.add(teamRequest);
 

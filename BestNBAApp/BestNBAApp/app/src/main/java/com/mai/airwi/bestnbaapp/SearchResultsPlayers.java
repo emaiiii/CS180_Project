@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SearchResultsPlayers extends AppCompatActivity {
 
-    String server_url = "http://4d52a860.ngrok.io/";
+    String server_url = "http://cb97b1d3.ngrok.io/";
     String username = "test";
 
     String response;
@@ -74,7 +74,6 @@ public class SearchResultsPlayers extends AppCompatActivity {
         tid = Integer.toString(player.getTeamID());
         pid = Integer.toString(player.getPlayerID());
         season = Integer.toString(player.getSeason());
-
 
         Log.i("info", name);
         Log.i("info", tid);
