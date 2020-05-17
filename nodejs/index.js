@@ -403,29 +403,6 @@ const server = http.createServer(function (req,res) {
                 else {
                 console.time("player avg time");
 
-                /*
-                var fgm = avg_data(data,4,5,9,playerID).toFixed(2);
-                var fga = avg_data(data,4,5,10,playerID).toFixed(2);
-                var fg_pct = avg_data(data,4,5,11,playerID).toFixed(3);
-                var fg3m = avg_data(data,4,5,12,playerID).toFixed(2);
-                var fg3a = avg_data(data,4,5,13,playerID).toFixed(2);
-                var fg3_pct = avg_data(data,4,5,14,playerID).toFixed(3);
-                var ftm = avg_data(data,4,5,15,playerID).toFixed(2);
-                var fta = avg_data(data,4,5,16,playerID).toFixed(2);
-                var ft_pct = avg_data(data,4,5,17,playerID).toFixed(3);
-                var oreb = avg_data(data,4,5,18,playerID).toFixed(2);
-                var dreb = avg_data(data,4,5,19,playerID).toFixed(2);
-                var reb = avg_data(data,4,5,20,playerID).toFixed(2);
-                var ast = avg_data(data,4,5,21,playerID).toFixed(2);
-                var stl = avg_data(data,4,5,22,playerID).toFixed(2);
-                var blk = avg_data(data,4,5,23,playerID).toFixed(2);
-                var to = avg_data(data,4,5,24,playerID).toFixed(2);
-                var pf = avg_data(data,4,5,25,playerID).toFixed(2);
-                var pts = avg_data(data,4,5,26,playerID).toFixed(2);
-                var all_stats = fgm + "," + fga + "," + fg_pct + "," + fg3m + "," + fg3a + "," + fg3_pct + "," + ftm + "," + fta + "," + ft_pct + "," + oreb + "," + dreb + "," + reb + "," + ast + "," + stl + "," + blk + "," + to + "," + pf + "," + pts;
-                console.log(all_stats);
-                send_payload(res,all_stats);
-                */
                 var avg = avg_data(data,9,26,playerID,4,2) 
                 console.log(avg);
                 send_payload(res,  JSON.stringify(avg));
@@ -506,7 +483,7 @@ const server = http.createServer(function (req,res) {
 
     //send userset player data
     else if(qdata.userset != undefined) {
-      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\' + qdata.userset + '.csv';
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\players\\' + qdata.userset + '.csv';
       console.log('sending userset info');
       console.log(qdata.userset);
       
@@ -530,7 +507,7 @@ const server = http.createServer(function (req,res) {
       console.log('----------------------');
       console.log('adding player to userset')
       console.log(qdata.addplayer);
-      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\' + qdata.addusername + '.csv';
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\players\\' + qdata.addusername + '.csv';
       fs.readFile(path,'utf8',function (err,csv_data) {
         //cannot open file, create a new file
         if (err) {
@@ -575,14 +552,16 @@ const server = http.createServer(function (req,res) {
       console.log('----------------------');
       console.log('clear player userset')
       console.log(qdata.clearusername);
-      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\' + qdata.clearusername + '.csv';
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\players\\' + qdata.clearusername + '.csv';
 
       fs.unlink(path,(err) => {
         if(err) {
           console.log('already cleared');
+          send_payload(res,'already cleared');
         }
         else {
           console.log('cleared');
+          send_payload(res,'cleared');
         }
       })
 
@@ -594,7 +573,7 @@ const server = http.createServer(function (req,res) {
       console.log('delete player from userset')
       console.log(qdata.delusername);
       console.log(qdata.delplayer);
-      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\' + qdata.delusername + '.csv';
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\players\\' + qdata.delusername + '.csv';
       fs.readFile(path,'utf8',function (err,csv_data) {
         //cannot open file
         if (err) {
@@ -648,6 +627,292 @@ const server = http.createServer(function (req,res) {
           }
         }
       });
+    }
+
+    //send userset team data
+    else if(qdata.teamuserset != undefined) {
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\teams\\' + qdata.teamuserset + '.csv';
+      console.log('------------------------')
+      console.log('sending userset info');
+      console.log(qdata.teamuserset);
+      
+
+      fs.readFile(path,'utf8',function (err,csv_data) {
+        //cannot open file
+        if (err) {
+          console.error(err);
+          send_payload(res,'empty userset');
+        }
+        //file opened
+        else {
+          var data = send_data(csv_data);
+          send_payload(res,JSON.stringify(data));
+        }
+      });
+    }
+
+    //adding team to userset
+    else if(qdata.addteam != undefined) {
+      console.log('----------------------');
+      console.log('adding player to userset')
+      console.log(qdata.addteam);
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\teams\\' + qdata.addusername + '.csv';
+      fs.readFile(path,'utf8',function (err,csv_data) {
+        //cannot open file, create a new file
+        if (err) {
+          console.log('creating a file');
+          fs.appendFile(path, 'teamname \r\n', 'utf8', function(err) {
+            if(err) return console.log(err);
+          });
+          fs.appendFile(path, qdata.addteam + '\r\n', 'utf8', function(err) {
+            if(err) return console.log(err);
+          });
+          send_payload(res,'team added to userset');
+        }
+        //file opened
+        else {
+          //check if player exists in set already
+          var userSetData = csv_data.split(/\r?\n/);
+          var found = 0;
+
+          userSetData.forEach((element) => {
+            if(element.toLowerCase() == qdata.addteam.toLowerCase()) {
+              console.log('team already exists in set');
+              send_payload(res,'team already exists in set');
+              found = 1;
+            }
+          })
+          
+          if(found == 0) {
+            fs.appendFile(path, qdata.addteam + '\r\n', 'utf8', function(err) {
+              if(err) return console.log(err);
+            });
+            send_payload(res,'team added to userset');
+          }
+          
+          
+
+        }
+      });
+    }
+
+    //clearing userset for team
+    else if(qdata.clearteam == 1) {
+      console.log('----------------------');
+      console.log('clear player userset')
+      console.log(qdata.clearusername);
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\teams\\' + qdata.clearusername + '.csv';
+
+      fs.unlink(path,(err) => {
+        if(err) {
+          console.log('already cleared');
+          send_payload(res,'already cleared');
+        }
+        else {
+          console.log('cleared');
+          send_payload(res,'cleared');
+        }
+      })
+
+    }
+
+    //deleting team from userset
+    else if(qdata.delteam != undefined) {
+      console.log('---------------------------');
+      console.log('delete player from userset')
+      console.log(qdata.delusername);
+      console.log(qdata.delteam);
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\teams\\' + qdata.delusername + '.csv';
+      fs.readFile(path,'utf8',function (err,csv_data) {
+        //cannot open file
+        if (err) {
+          console.error(err);
+        }
+        //file opened
+        else {
+          var userData = csv_data.split(/\r?\n/);
+          var idx = -1;
+          var count = 0;
+
+          userData.forEach(element => {
+            if(element.toLowerCase() == qdata.delteam.toLowerCase()) {
+              idx = count; 
+            }
+            count++;
+          });
+
+          if(idx == -1) {
+            send_payload(res,'no team found');
+            console.log('no team found');
+          }
+          else{
+            userData.splice(idx,1);
+            var input = '';
+            userData.forEach(element => {
+              if(element != '') {
+                input += element + '\r\n';
+              }
+            });
+            
+            if(userData[1] == '') {
+              fs.unlink(path,(err) => {
+                if(err) {
+                  console.log('already cleared');
+                }
+                else {
+                  console.log('cleared');
+                }
+              })
+            }
+            else {
+              fs.writeFile(path,input, function(err,data) {
+                if(err) {
+                  return console.err(err);
+                }
+              })
+            }
+            console.log('team deleted');
+            send_payload(res,'team deleted');
+          }
+        }
+      });
+    }
+
+    //player rating
+    else if(qdata.playerrating != undefined) {
+      console.log('---------------------------')
+      console.log('looking for player rating')
+      if(qdata.playerrating == undefined) {
+        console.log('Empty player name');
+        send_payload(res,'Empty player name');
+      }
+      else {
+        console.log(qdata.playerrating);
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\players.csv','utf8',function (err,data) {
+          //cannot open file
+          if (err) {
+            console.error(err);
+          }
+          //file opened
+          else {
+            var playerData = data.split(/\r?\n/);
+            var playerFound = 0;
+            var playerID = 0;
+
+            playerData.forEach(function (row) {
+              var elements = row.split(",");
+              var nickname = elements[0];
+              
+              if (nickname !== undefined) {
+                if ( (nickname.toLowerCase() == qdata.playerrating.toLowerCase()) && (playerFound == 0)) {
+                  playerFound = 1;
+                  playerID = elements[2];
+                  console.log(elements[2]);
+                }
+              }
+            })
+            //if no player were found
+            if(playerFound == 0) {
+              console.log('no player info found');
+              send_payload(res, 'no player info found');
+            }
+            else {
+              fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games_details.csv','utf8',function (err,data) {
+                if (err) {
+                  console.error(err);
+                }
+                else {
+                console.time("player rating time");
+
+                var avg = avg_data(data,9,26,playerID,4,2);
+                //(PTS + REB + AST + STL + BLK − Missed FG − Missed FT - TO)
+                var mfg = avg[1] - avg[0];  
+                var mft = avg[7] - avg[6];
+                var rating = Number(avg[17]) + Number(avg[11]) + Number(avg[12]) + Number(avg[13]) + Number(avg[14]) - mfg - mft - Number(avg[15]);
+
+                
+                console.log(rating);
+                send_payload(res, JSON.stringify(rating));
+
+                console.timeEnd("player rating time");
+                
+                }
+                
+              });
+            }
+          }
+
+        });
+      }
+    }
+
+    //team rating
+    else if(qdata.teamrating != undefined) {
+      console.log('---------------------------');
+      console.log('looking for team rating');
+      if(qdata.teamrating == undefined) {
+        console.log('Empty team name');
+        send_payload(res,'Empty team name');
+      }
+      else {
+        console.log(qdata.teamrating);
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\teams.csv','utf8',function (err,data) {
+          //cannot open file
+          if (err) {
+            console.error(err);
+          }
+          //file opened
+          else {
+            var teamData = data.split(/\r?\n/);
+            var teamFound = 0;
+            var teamID = 0;
+
+            teamData.forEach(function (row) {
+              var elements = row.split(",");
+              var nickname = elements[5];
+
+              if (nickname !== undefined) {
+                if ( (nickname.toLowerCase() == qdata.teamrating.toLowerCase()) && (teamFound == 0)) {
+                  teamFound = 1;
+                  teamID = elements[1];
+                  console.log(elements[1]);
+                }
+              }
+            })
+            //if no player were found
+            if(teamFound == 0) {
+              console.log('no team info found');
+              send_payload(res, 'no team info found');
+            }
+            else {
+              fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games.csv','utf8',function (err,data) {
+                if (err) {
+                  console.error(err);
+                }
+                else{
+                  console.time("team rating time");
+
+                  var avg = avg_data(data,7,12,teamID,3,4);
+                  avg.splice(6,1);
+
+                  var allrating = new Array(3);
+
+                  allrating[0] = (Number(avg[0]) * (Number(avg[1]) + Number(avg[2]) + Number(avg[3])*1.3)  +  (Number(avg[4]) + Number(avg[5]))).toFixed(2);
+                  allrating[1] = (Number(avg[0]) * (Number(avg[1]) + Number(avg[2]) + Number(avg[3])*1.3)).toFixed(2);
+                  allrating[2] = (Number(avg[5])).toFixed(2);
+
+                  
+
+                  console.log(allrating);
+                  send_payload(res,  JSON.stringify(allrating));
+
+                  console.timeEnd ("team rating time");
+                }
+              });
+            }
+          }
+        });
+      }
     }
 
     else {
