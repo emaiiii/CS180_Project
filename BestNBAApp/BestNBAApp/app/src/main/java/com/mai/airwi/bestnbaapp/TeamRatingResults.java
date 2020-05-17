@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mai.airwi.bestnbaapp.BasketFragment.read;
 import static java.lang.Math.round;
 
 public class TeamRatingResults extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class TeamRatingResults extends AppCompatActivity {
 
     String username = "test";
 
-    TextView scr1, scr2;
+    TextView scr1, scr2, scr3, scr4;
     TableRow tableRow;
     TableLayout ratingsTable;
 
@@ -49,15 +50,16 @@ public class TeamRatingResults extends AppCompatActivity {
         // must initialize the components that you ae going to create
         scr1 = new TextView(this);
         scr2 = new TextView(this);
+        scr3 = new TextView(this);
+        scr4 = new TextView(this);
 
         tableRow = new TableRow(this);
         ratingsTable = (TableLayout)findViewById(R.id.ratingsTable);
 
         // format columns
-        ratingsTable.setColumnStretchable(0, true);
-        ratingsTable.setColumnStretchable(1, true);
-
-        // get the user set based on the username
+        for(int i = 0; i < 4; ++i){
+            ratingsTable.setColumnStretchable(i, true);
+        }
 
         analyze();
     }
@@ -67,15 +69,16 @@ public class TeamRatingResults extends AppCompatActivity {
         Log.i("Info", "user set size: " + String.valueOf(userSet.size()));
 
         // loop through the user set
-        for(int index = 0; index < userSet.size(); index++){
+        // FIXME: CHANGE INDEX TO 0 (after fixing server side bug - invalid first element in set)
+        for(int index = 1; index < userSet.size(); index++){
             final int finIndex = index;
 
             // replace the space in the name with %20
-            String playerName = userSet.get(index);
-            playerName = playerName.replace(" ", "%20");
+            String teamName = userSet.get(index);
+            teamName = teamName.replace(" ", "%20");
 
             // create the URL for the request
-            final String ratingUrl = server_url + "?playerrating=" + playerName;
+            final String ratingUrl = server_url + "?teamrating=" + teamName;
             final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
             Log.i("URL", ratingUrl);
@@ -89,14 +92,8 @@ public class TeamRatingResults extends AppCompatActivity {
                                 return;
                             }
                             else{
-                                // list contains the ranking
                                 List<String> list = new ArrayList<String>();
-                                double num = Double.parseDouble(response);
-                                num = round(num);
-
-                                response = String.valueOf(num);
-
-                                list.add(response);
+                                list = read(response);
 
                                 addTable(list, userSet, finIndex);
                             }
@@ -121,7 +118,47 @@ public class TeamRatingResults extends AppCompatActivity {
         }
     }
 
-    /*public List<String> pullSet() {
+    void addTable(List<String> list, List<String> userSet, int index){
+        scr1 = new TextView(this);
+        scr2 = new TextView(this);
+        scr3 = new TextView(this);
+        scr4 = new TextView(this);
+        tableRow = new TableRow(this);
+
+        // format and add texts to the views
+        // add names
+        scr1.setText(userSet.get(index));
+        scr1.setGravity(Gravity.CENTER);
+        scr1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        scr1.setTextSize(15);
+
+        // add ratings
+        scr2.setText(list.get(0));
+        scr2.setGravity(Gravity.CENTER);
+        scr2.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        scr2.setTextSize(15);
+
+        scr3.setText(list.get(1));
+        scr3.setGravity(Gravity.CENTER);
+        scr3.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        scr3.setTextSize(15);
+
+        scr4.setText(list.get(2));
+        scr4.setGravity(Gravity.CENTER);
+        scr4.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        scr4.setTextSize(15);
+
+        // put TextViews into the row
+        tableRow.addView(scr1);
+        tableRow.addView(scr2);
+        tableRow.addView(scr3);
+        tableRow.addView(scr4);
+
+        // put the row into the table
+        ratingsTable.addView(tableRow);
+    }
+
+        /*public List<String> pullSet() {
 
         final String refreshURL = server_url + "?userset=" + username;
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -161,30 +198,4 @@ public class TeamRatingResults extends AppCompatActivity {
 
         return set;
     }*/
-
-    void addTable(List<String> list, List<String> userSet, int index){
-        scr1 = new TextView(this);
-        scr2 = new TextView(this);
-        tableRow = new TableRow(this);
-
-        // format and add texts to the views
-        // add names
-        scr1.setText(userSet.get(index));
-        scr1.setGravity(Gravity.CENTER);
-        scr1.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr1.setTextSize(15);
-
-        // add ratings
-        scr2.setText(list.get(0));
-        scr2.setGravity(Gravity.CENTER);
-        scr2.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr2.setTextSize(15);
-
-        // put TextViews into the row
-        tableRow.addView(scr1);
-        tableRow.addView(scr2);
-
-        // put the row into the table
-        ratingsTable.addView(tableRow);
-    }
 }

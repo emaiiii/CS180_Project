@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Team Name"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
                 android:layout_weight="1"
@@ -30,8 +30,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Team Rating"
-                android:textSize="20dp"
+                android:text="Net Rating"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Off. Rating"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:layout_weight="1"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Def. Rating"
+                android:textSize="15dp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
                 android:layout_weight="1"

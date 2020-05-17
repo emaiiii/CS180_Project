@@ -192,7 +192,7 @@ public class BasketFragment extends Fragment {
                             List<String> list = new ArrayList<String>();
                             list = read(response);
 
-                            addToTable(list);
+                            userSet = addToTable(list);
                         }
                         requestQueue.stop();
                     }
@@ -232,15 +232,15 @@ public class BasketFragment extends Fragment {
         return set;
     }
 
-    public void addToTable(List<String> list){
-
+    public List<String> addToTable(List<String> list){
+        List<String> nameSet = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             // initialize row elements
             scr1 = new TextView(BasketFragment.this.getActivity());
             tableRow = new TableRow(BasketFragment.this.getActivity());
 
             String playerName= list.get(i);
-            userSet.add(playerName);
+            nameSet.add(playerName);
 
             // format and add texts to the views
             scr1.setText(playerName);
@@ -254,6 +254,7 @@ public class BasketFragment extends Fragment {
             // add row into the table
             basketTable.addView(tableRow);
         }
+        return nameSet;
     }
 }
 
