@@ -41,7 +41,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.splitRead;
 
 public class BasketFragment extends Fragment {
 
-    String server_url = "http://4e8c77dc.ngrok.io/";
+    String server_url = "http://4d52a860.ngrok.io/";
     String username = "test";
 
     Button clearButton;
@@ -53,6 +53,8 @@ public class BasketFragment extends Fragment {
 
     int searchType = 0;
     int numElements = 0;
+
+    List<String> userSet = new ArrayList<String>();
 
     @Nullable
     @Override
@@ -132,7 +134,11 @@ public class BasketFragment extends Fragment {
 
                 switch(searchType){
                     case 0:
+                        Log.i("info", String.valueOf(userSet.size()));
+                        ArrayList<String> set = new ArrayList<String>(userSet);
+
                         Intent intent = new Intent(BasketFragment.this.getActivity(), playerAnalyses.class);
+                        intent.putExtra("set", set);
                         startActivity(intent);
                         break;
                     case 1:
@@ -212,6 +218,7 @@ public class BasketFragment extends Fragment {
             tableRow = new TableRow(BasketFragment.this.getActivity());
 
             String playerName= list.get(i);
+            userSet.add(playerName);
 
             // format and add texts to the views
             scr1.setText(playerName);
