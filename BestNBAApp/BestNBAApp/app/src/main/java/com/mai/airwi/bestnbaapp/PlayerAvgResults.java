@@ -79,7 +79,6 @@ public class PlayerAvgResults extends AppCompatActivity {
         }
 
         // get the user set based on the username
-
         analyze();
     }
 

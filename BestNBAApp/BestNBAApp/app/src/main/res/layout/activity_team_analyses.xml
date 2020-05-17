@@ -8,12 +8,12 @@
     tools:context=".TeamAnalyses">
 
     <Button
-        android:id="@+id/getMatchupButton"
+        android:id="@+id/getPercButton"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:background="@drawable/neutral_button"
-        android:text="Get team match up stats"
+        android:text="Get Win Percentages"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getMatchupButton" />
+        app:layout_constraintTop_toBottomOf="@+id/getPercButton" />
 
     <TextView
         android:id="@+id/titleTextView"
