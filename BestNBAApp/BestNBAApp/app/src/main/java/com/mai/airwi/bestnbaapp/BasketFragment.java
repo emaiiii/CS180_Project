@@ -33,7 +33,7 @@ import java.util.List;
 
 public class BasketFragment extends Fragment {
 
-    String server_url = "http://704f9b8e.ngrok.io/";
+    String server_url = "http://757314a4.ngrok.io/";
     String username;
 
     Button clearButton;
@@ -43,7 +43,7 @@ public class BasketFragment extends Fragment {
     TableRow tableRow;
     TableLayout basketTable;
 
-    int searchType = 1;
+    int searchType = 0;
 
     List<String> userSet = new ArrayList<String>();
 

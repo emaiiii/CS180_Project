@@ -25,8 +25,8 @@ import java.util.List;
 
 public class SearchResultsPlayers extends AppCompatActivity {
 
-    String server_url = "http://704f9b8e.ngrok.io/";
-    String username = "test";
+    String server_url = "http://757314a4.ngrok.io/";
+    String username;
 
     String response;
     List<String> list;
@@ -41,6 +41,10 @@ public class SearchResultsPlayers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results_players);
+
+        username = (String)getIntent().getSerializableExtra("username");
+        Log.i("Info", "Team Search Results Page");
+        Log.i("Username", username);
 
         // control set
         control = 0;

@@ -25,7 +25,7 @@ import static java.lang.Math.round;
 
 public class TeamRatingResults extends AppCompatActivity {
 
-    String server_url = "http://704f9b8e.ngrok.io/";
+    String server_url = "http://757314a4.ngrok.io/";
 
     String username = "test";
 

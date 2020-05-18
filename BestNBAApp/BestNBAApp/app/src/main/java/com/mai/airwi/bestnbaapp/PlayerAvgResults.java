@@ -25,7 +25,7 @@ import static java.lang.Math.round;
 
 public class PlayerAvgResults extends AppCompatActivity {
 
-    String server_url = "http://9b1531bd.ngrok.io/";
+    String server_url = "http://757314a4.ngrok.io/";
 
     String username = "test";
 
