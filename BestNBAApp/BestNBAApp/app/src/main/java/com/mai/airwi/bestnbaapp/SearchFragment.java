@@ -28,7 +28,8 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
+    String server_url = "http://704f9b8e.ngrok.io/";
+    String username;
 
     Button searchButton;
     TextView textView;
@@ -40,6 +41,19 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        Bundle bundle = new Bundle();
+        bundle = this.getArguments();
+
+        if(bundle != null){
+            username = getArguments().getString("username");
+        }
+        else{
+            username = "test";
+        }
+
+        Log.i("Info", "Search Page");
+        Log.i("Username", username);
 
         searchButton = (Button)view.findViewById(R.id.searchButton);
         textView = (TextView)view.findViewById(R.id.textView);
@@ -93,6 +107,7 @@ public class SearchFragment extends Fragment {
                                         else {
                                             // move to the results page and send the server response
                                             Intent intent = new Intent(SearchFragment.this.getActivity(), SearchResultsPlayers.class);
+                                            intent.putExtra("username", username);
                                             intent.putExtra("response", response);
                                             startActivity(intent);
                                         }
@@ -133,6 +148,7 @@ public class SearchFragment extends Fragment {
                                         else {
                                             // move to the results page and send the server response
                                             Intent intent = new Intent(SearchFragment.this.getActivity(), SearchResultsTeams.class);
+                                            intent.putExtra("username", username);
                                             intent.putExtra("response", response);
                                             startActivity(intent);
                                         }

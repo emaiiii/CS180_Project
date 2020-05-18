@@ -33,8 +33,8 @@ import java.util.List;
 
 public class BasketFragment extends Fragment {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
-    String username = "test";
+    String server_url = "http://704f9b8e.ngrok.io/";
+    String username;
 
     Button clearButton;
     Button analyzeButton;
@@ -43,8 +43,7 @@ public class BasketFragment extends Fragment {
     TableRow tableRow;
     TableLayout basketTable;
 
-    int searchType = 0;
-    //int numElements = 0;
+    int searchType = 1;
 
     List<String> userSet = new ArrayList<String>();
 
@@ -52,6 +51,11 @@ public class BasketFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_basket, container, false);
+
+        username = getArguments().getString("username");
+
+        Log.i("Info", "Basket Page");
+        Log.i("Username", username);
 
         clearButton = (Button)view.findViewById(R.id.clearButton);
         category = (Switch)view.findViewById(R.id.switchCategory);

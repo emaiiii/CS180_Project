@@ -24,9 +24,7 @@ import static com.mai.airwi.bestnbaapp.BasketFragment.read;
 
 public class PercentageResults extends AppCompatActivity {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
-
-    String username = "test";
+    String server_url = "http://704f9b8e.ngrok.io/";
 
     TextView scr1, scr2, scr3;
     TableRow tableRow;
@@ -43,8 +41,6 @@ public class PercentageResults extends AppCompatActivity {
 
         Log.i("info", "Seasons Results Page");
         Log.i("info", String.valueOf(userSet.size()));
-        Log.i("info", userSet.get(0));
-        Log.i("info", userSet.get(1));
 
         // must initialize the components that you ae going to create
         scr1 = new TextView(this);
@@ -72,11 +68,11 @@ public class PercentageResults extends AppCompatActivity {
             final int finIndex = index;
 
             // replace the space in the name with %20
-            String playerName = userSet.get(index);
-            playerName = playerName.replace(" ", "%20");
+            String teamName = userSet.get(index);
+            teamName = teamName.replace(" ", "%20");
 
             // create the URL for the request
-            final String percURL = server_url + "?playerrating=" + playerName;
+            final String percURL = server_url + "?teamratio=" + teamName;
             final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
             Log.i("URL", percURL);
@@ -138,7 +134,7 @@ public class PercentageResults extends AppCompatActivity {
         scr2.setBackgroundColor(Color.parseColor("#FFFFFF"));
         scr2.setTextSize(15);
 
-        scr3.setText(list.get(1) + '—' + list.get(2));
+        scr3.setText(list.get(1));
         scr3.setGravity(Gravity.CENTER);
         scr3.setBackgroundColor(Color.parseColor("#FFFFFF"));
         scr3.setTextSize(15);

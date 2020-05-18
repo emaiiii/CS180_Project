@@ -26,8 +26,8 @@ import static com.mai.airwi.bestnbaapp.SearchResultsPlayers.read;
 
 public class SearchResultsTeams extends AppCompatActivity {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
-    String username = "test";
+    String server_url = "http://704f9b8e.ngrok.io/";
+    String username;
 
     String response;
     List<String> list;
@@ -42,6 +42,10 @@ public class SearchResultsTeams extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results_teams);
+
+        username = (String)getIntent().getSerializableExtra("username");
+        Log.i("Info", "Team Search Results Page");
+        Log.i("Username", username);
 
         // control set
         control = 0;

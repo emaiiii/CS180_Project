@@ -21,15 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mai.airwi.bestnbaapp.SearchFragment.read;
-import static java.lang.Math.round;
 
-public class PlayerAvgResults extends AppCompatActivity {
+public class TeamAvgResults extends AppCompatActivity {
 
-    String server_url = "http://9b1531bd.ngrok.io/";
+    String server_url = "http://704f9b8e.ngrok.io/";
 
-    String username = "test";
-
-    TextView scr1, scr2, scr3, scr4, scr5, scr6, scr7, scr8, scr9, scr10, scr11, scr12, scr13, scr14, scr15, scr16, scr17, scr18, scr19;
+    TextView scr1, scr2, scr3, scr4, scr5, scr6, scr7;
     TableRow tableRow;
     TableLayout averageTable;
 
@@ -38,48 +35,22 @@ public class PlayerAvgResults extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player_avg_results);
+        setContentView(R.layout.activity_team_avg_results);
 
         userSet = (ArrayList<String>) getIntent().getSerializableExtra("set");
 
-        // FGM    FGA    FG_PCT    FG3M    FG3A    FG3_PCT    FTM    FTA    FT_PCT    OREB    DREB    REB    AST    STL    BLK    TO    PF    PTS
+        averageTable = (TableLayout) findViewById(R.id.teamAverageTable);
 
-        Log.i("info", "AVG Results page");
+        Log.i("info", "Team AVG Results page");
         Log.i("info", String.valueOf(userSet.size()));
 
-        // must initialize the components that you ae going to create
-        scr1 = new TextView(this);
-        scr2 = new TextView(this);
-        scr3 = new TextView(this);
-        scr4 = new TextView(this);
-        scr5 = new TextView(this);
-        scr6 = new TextView(this);
-        scr7 = new TextView(this);
-        scr8 = new TextView(this);
-        scr9 = new TextView(this);
-        scr10 = new TextView(this);
-        scr11 = new TextView(this);
-        scr12 = new TextView(this);
-        scr13 = new TextView(this);
-        scr14 = new TextView(this);
-        scr15 = new TextView(this);
-        scr16 = new TextView(this);
-        scr17 = new TextView(this);
-        scr18 = new TextView(this);
-        scr19 = new TextView(this);
-
-        tableRow = new TableRow(this);
-        averageTable = (TableLayout)findViewById(R.id.ratingsTable);
-
         // format columns
-        for(int i = 0; i < 19; ++i){
+        for(int i = 0; i < 7; ++i){
             averageTable.setColumnStretchable(i, true);
         }
 
-        // get the user set based on the username
         analyze();
     }
-
 
     public void analyze(){
         Log.i("Info", "analyzing user set");
@@ -90,11 +61,11 @@ public class PlayerAvgResults extends AppCompatActivity {
             final int finIndex = index;
 
             // replace the space in the name with %20
-            String playerName = userSet.get(index);
-            playerName = playerName.replace(" ", "%20");
+            String teamName = userSet.get(index);
+            teamName = teamName.replace(" ", "%20");
 
             // create the URL for the request
-            final String avgURL = server_url + "?playeravg=1&&name=" + playerName;
+            final String avgURL = server_url + "?teamavg=1&&name=" + teamName;
             final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
             Log.i("URL", avgURL);
@@ -108,8 +79,6 @@ public class PlayerAvgResults extends AppCompatActivity {
                                 return;
                             }
                             else{
-                                // hardcode
-                                //response = "[\"8.54\",\"19.25\",\"0.41\",\"1.48\",\"4.53\",\"0.26\",\"6.20\",\"7.38\",\"0.75\",\"0.95\",\"3.97\",\"4.92\",\"4.57\",\"1.35\",\"0.36\",\"2.90\",\"2.25\",\"24.76\"]";
                                 List<String> list = new ArrayList<String>();
                                 list = read(response);
 
@@ -144,19 +113,7 @@ public class PlayerAvgResults extends AppCompatActivity {
         scr5 = new TextView(this);
         scr6 = new TextView(this);
         scr7 = new TextView(this);
-        scr8 = new TextView(this);
-        scr9 = new TextView(this);
-        scr10 = new TextView(this);
-        scr11 = new TextView(this);
-        scr12 = new TextView(this);
-        scr13 = new TextView(this);
-        scr14 = new TextView(this);
-        scr15 = new TextView(this);
-        scr16 = new TextView(this);
-        scr17 = new TextView(this);
-        scr18 = new TextView(this);
-        scr19 = new TextView(this);
-        
+
         tableRow = new TableRow(this);
 
         // format and add texts to the views
@@ -197,66 +154,6 @@ public class PlayerAvgResults extends AppCompatActivity {
         scr7.setBackgroundColor(Color.parseColor("#FFFFFF"));
         scr7.setTextSize(15);
 
-        scr8.setText(attributes.get(6));
-        scr8.setGravity(Gravity.CENTER);
-        scr8.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr8.setTextSize(15);
-
-        scr9.setText(attributes.get(7));
-        scr9.setGravity(Gravity.CENTER);
-        scr9.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr9.setTextSize(15);
-
-        scr10.setText(attributes.get(8));
-        scr10.setGravity(Gravity.CENTER);
-        scr10.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr10.setTextSize(15);
-
-        scr11.setText(attributes.get(9));
-        scr11.setGravity(Gravity.CENTER);
-        scr11.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr11.setTextSize(15);
-
-        scr12.setText(attributes.get(10));
-        scr12.setGravity(Gravity.CENTER);
-        scr12.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr12.setTextSize(15);
-
-        scr13.setText(attributes.get(11));
-        scr13.setGravity(Gravity.CENTER);
-        scr13.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr13.setTextSize(15);
-
-        scr14.setText(attributes.get(12));
-        scr14.setGravity(Gravity.CENTER);
-        scr14.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr14.setTextSize(15);
-
-        scr15.setText(attributes.get(13));
-        scr15.setGravity(Gravity.CENTER);
-        scr15.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr15.setTextSize(15);
-
-        scr16.setText(attributes.get(14));
-        scr16.setGravity(Gravity.CENTER);
-        scr16.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr16.setTextSize(15);
-
-        scr17.setText(attributes.get(15));
-        scr17.setGravity(Gravity.CENTER);
-        scr17.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr17.setTextSize(15);
-
-        scr18.setText(attributes.get(16));
-        scr18.setGravity(Gravity.CENTER);
-        scr18.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr18.setTextSize(15);
-
-        scr19.setText(attributes.get(17));
-        scr19.setGravity(Gravity.CENTER);
-        scr19.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr19.setTextSize(15);
-        
         // put TextViews into the row
         tableRow.addView(scr1);
         tableRow.addView(scr2);
@@ -265,19 +162,7 @@ public class PlayerAvgResults extends AppCompatActivity {
         tableRow.addView(scr5);
         tableRow.addView(scr6);
         tableRow.addView(scr7);
-        tableRow.addView(scr8);
-        tableRow.addView(scr9);
-        tableRow.addView(scr10);
-        tableRow.addView(scr11);
-        tableRow.addView(scr12);
-        tableRow.addView(scr13);
-        tableRow.addView(scr14);
-        tableRow.addView(scr15);
-        tableRow.addView(scr16);
-        tableRow.addView(scr17);
-        tableRow.addView(scr18);
-        tableRow.addView(scr19);
-        
+
         // put the row into the table
         averageTable.addView(tableRow);
     }

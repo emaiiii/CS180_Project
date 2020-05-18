@@ -24,7 +24,7 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class MainActivity extends AppCompatActivity {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
+    String server_url = "http://704f9b8e.ngrok.io/";
 
     EditText username;
     EditText password;
@@ -65,8 +65,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 else if(response.equals("Welcome Back")) {
                                     Log.i("Info", "Log in verified");
+                                    String sendUsername = username.getText().toString();
 
                                     Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                                    intent.putExtra("username", sendUsername);
                                     startActivity(intent);
                                 }
                                 requestQueue.stop();

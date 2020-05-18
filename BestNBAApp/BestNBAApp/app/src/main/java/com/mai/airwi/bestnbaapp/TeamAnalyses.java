@@ -13,6 +13,7 @@ public class TeamAnalyses extends AppCompatActivity {
 
     Button getPercButton;
     Button getRatingButton;
+    Button getAvgButton;
 
     java.util.ArrayList<String> userSet = new ArrayList<>();
 
@@ -25,11 +26,10 @@ public class TeamAnalyses extends AppCompatActivity {
 
         Log.i("Info", "Team Analyses Page");
         Log.i("Info", "User Set Length: " + String.valueOf(userSet.size()));
-        Log.i("Info", userSet.get(0));
-        Log.i("Info", userSet.get(1));
 
         getPercButton = (Button)findViewById(R.id.getPercButton);
         getRatingButton = (Button)findViewById(R.id.getRatingButton);
+        getAvgButton = (Button)findViewById(R.id.getAvgButton);
 
         getPercButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -49,12 +49,26 @@ public class TeamAnalyses extends AppCompatActivity {
         getRatingButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.i("Info", "Get Team Ratings button clicked");
+                Log.i("Info", "Get Team Ratings Button Clicked");
 
                 ArrayList<String> set = new ArrayList<String>(userSet);
                 Log.i("Info", "User Set Length: " + String.valueOf(userSet.size()));
 
                 Intent intent = new Intent(TeamAnalyses.this, TeamRatingResults.class);
+                intent.putExtra("set", set);
+                startActivity(intent);
+            }
+        });
+
+        getAvgButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Log.i("Info", "Get Team Average Button Clicked");
+
+                ArrayList<String> set = new ArrayList<String>(userSet);
+                Log.i("Info", "User Set Length: " + String.valueOf(userSet.size()));
+
+                Intent intent = new Intent(TeamAnalyses.this, TeamAvgResults.class);
                 intent.putExtra("set", set);
                 startActivity(intent);
             }

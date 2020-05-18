@@ -25,7 +25,7 @@ import static java.lang.Math.round;
 
 public class TeamRatingResults extends AppCompatActivity {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
+    String server_url = "http://704f9b8e.ngrok.io/";
 
     String username = "test";
 
@@ -44,8 +44,6 @@ public class TeamRatingResults extends AppCompatActivity {
 
         Log.i("Info", "Rating Results page");
         Log.i("Info", "User Set Length: " + String.valueOf(userSet.size()));
-        Log.i("Info", userSet.get(0));
-        Log.i("Info", userSet.get(1));
 
         // must initialize the components that you ae going to create
         scr1 = new TextView(this);
@@ -70,7 +68,7 @@ public class TeamRatingResults extends AppCompatActivity {
 
         // loop through the user set
         // FIXME: CHANGE INDEX TO 0 (after fixing server side bug - invalid first element in set)
-        for(int index = 1; index < userSet.size(); index++){
+        for(int index = 0; index < userSet.size(); index++){
             final int finIndex = index;
 
             // replace the space in the name with %20

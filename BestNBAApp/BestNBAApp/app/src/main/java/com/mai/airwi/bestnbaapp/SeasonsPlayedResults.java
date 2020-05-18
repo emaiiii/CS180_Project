@@ -25,7 +25,7 @@ import static java.lang.Math.round;
 
 public class SeasonsPlayedResults extends AppCompatActivity {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
+    String server_url = "http://9b1531bd.ngrok.io/";
 
     String username = "test";
 
@@ -77,7 +77,7 @@ public class SeasonsPlayedResults extends AppCompatActivity {
             playerName = playerName.replace(" ", "%20");
 
             // create the URL for the request
-            final String seasonsURL = server_url + "?playerrating=" + playerName;
+            final String seasonsURL = server_url + "?numseasons=" + playerName;
             final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
             Log.i("URL", seasonsURL);
