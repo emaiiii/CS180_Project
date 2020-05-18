@@ -915,6 +915,99 @@ const server = http.createServer(function (req,res) {
       }
     }
 
+    //team win ratio
+    else if(qdata.teamratio != undefined) {
+      console.log('---------------------------');
+      console.log('looking for team win ratio');
+      if(qdata.teamratio == undefined) {
+        console.log('Empty team name');
+        send_payload(res,'Empty team name');
+      }
+      else {
+        console.log(qdata.teamratio);
+        fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\teams.csv','utf8',function (err,data) {
+          //cannot open file
+          if (err) {
+            console.error(err);
+          }
+          //file opened
+          else {
+            var teamData = data.split(/\r?\n/);
+            var teamFound = 0;
+            var teamID = 0;
+
+            teamData.forEach(function (row) {
+              var elements = row.split(",");
+              var nickname = elements[5];
+
+              if (nickname !== undefined) {
+                if ( (nickname.toLowerCase() == qdata.teamratio.toLowerCase()) && (teamFound == 0)) {
+                  teamFound = 1;
+                  teamID = elements[1];
+                  console.log(elements[1]);
+                }
+              }
+            })
+            //if no player were found
+            if(teamFound == 0) {
+              console.log('no team info found');
+              send_payload(res, 'no team info found');
+            }
+            else {
+              fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games.csv','utf8',function (err,data) {
+                if (err) {
+                  console.error(err);
+                }
+                else{
+                  console.time("team win ratio time");
+
+                  var wins = new Array(2);
+
+                  wins[0] = win_ratio(3,teamID,data).toFixed(4);
+                  wins[1] = win_ratio(4,teamID,data).toFixed(4);
+
+                  console.log(wins);
+                  send_payload(res,  JSON.stringify(wins));
+
+                  console.timeEnd ("team win ratio time");
+                }
+              });
+            }
+          }
+        });
+      }
+    }
+
+    //number of seasons played
+    else if(qdata.numseasons != undefined) {
+
+      fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\players.csv','utf8',function (err,data) {
+        var userdata = data.split(/\r?\n/);
+        var count = 0;
+        var start = 0;
+        var end = 9999;
+
+        userdata.forEach(function (row) {
+          var elements = row.split(",");
+          if(elements[0].toLowerCase() == qdata.numseasons.toLowerCase()) {
+            count ++
+            if(Number(elements[3]) > start) {
+              start = Number(elements[3]);
+            }
+            if(Number(elements[3]) < end) {
+              end = Number(elements[3]);
+            }
+          }
+        });
+
+        var output = [count,start,end];
+
+        send_payload(res,JSON.stringify(output));
+        console.log(output);  
+
+      });
+    }
+
     else {
       console.log('------------------------');
       console.log('invalid');
@@ -925,6 +1018,25 @@ const server = http.createServer(function (req,res) {
   }
   
 });
+
+function win_ratio(index, teamID,data) {
+  var userdata = data.split(/\r?\n/);
+  var count = 0;
+  var wins = 0;
+
+  userdata.forEach(function (row) {
+    var elements = row.split(",");
+
+    if (elements[index] == teamID) {
+      if(elements[20] == '1') {
+        wins++;
+      }
+      count++;
+    }
+  });
+
+  return wins/count;
+}
 
 function send_payload(res, msg) {
   res.writeHead(200, {'Content-type': 'application/json'});
@@ -954,7 +1066,6 @@ function send_data(data) {
 
 
 function avg_data(csv_data,start_idx,end_idx,search,check_idx, second_check_idx) {
-  var avg = 0;
   var count = 0;
 
   var avgArr = new Array (end_idx - start_idx + 1);
