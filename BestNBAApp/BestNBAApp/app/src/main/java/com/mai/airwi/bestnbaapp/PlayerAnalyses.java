@@ -13,6 +13,7 @@ public class PlayerAnalyses extends AppCompatActivity {
 
     Button getAvgButton;
     Button getRatingButton;
+    Button getSeasonsButton;
 
     ArrayList<String> userSet = new ArrayList<>();
 
@@ -30,6 +31,7 @@ public class PlayerAnalyses extends AppCompatActivity {
 
         getAvgButton = (Button)findViewById(R.id.getAvgButton);
         getRatingButton = (Button)findViewById(R.id.getRatingButton);
+        getSeasonsButton = (Button)findViewById(R.id.getSeasonsButton);
 
         getAvgButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -55,6 +57,20 @@ public class PlayerAnalyses extends AppCompatActivity {
                 Log.i("info", String.valueOf(set.size()));
 
                 Intent intent = new Intent(PlayerAnalyses.this, PlayerRatingResults.class);
+                intent.putExtra("set", set);
+                startActivity(intent);
+            }
+        });
+
+        getSeasonsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Log.i("Info", "Get averages button clicked");
+
+                ArrayList<String> set = new ArrayList<String>(userSet);
+                Log.i("info", String.valueOf(set.size()));
+
+                Intent intent = new Intent(PlayerAnalyses.this, SeasonsPlayedResults.class);
                 intent.putExtra("set", set);
                 startActivity(intent);
             }

@@ -21,44 +21,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mai.airwi.bestnbaapp.BasketFragment.read;
-import static java.lang.Math.round;
 
-public class TeamRatingResults extends AppCompatActivity {
+public class PercentageResults extends AppCompatActivity {
 
     String server_url = "http://704f9b8e.ngrok.io/";
 
-    String username = "test";
-
-    TextView scr1, scr2, scr3, scr4;
+    TextView scr1, scr2, scr3;
     TableRow tableRow;
-    TableLayout ratingsTable;
+    TableLayout percTable;
 
     List<String> userSet = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_team_rating_results);
+        setContentView(R.layout.activity_percentage_results);
 
         userSet = (ArrayList<String>) getIntent().getSerializableExtra("set");
 
-        Log.i("Info", "Rating Results page");
-        Log.i("Info", "User Set Length: " + String.valueOf(userSet.size()));
+        Log.i("info", "Seasons Results Page");
+        Log.i("info", String.valueOf(userSet.size()));
 
         // must initialize the components that you ae going to create
         scr1 = new TextView(this);
         scr2 = new TextView(this);
         scr3 = new TextView(this);
-        scr4 = new TextView(this);
 
         tableRow = new TableRow(this);
-        ratingsTable = (TableLayout)findViewById(R.id.ratingsTable);
+        percTable = (TableLayout)findViewById(R.id.percTable);
 
         // format columns
-        for(int i = 0; i < 4; ++i){
-            ratingsTable.setColumnStretchable(i, true);
-        }
+        percTable.setColumnStretchable(0, true);
+        percTable.setColumnStretchable(1, true);
+        percTable.setColumnStretchable(2, true);
 
+        // do analysis requests
         analyze();
     }
 
@@ -67,7 +64,6 @@ public class TeamRatingResults extends AppCompatActivity {
         Log.i("Info", "user set size: " + String.valueOf(userSet.size()));
 
         // loop through the user set
-        // FIXME: CHANGE INDEX TO 0 (after fixing server side bug - invalid first element in set)
         for(int index = 0; index < userSet.size(); index++){
             final int finIndex = index;
 
@@ -76,11 +72,11 @@ public class TeamRatingResults extends AppCompatActivity {
             teamName = teamName.replace(" ", "%20");
 
             // create the URL for the request
-            final String ratingUrl = server_url + "?teamrating=" + teamName;
+            final String percURL = server_url + "?teamratio=" + teamName;
             final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-            Log.i("URL", ratingUrl);
-            StringRequest analyzeRequest = new StringRequest(Request.Method.POST, ratingUrl,
+            Log.i("URL", percURL);
+            StringRequest analyzeRequest = new StringRequest(Request.Method.POST, percURL,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -90,6 +86,7 @@ public class TeamRatingResults extends AppCompatActivity {
                                 return;
                             }
                             else{
+                                // list contains the data
                                 List<String> list = new ArrayList<String>();
                                 list = read(response);
 
@@ -116,11 +113,12 @@ public class TeamRatingResults extends AppCompatActivity {
         }
     }
 
+    // function to add texts to the table
     void addTable(List<String> list, List<String> userSet, int index){
         scr1 = new TextView(this);
         scr2 = new TextView(this);
         scr3 = new TextView(this);
-        scr4 = new TextView(this);
+
         tableRow = new TableRow(this);
 
         // format and add texts to the views
@@ -141,59 +139,12 @@ public class TeamRatingResults extends AppCompatActivity {
         scr3.setBackgroundColor(Color.parseColor("#FFFFFF"));
         scr3.setTextSize(15);
 
-        scr4.setText(list.get(2));
-        scr4.setGravity(Gravity.CENTER);
-        scr4.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        scr4.setTextSize(15);
-
         // put TextViews into the row
         tableRow.addView(scr1);
         tableRow.addView(scr2);
         tableRow.addView(scr3);
-        tableRow.addView(scr4);
 
         // put the row into the table
-        ratingsTable.addView(tableRow);
+        percTable.addView(tableRow);
     }
-
-        /*public List<String> pullSet() {
-
-        final String refreshURL = server_url + "?userset=" + username;
-        final RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final List<String>[] set = new List<String>[1];
-
-        Log.i("URL", refreshURL);
-        StringRequest refreshRequest = new StringRequest(Request.Method.POST, refreshURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("Info", "Pull complete.");
-                        // FIXME: parse json to table layout
-                        if(response.equals("empty userset")){
-                            return;
-                        }
-                        else{
-                            List<String> list = new ArrayList<String>();
-                            list = read(response);
-                            set[0] = list;
-
-                            Log.i("Info", "user set size: " + String.valueOf(userSet.size()));
-                        }
-                        requestQueue.stop();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Info", "Refresh error.");
-                        error.printStackTrace();
-                        requestQueue.stop();
-                    }
-                }
-        );
-
-        requestQueue.add(refreshRequest);
-
-        return set;
-    }*/
 }

@@ -24,7 +24,7 @@ import static java.lang.Math.round;
 
 public class PlayerRatingResults extends AppCompatActivity {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
+    String server_url = "http://9b1531bd.ngrok.io/";
 
     String username = "test";
 
@@ -58,7 +58,6 @@ public class PlayerRatingResults extends AppCompatActivity {
         ratingsTable.setColumnStretchable(1, true);
 
         // get the user set based on the username
-
         analyze();
     }
 
@@ -120,47 +119,6 @@ public class PlayerRatingResults extends AppCompatActivity {
             requestQueue.add(analyzeRequest);
         }
     }
-
-    /*public List<String> pullSet() {
-
-        final String refreshURL = server_url + "?userset=" + username;
-        final RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final List<String>[] set = new List<String>[1];
-
-        Log.i("URL", refreshURL);
-        StringRequest refreshRequest = new StringRequest(Request.Method.POST, refreshURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("Info", "Pull complete.");
-                        // FIXME: parse json to table layout
-                        if(response.equals("empty userset")){
-                            return;
-                        }
-                        else{
-                            List<String> list = new ArrayList<String>();
-                            list = read(response);
-                            set[0] = list;
-
-                            Log.i("Info", "user set size: " + String.valueOf(userSet.size()));
-                        }
-                        requestQueue.stop();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Info", "Refresh error.");
-                        error.printStackTrace();
-                        requestQueue.stop();
-                    }
-                }
-        );
-
-        requestQueue.add(refreshRequest);
-
-        return set;
-    }*/
 
     void addTable(List<String> list, List<String> userSet, int index){
         scr1 = new TextView(this);

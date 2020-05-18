@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SearchResultsPlayers extends AppCompatActivity {
 
-    String server_url = "http://cb97b1d3.ngrok.io/";
+    String server_url = "http://704f9b8e.ngrok.io/";
     String username = "test";
 
     String response;
