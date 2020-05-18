@@ -26,7 +26,7 @@ import static com.mai.airwi.bestnbaapp.SearchResultsPlayers.read;
 
 public class SearchResultsTeams extends AppCompatActivity {
 
-    String server_url = "http://704f9b8e.ngrok.io/";
+    String server_url = "http://757314a4.ngrok.io/";
     String username;
 
     String response;
