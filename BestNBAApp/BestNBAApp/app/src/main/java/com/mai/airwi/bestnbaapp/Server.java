@@ -8,15 +8,15 @@ public class Server {
 
     String url;
 
-    public Server(String newURL){
-        this.url = newURL;
+    public Server(){
+        this.url = "http://e5c2abb1c8cc.ngrok.io/";
     }
 
     public String getUrl(){
         return this.url;
     }
 
-    public void setUrl(String newURL){
-        this.url = newURL;
+    public void setURL(String url){
+        this.url = url;
     }
 }

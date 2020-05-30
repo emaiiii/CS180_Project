@@ -28,7 +28,8 @@ import java.util.*;
 
 public class SearchFragment extends Fragment {
 
-    String server_url = "http://757314a4.ngrok.io/";
+    Server server = new Server();
+    String server_url = server.getUrl();
     String username;
 
     Button searchButton;

@@ -24,7 +24,8 @@ import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
 public class TeamAvgResults extends AppCompatActivity {
 
-    String server_url = "http://757314a4.ngrok.io/";
+    Server server = new Server();
+    String server_url = server.getUrl();
 
     TextView scr1, scr2, scr3, scr4, scr5, scr6, scr7;
     TableRow tableRow;
