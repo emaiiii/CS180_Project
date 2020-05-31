@@ -85,6 +85,8 @@
         android:layout_marginTop="24dp"
         android:text="Please enter your search and select if your search is for a player or team."
         android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
