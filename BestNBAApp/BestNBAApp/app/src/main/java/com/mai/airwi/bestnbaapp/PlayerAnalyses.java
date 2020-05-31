@@ -26,8 +26,12 @@ public class PlayerAnalyses extends AppCompatActivity {
 
         Log.i("Info", "Player Analyses Page");
         Log.i("Info", String.valueOf(userSet.size()));
-        Log.i("Info", userSet.get(0));
-        Log.i("Info", userSet.get(1));
+        if(userSet.size() > 0) {
+            Log.i("Info", userSet.get(0));
+        }
+        if(userSet.size() > 1) {
+            Log.i("Info", userSet.get(1));
+        }
 
         getAvgButton = (Button)findViewById(R.id.getAvgButton);
         getRatingButton = (Button)findViewById(R.id.getRatingButton);
