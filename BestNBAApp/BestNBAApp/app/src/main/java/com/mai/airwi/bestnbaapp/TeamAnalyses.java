@@ -30,6 +30,7 @@ public class TeamAnalyses extends AppCompatActivity {
 
         Log.i("Info", "Team Analyses Page");
         Log.i("Info", "User Set Length: " + String.valueOf(userSet.size()));
+        Log.i("Info", "Username: " + username);
 
         getPercButton = (Button)findViewById(R.id.getPercButton);
         getRatingButton = (Button)findViewById(R.id.getRatingButton);
