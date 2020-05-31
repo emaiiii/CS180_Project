@@ -27,8 +27,6 @@ public class PlayerRatingResults extends AppCompatActivity {
     Server server = new Server();
     String server_url = server.getUrl();
 
-    String username = "test";
-
     TextView scr1, scr2;
     TableRow tableRow;
     TableLayout ratingsTable;
@@ -58,7 +56,7 @@ public class PlayerRatingResults extends AppCompatActivity {
         ratingsTable.setColumnStretchable(0, true);
         ratingsTable.setColumnStretchable(1, true);
 
-        // get the user set based on the username
+        // do analysis requests
         analyze();
     }
 

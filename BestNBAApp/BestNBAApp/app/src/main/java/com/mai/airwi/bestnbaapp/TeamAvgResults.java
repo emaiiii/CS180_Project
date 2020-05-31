@@ -50,6 +50,7 @@ public class TeamAvgResults extends AppCompatActivity {
             averageTable.setColumnStretchable(i, true);
         }
 
+        // do analysis requests
         analyze();
     }
 

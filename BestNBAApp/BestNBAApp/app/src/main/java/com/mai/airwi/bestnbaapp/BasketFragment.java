@@ -44,7 +44,7 @@ public class BasketFragment extends Fragment {
     TableRow tableRow;
     TableLayout basketTable;
 
-    int searchType = 1;
+    int searchType = 0;
 
     List<String> userSet = new ArrayList<String>();
 
@@ -127,9 +127,6 @@ public class BasketFragment extends Fragment {
                 );
 
                 requestQueue.add(clearRequest);
-
-                //statusDisplay.setText("Set cleared.");
-                //setDisplay.setText("You have no items in your set.");
             }
         });
 
