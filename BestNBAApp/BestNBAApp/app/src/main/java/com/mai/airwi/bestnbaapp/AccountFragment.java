@@ -1,6 +1,5 @@
 package com.mai.airwi.bestnbaapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,13 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -25,13 +18,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.*;
 
 import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
-public class StatFragment extends Fragment {
+public class AccountFragment extends Fragment {
 
     Server server = new Server();
     String server_url = server.getUrl();
@@ -52,7 +43,7 @@ public class StatFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_analyze, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         statDisplay = (TextView)view.findViewById((R.id.statDisplay));
         nextButton = (Button)view.findViewById(R.id.nextButton);
