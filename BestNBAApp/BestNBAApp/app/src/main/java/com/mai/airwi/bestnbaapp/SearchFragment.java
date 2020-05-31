@@ -102,7 +102,7 @@ public class SearchFragment extends Fragment {
                                     public void onResponse(String response) {
                                         Log.i("Info", "Successful connection");
 
-                                        if (response.equals("no player found")) {
+                                        if (response.equals("no player info found")) {
                                             Toast.makeText(SearchFragment.this.getActivity(), "No Player Found", Toast.LENGTH_SHORT).show();
                                         }
                                         else {
@@ -143,7 +143,7 @@ public class SearchFragment extends Fragment {
                                     public void onResponse(String response) {
                                         Log.i("Info", "Successful connection");
 
-                                        if (response.equals("no team found")) {
+                                        if (response.equals("no team info found")) {
                                             Toast.makeText(SearchFragment.this.getActivity(), "No Team Found", Toast.LENGTH_SHORT).show();
                                         }
                                         else {

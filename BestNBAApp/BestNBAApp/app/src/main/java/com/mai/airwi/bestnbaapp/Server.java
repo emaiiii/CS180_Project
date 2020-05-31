@@ -9,7 +9,7 @@ public class Server {
     String url;
 
     public Server(){
-        this.url = "http://6975d954af81.ngrok.io/";
+        this.url = "http://8a4b3ba05ea0.ngrok.io/";
     }
 
     public String getUrl(){
