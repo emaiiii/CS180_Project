@@ -1034,14 +1034,30 @@ const server = http.createServer(function (req,res) {
               var teamid = new Array(userdata.length);
               teamid.fill(0);
               var i = 0;
-              userdata.forEach(function (row) {
-                teamid[i] = get_teamid(row);
-                i++;
+              fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\teams.csv','utf8',function (err,teams_data) {
+                userdata.forEach(function (row) {
+                  teamid[i] = get_teamid(row,teams_data);
+                  i++;
+                });
+                console.log(teamid);
+                fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games.csv','utf8',function (err,games_data) {
+                  var returnString = new Array();
+                  for(i = 0; i < teamid.length - 1; i++) {
+                    for(var j = i + 1; j < teamid.length; j++) {
+                      var ratio = team_win(teamid[i],teamid[j],games_data);
+                      returnString.push(userdata[i]);
+                      returnString.push(userdata[j]);
+                      returnString.push(ratio[0]);
+                      returnString.push(ratio[1]);
+                    }
+                  }
+                  console.log(returnString);
+                  send_payload(res,JSON.stringify(returnString));
+                });
               });
-              console.log(teamid);
-              var ratio = team_win(1610612766,1610612749);
-              console.log(ratio);
-              send_payload(res,'test');
+              
+              
+              
             }
           }
         });
@@ -1062,13 +1078,7 @@ const server = http.createServer(function (req,res) {
   
 });
 
-
-function team_win(team1,team2) {
-  fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games.csv','utf8',function (err,csv_data) {
-    if(err) {
-      console.error(err);
-    }
-    else{
+function team_win(team1,team2,csv_data) {
       var data = csv_data.split(/\r?\n/);
       count1 = 0;
       count2 = 0;
@@ -1091,19 +1101,16 @@ function team_win(team1,team2) {
           }
         }
       });
-    }
-    ratio1 = count1 / (count1 + count2);
-    ratio2 = count2 / (count1 + count2);
-    var ratio = new Array(2);
-    ratio[0] = ratio1;
-    ratio[1] = ratio2;
-    return ratio;
-  });
-  //return ratio;
+      ratio1 = count1 / (count1 + count2);
+      ratio2 = count2 / (count1 + count2);
+      var ratio = new Array(2);
+      ratio[0] = ratio1;
+      ratio[1] = ratio2;
+      return ratio;
 }
 
-function get_teamid(teamname) {
-  fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\teams.csv','utf8',function (err,csv_data) {
+function get_teamid(teamname,csv_data) {
+    var team1ID = 0;
     var team1Data = csv_data.split(/\r?\n/);
     team1Data.forEach(function (row) {
       var elements = row.split(",");
@@ -1115,9 +1122,8 @@ function get_teamid(teamname) {
         }
       }
     });
-    
-  });
-   return team1ID;
+      return team1ID;
+ 
 }
 
 function win_ratio(index, teamID,data) {
