@@ -25,9 +25,8 @@ import static java.lang.Math.round;
 
 public class TeamRatingResults extends AppCompatActivity {
 
-    String server_url = "http://757314a4.ngrok.io/";
-
-    String username = "test";
+    Server server = new Server();
+    String server_url = server.getUrl();
 
     TextView scr1, scr2, scr3, scr4;
     TableRow tableRow;
@@ -59,6 +58,7 @@ public class TeamRatingResults extends AppCompatActivity {
             ratingsTable.setColumnStretchable(i, true);
         }
 
+        // do analysis requests
         analyze();
     }
 
@@ -155,45 +155,4 @@ public class TeamRatingResults extends AppCompatActivity {
         // put the row into the table
         ratingsTable.addView(tableRow);
     }
-
-        /*public List<String> pullSet() {
-
-        final String refreshURL = server_url + "?userset=" + username;
-        final RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final List<String>[] set = new List<String>[1];
-
-        Log.i("URL", refreshURL);
-        StringRequest refreshRequest = new StringRequest(Request.Method.POST, refreshURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("Info", "Pull complete.");
-                        // FIXME: parse json to table layout
-                        if(response.equals("empty userset")){
-                            return;
-                        }
-                        else{
-                            List<String> list = new ArrayList<String>();
-                            list = read(response);
-                            set[0] = list;
-
-                            Log.i("Info", "user set size: " + String.valueOf(userSet.size()));
-                        }
-                        requestQueue.stop();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Info", "Refresh error.");
-                        error.printStackTrace();
-                        requestQueue.stop();
-                    }
-                }
-        );
-
-        requestQueue.add(refreshRequest);
-
-        return set;
-    }*/
 }

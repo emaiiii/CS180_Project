@@ -25,9 +25,8 @@ import static java.lang.Math.round;
 
 public class SeasonsPlayedResults extends AppCompatActivity {
 
-    String server_url = "http://757314a4.ngrok.io/";
-
-    String username = "test";
+    Server server = new Server();
+    String server_url = server.getUrl();
 
     TextView scr1, scr2, scr3;
     TableRow tableRow;

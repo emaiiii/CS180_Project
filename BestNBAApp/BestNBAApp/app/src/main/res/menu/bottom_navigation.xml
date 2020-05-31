@@ -11,9 +11,4 @@
         android:icon="@drawable/ic_shopping_basket_black_24dp"
         android:title="Basket"/>
 
-    <item
-        android:id="@+id/nav_analyze"
-        android:icon="@drawable/ic_remove_red_eye_black_24dp"
-        android:title="Analyze"/>
-
 </menu>

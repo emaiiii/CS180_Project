@@ -47,10 +47,6 @@ public class Main2Activity extends AppCompatActivity {
                             selectedFragment = new BasketFragment();
                             selectedFragment.setArguments(bundle);
                             break;
-                        case R.id.nav_analyze:
-                            selectedFragment = new AnalyzeFragment();
-                            selectedFragment.setArguments(bundle);
-                            break;
                     }
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

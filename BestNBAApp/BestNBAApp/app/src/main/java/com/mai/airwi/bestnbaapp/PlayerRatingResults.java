@@ -24,9 +24,8 @@ import static java.lang.Math.round;
 
 public class PlayerRatingResults extends AppCompatActivity {
 
-    String server_url = "http://757314a4.ngrok.io/";
-
-    String username = "test";
+    Server server = new Server();
+    String server_url = server.getUrl();
 
     TextView scr1, scr2;
     TableRow tableRow;
@@ -57,7 +56,7 @@ public class PlayerRatingResults extends AppCompatActivity {
         ratingsTable.setColumnStretchable(0, true);
         ratingsTable.setColumnStretchable(1, true);
 
-        // get the user set based on the username
+        // do analysis requests
         analyze();
     }
 
