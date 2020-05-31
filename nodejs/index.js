@@ -654,19 +654,21 @@ const server = http.createServer(function (req,res) {
     //adding team to userset
     else if(qdata.addteam != undefined) {
       console.log('----------------------');
-      console.log('adding player to userset')
+      console.log('adding team to userset')
       console.log(qdata.addteam);
       var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\teams\\' + qdata.addusername + '.csv';
       fs.readFile(path,'utf8',function (err,csv_data) {
         //cannot open file, create a new file
         if (err) {
           console.log('creating a file');
-          fs.appendFile(path, 'teamname \r\n', 'utf8', function(err) {
+          fs.appendFile(path, 'teamname \r\n' + qdata.addteam + '\r\n', 'utf8', function(err) {
             if(err) return console.log(err);
           });
+          /*
           fs.appendFile(path, qdata.addteam + '\r\n', 'utf8', function(err) {
             if(err) return console.log(err);
           });
+          */
           send_payload(res,'team added to userset');
         }
         //file opened
@@ -674,6 +676,8 @@ const server = http.createServer(function (req,res) {
           //check if player exists in set already
           var userSetData = csv_data.split(/\r?\n/);
           var found = 0;
+
+          //userSetData.replace(/[^\x20-\x7F]+/g, '');
 
           userSetData.forEach((element) => {
             if(element.toLowerCase() == qdata.addteam.toLowerCase()) {
@@ -719,7 +723,7 @@ const server = http.createServer(function (req,res) {
     //deleting team from userset
     else if(qdata.delteam != undefined) {
       console.log('---------------------------');
-      console.log('delete player from userset')
+      console.log('delete team from userset')
       console.log(qdata.delusername);
       console.log(qdata.delteam);
       var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\teams\\' + qdata.delusername + '.csv';
@@ -1008,6 +1012,44 @@ const server = http.createServer(function (req,res) {
       });
     }
 
+    else if(qdata.winratio != undefined) {
+      console.log('---------------------------');
+      console.log('looking for userset win ratio');
+      var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\teams\\' + qdata.winratio + '.csv';
+        fs.readFile(path,'utf8',function (err,data) {
+          if(err) {
+            send_payload(res,'empty userset');
+            console.log('empty userset');
+          }
+          else {
+            var userdata = data.split(/\r?\n/);
+            userdata.splice(0,1);
+            userdata.splice(-1,1);
+            console.log(userdata);
+            if(userdata.length < 2) {
+              console.log('Need at least two teams');
+              send_payload(res,'Need at least two teams');
+            }
+            else {
+              var teamid = new Array(userdata.length);
+              teamid.fill(0);
+              var i = 0;
+              userdata.forEach(function (row) {
+                teamid[i] = get_teamid(row);
+                i++;
+              });
+              console.log(teamid);
+              var ratio = team_win(1610612766,1610612749);
+              console.log(ratio);
+              send_payload(res,'test');
+            }
+          }
+        });
+        
+       
+      
+    }
+
     else {
       console.log('------------------------');
       console.log('invalid');
@@ -1017,7 +1059,66 @@ const server = http.createServer(function (req,res) {
 
   }
   
+  
 });
+
+
+function team_win(team1,team2) {
+  fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\games.csv','utf8',function (err,csv_data) {
+    if(err) {
+      console.error(err);
+    }
+    else{
+      var data = csv_data.split(/\r?\n/);
+      count1 = 0;
+      count2 = 0;
+      data.forEach(function (row) {
+        var elements = row.split(",");
+        if(elements[3] == team1 && elements[4] == team2 && elements[20] != undefined) {
+          if(elements[20] == 1) {
+            count1++;
+          }
+          else{
+            count2++;
+          }
+        }
+        else if(elements[3] == team2 && elements[4] == team1 && elements[20] != undefined) {
+          if(elements[20] == 1) {
+            count2++;
+          }
+          else{
+            count1++;
+          }
+        }
+      });
+    }
+    ratio1 = count1 / (count1 + count2);
+    ratio2 = count2 / (count1 + count2);
+    var ratio = new Array(2);
+    ratio[0] = ratio1;
+    ratio[1] = ratio2;
+    return ratio;
+  });
+  //return ratio;
+}
+
+function get_teamid(teamname) {
+  fs.readFile('C:\\Users\\jim19\\Desktop\\cs180\\database\\teams.csv','utf8',function (err,csv_data) {
+    var team1Data = csv_data.split(/\r?\n/);
+    team1Data.forEach(function (row) {
+      var elements = row.split(",");
+      var nickname = elements[5];
+      if (nickname !== undefined) {
+        if (nickname.toLowerCase() == teamname.toLowerCase()) {
+          team1ID = elements[1];
+          
+        }
+      }
+    });
+    
+  });
+   return team1ID;
+}
 
 function win_ratio(index, teamID,data) {
   var userdata = data.split(/\r?\n/);
