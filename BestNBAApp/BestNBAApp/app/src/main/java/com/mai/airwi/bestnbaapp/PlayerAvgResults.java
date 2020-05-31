@@ -28,8 +28,6 @@ public class PlayerAvgResults extends AppCompatActivity {
     Server server = new Server();
     String server_url = server.getUrl();
 
-    String username = "test";
-
     TextView scr1, scr2, scr3, scr4, scr5, scr6, scr7, scr8, scr9, scr10, scr11, scr12, scr13, scr14, scr15, scr16, scr17, scr18, scr19;
     TableRow tableRow;
     TableLayout averageTable;
@@ -77,7 +75,7 @@ public class PlayerAvgResults extends AppCompatActivity {
             averageTable.setColumnStretchable(i, true);
         }
 
-        // get the user set based on the username
+        // do analysis requests
         analyze();
     }
 

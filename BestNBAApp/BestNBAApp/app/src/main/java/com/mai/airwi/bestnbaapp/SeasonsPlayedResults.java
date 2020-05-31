@@ -28,8 +28,6 @@ public class SeasonsPlayedResults extends AppCompatActivity {
     Server server = new Server();
     String server_url = server.getUrl();
 
-    String username = "test";
-
     TextView scr1, scr2, scr3;
     TableRow tableRow;
     TableLayout seasonsTable;
