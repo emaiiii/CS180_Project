@@ -31,11 +31,7 @@ import java.util.*;
 
 import static com.mai.airwi.bestnbaapp.SearchFragment.read;
 
-/*
- * Created by airwi on 4/25/2020.
- */
-
-public class AnalyzeFragment extends Fragment {
+public class StatFragment extends Fragment {
 
     Server server = new Server();
     String server_url = server.getUrl();

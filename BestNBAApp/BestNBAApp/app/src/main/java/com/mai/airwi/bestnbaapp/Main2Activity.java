@@ -48,7 +48,7 @@ public class Main2Activity extends AppCompatActivity {
                             selectedFragment.setArguments(bundle);
                             break;
                         case R.id.nav_analyze:
-                            selectedFragment = new AnalyzeFragment();
+                            selectedFragment = new StatFragment();
                             selectedFragment.setArguments(bundle);
                             break;
                     }
