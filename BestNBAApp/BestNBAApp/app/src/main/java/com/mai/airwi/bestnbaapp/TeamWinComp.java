@@ -36,7 +36,7 @@ public class TeamWinComp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_percentage_results);
+        setContentView(R.layout.activity_team_win_comp);
 
         username = (String) getIntent().getSerializableExtra("username");
 
@@ -47,7 +47,7 @@ public class TeamWinComp extends AppCompatActivity {
         scr1 = new TextView(this);
 
         tableRow = new TableRow(this);
-        compTable = (TableLayout)findViewById(R.id.compTable);
+        compTable = (TableLayout) findViewById(R.id.compTable);
 
         // format columns
         compTable.setColumnStretchable(0, true);
