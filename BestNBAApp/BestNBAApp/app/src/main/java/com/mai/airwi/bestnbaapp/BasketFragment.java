@@ -147,6 +147,7 @@ public class BasketFragment extends Fragment {
                     case 1:
                         Intent intent2 = new Intent(BasketFragment.this.getActivity(), TeamAnalyses.class);
                         intent2.putExtra("set", set);
+                        intent2.putExtra("username", username);
                         startActivity(intent2);
                         break;
                     default:
