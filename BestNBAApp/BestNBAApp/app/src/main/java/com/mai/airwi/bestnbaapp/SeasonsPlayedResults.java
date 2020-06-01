@@ -43,8 +43,8 @@ public class SeasonsPlayedResults extends AppCompatActivity {
 
         Log.i("info", "Seasons Results Page");
         Log.i("info", String.valueOf(userSet.size()));
-        Log.i("info", userSet.get(0));
-        Log.i("info", userSet.get(1));
+        //Log.i("info", userSet.get(0));
+        //Log.i("info", userSet.get(1));
 
         // must initialize the components that you ae going to create
         scr1 = new TextView(this);

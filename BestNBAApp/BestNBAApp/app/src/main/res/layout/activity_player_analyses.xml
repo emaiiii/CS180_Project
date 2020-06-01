@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:background="@drawable/neutral_button"
-        android:text="Get Seasons Played From 2009"
+        android:text="Get Seasons Played Since 2004"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"

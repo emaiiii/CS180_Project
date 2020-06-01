@@ -42,8 +42,8 @@ public class PlayerRatingResults extends AppCompatActivity {
 
         Log.i("info", "Rating Results page");
         Log.i("info", String.valueOf(userSet.size()));
-        Log.i("info", userSet.get(0));
-        Log.i("info", userSet.get(1));
+        //Log.i("info", userSet.get(0));
+        //Log.i("info", userSet.get(1));
 
         // must initialize the components that you ae going to create
         scr1 = new TextView(this);
