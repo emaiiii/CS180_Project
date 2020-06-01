@@ -1047,8 +1047,8 @@ const server = http.createServer(function (req,res) {
                       var ratio = team_win(teamid[i],teamid[j],games_data);
                       returnString.push(userdata[i]);
                       returnString.push(userdata[j]);
-                      returnString.push(ratio[0]);
-                      returnString.push(ratio[1]);
+                      returnString.push((ratio[0] * 100).toFixed(2));
+                      returnString.push((ratio[1] * 100).toFixed(2));
                     }
                   }
                   console.log(returnString);
