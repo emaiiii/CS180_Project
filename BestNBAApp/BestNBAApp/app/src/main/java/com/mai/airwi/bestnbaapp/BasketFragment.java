@@ -93,9 +93,11 @@ public class BasketFragment extends Fragment {
                     case 0:
                         Log.i("Info", "Clearing Player Set...");
                         clearURL = server_url + "?clearplayer=1&&clearusername=" + username;
+                        break;
                     case 1:
                         Log.i("Info", "Clearing Team Set...");
                         clearURL = server_url + "?clearteam=1&&clearusername=" + username;
+                        break;
                 }
                 final String controlURL = clearURL;
 
