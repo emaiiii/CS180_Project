@@ -512,10 +512,7 @@ const server = http.createServer(function (req,res) {
         //cannot open file, create a new file
         if (err) {
           console.log('creating a file');
-          fs.appendFile(path, 'playername \r\n', 'utf8', function(err) {
-            if(err) return console.log(err);
-          });
-          fs.appendFile(path, qdata.addplayer + '\r\n', 'utf8', function(err) {
+          fs.appendFile(path, 'playername \r\n' + qdata.addplayer + '\r\n', 'utf8', function(err) {
             if(err) return console.log(err);
           });
           send_payload(res,'player added to userset');
@@ -703,7 +700,7 @@ const server = http.createServer(function (req,res) {
     //clearing userset for team
     else if(qdata.clearteam == 1) {
       console.log('----------------------');
-      console.log('clear player userset')
+      console.log('clear team userset')
       console.log(qdata.clearusername);
       var path = 'C:\\Users\\jim19\\Desktop\\cs180\\database\\usersets\\teams\\' + qdata.clearusername + '.csv';
 
@@ -832,7 +829,7 @@ const server = http.createServer(function (req,res) {
                 //(PTS + REB + AST + STL + BLK − Missed FG − Missed FT - TO)
                 var mfg = avg[1] - avg[0];  
                 var mft = avg[7] - avg[6];
-                var rating = Number(avg[17]) + Number(avg[11]) + Number(avg[12]) + Number(avg[13]) + Number(avg[14]) - mfg - mft - Number(avg[15]);
+                var rating = (Number(avg[17]) + Number(avg[11]) + Number(avg[12]) + Number(avg[13]) + Number(avg[14]) - mfg - mft - Number(avg[15]))*4;
 
                 
                 console.log(rating);
@@ -903,7 +900,7 @@ const server = http.createServer(function (req,res) {
 
                   allrating[0] = (Number(avg[0]) * (Number(avg[1]) + Number(avg[2]) + Number(avg[3])*1.3)  +  (Number(avg[4]) + Number(avg[5]))).toFixed(2);
                   allrating[1] = (Number(avg[0]) * (Number(avg[1]) + Number(avg[2]) + Number(avg[3])*1.3)).toFixed(2);
-                  allrating[2] = (Number(avg[5])).toFixed(2);
+                  allrating[2] = (Number(avg[5])*4).toFixed(2);
 
                   
 
